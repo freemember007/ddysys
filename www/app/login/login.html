@@ -1,0 +1,35 @@
+<ion-view view-title="登录">
+  <ion-content>
+    <form name="form" role="form" novalidate>
+
+      <div class="tc padding">
+        <img id="avatar" src="img/default_nomale_head_photo.png">
+      </div>
+
+      <div class="list list-inset">
+        <label class="item item-input">
+          <span class="input-label">手机号</span>
+          <input type="text" name="mobileno" required focus ng-pattern="/^1\d{10}$/" ng-model="user.mobileno">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">密码</span>
+          <input type="password" name="pwd" required ng-minlength="4" ng-maxlength="20" ng-model="user.pwd">
+        </label>
+
+      </div>
+
+      <div class="padding">
+        <button class="button button-block button-balanced" ng-disabled="!form.$valid" ng-click="doLogin()">
+          登录
+        </button>
+      </div>
+
+      <div class="row">
+        <div class="col tr"><a href="#/register_verify">注册新帐号</a></div>
+        <div class="col col-10 tc">|</div>
+        <div class="col tl"><a href="#/reset_passwd_verify">忘记密码了？</a></div>
+      </div>
+    
+    </form>
+  </ion-content>
+</ion-view>

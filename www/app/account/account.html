@@ -1,0 +1,53 @@
+<ion-view view-title="我">
+  <ion-content>
+
+    <div class="tc" style="height:200px; padding:30px; background:#918DB0 url('img/my_bg.png') no-repeat fixed top;">
+      <img style="border-radius:40px" width="80" height="80" ng-src="{{user.dFaceUrl}}">
+      <h4>{{user.dName}}</h4>
+      <p>{{user.dHos + "&nbsp;" + user.dTitle}}</p>
+    </div>
+
+    <div class="row tc" style="height:80px; ">
+      <div class="col" style="border-right:1px solid #ddd; padding:0; margin:10px">
+        <img height="30px" src="img/Evaluation.png">
+        <p>患者评价</p>
+      </div>
+      <div class="col" style="border-right:1px solid #ddd; padding:0; margin:10px">
+        <img height="30px" src="img/QR_code.png">
+        <p>二维码名片</p>
+      </div>
+      <div class="col" style="padding:0; margin:10px">
+        <img height="30px" src="img/work_time.png">
+        <p>出诊时间</p>
+      </div>
+    </div>
+
+    <!-- 分割区 -->
+    <div style="height:20px; background:#eee; border-top:1px solid #ddd"></div>
+
+    <div class="list">
+      <a class="item item-icon-left item-icon-right" ng-click="goInfo()">
+        <i class="icon ion-ios-person-outline"></i> 个人资料
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a>
+      <a class="item item-icon-left item-icon-right" href="#">
+        <i class="icon ion-ios-gear-outline"></i> 通知设置
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a>
+      <a class="item item-icon-left item-icon-right" href="#">
+        <i class="icon ion-ios-locked-outline"></i> 修改密码
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a>
+    </div>
+
+    <!-- 分割区 -->
+    <!-- <div style="height:20px; background:#eee; border-top:1px solid #ddd; border-bottom:1px solid #ddd"></div> -->
+
+    <div class="padding">
+      <button class="button button-block button-balanced" ng-click="doLogout()">
+        退出登录
+      </button>
+    </div>
+
+  </ion-content>
+</ion-view>

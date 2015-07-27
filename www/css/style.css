@@ -1,0 +1,25 @@
+/* Empty. Add your own CSS if you like */
+
+.tl {
+  text-align: left;
+}
+
+.tr {
+  text-align: right;
+}
+
+.tc {
+  text-align: center;
+}
+
+.vm {
+  vertical-align: middle;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}

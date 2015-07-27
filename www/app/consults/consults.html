@@ -1,0 +1,20 @@
+<ion-view view-title="咨询">
+  <ion-content>
+    <div class="button-bar">
+      <a class="button">我的咨询</a>
+      <a class="button">待回复</a>
+      <a class="button">已回复</a>
+      <a class="button">科室咨询</a>
+    </div>
+    <ion-list>
+      <ion-item ng-repeat="consult in consults" class="item-remove-animate item-avatar item-icon-right" ng-repeat="consult in consults" type="item-text-wrap" href="#/tab/consults/{{consult.id}}">
+        <img src="img/avatar.jpg">
+        <h2>{{consult.patName}}</h2>
+        <p>{{consult.consultTime | date: "MM-dd hh:mm"}}</p>
+        <p style="white-space:normal">{{consult.consultContent}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+        <!-- <img src="img/flower.jpg"> -->
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
