@@ -2,7 +2,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 我的controller ---------//
-.controller('AccountCtrl', function($scope, $state, $localStorage) {
+.controller('AccountCtrl', function($scope, $state, $localStorage, $cordovaToast) {
 
   $scope.user = $localStorage.getObject('user');
 
@@ -12,7 +12,9 @@ angular.module('ddysys.controllers')
   }
 
   $scope.goValue = function() {
-    $state.go('tab.account_value')
+    // $state.go('tab.account_value')
+    $cordovaToast.showShortBottom('暂无评价！')
+
   }
 
   $scope.goBarcode = function() {
@@ -20,7 +22,8 @@ angular.module('ddysys.controllers')
   }
 
   $scope.goTimetable = function() {
-    $state.go('tab.account_timetable')
+    // $state.go('tab.account_timetable')
+    $cordovaToast.showShortBottom('暂无时间表！')
   }
 
   $scope.goSet = function() {

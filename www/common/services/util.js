@@ -54,9 +54,9 @@ angular.module('ddysys.services')
           quality: 80
         };
         $cordovaImagePicker.getPictures(options).then(function(results) {
-          callback(results[0]);
+          if(results && results[0]) callback(results[0]);
         }, function(error) {
-          // error
+          alert(error)
         });
       } else {
         var options = {
@@ -65,9 +65,9 @@ angular.module('ddysys.services')
         };
 
         $cordovaCamera.getPicture(options).then(function(imageURI) {
-          callback(imageURI);
+          if(imageURI) callback(imageURI);
         }, function(err) {
-          // error
+          alert(error)
         });
         // $cordovaCamera.cleanup(); // 此项打开会导致callback无法运行
       };

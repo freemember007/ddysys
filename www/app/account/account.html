@@ -1,5 +1,5 @@
 <ion-view view-title="我">
-  <ion-content>
+  <ion-content style="background-color:#eee">
 
     <div class="tc" style="height:200px; padding:30px; background:#918DB0 url('img/my_bg.png') no-repeat fixed top;">
       <img style="border-radius:40px" width="80" height="80" ng-src="{{user.dFaceUrl}}">
@@ -7,7 +7,7 @@
       <p>{{user.dHos + "&nbsp;" + user.dTitle}}</p>
     </div>
 
-    <div class="row tc" style="height:80px; ">
+    <div class="row tc" style="height:80px; background-color:#fff">
       <div class="col" style="border-right:1px solid #ddd; padding:0; margin:10px" ng-click="goValue()">
         <img height="30px" src="img/Evaluation.png">
         <p>患者评价</p>
@@ -23,7 +23,7 @@
     </div>
 
     <!-- 分割区 -->
-    <div style="height:20px; background:#eee; border-top:1px solid #ddd"></div>
+    <div style="height:20px; border-top:1px solid #ddd;"></div>
 
     <div class="list">
       <a class="item item-icon-left item-icon-right" ng-click="goInfo()">
@@ -40,14 +40,9 @@
       </a>
     </div>
 
-    <!-- 分割区 -->
-    <!-- <div style="height:20px; background:#eee; border-top:1px solid #ddd; border-bottom:1px solid #ddd"></div> -->
-
-    <div class="padding">
-      <button class="button button-block button-balanced" ng-click="doLogout()">
-        退出登录
-      </button>
-    </div>
+    <button class="button button-block button-assertive" ng-click="doLogout()">
+      退出登录
+    </button>
 
   </ion-content>
 </ion-view>

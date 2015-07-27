@@ -1,13 +1,65 @@
-<ion-view view-title="修改密码" hide-tabs>
+<ion-view view-title="通知设置" hide-tabs>
 
   <ion-content style="background-color: #eee">
+    <ul class="list">
+      
+      <div style="height:20px"></div>
 
-    <div class="list list-inset">
-      <label class="item item-input">
-        <i class="icon ion-search placeholder-icon"></i>
-        <input type="text" placeholder="Search">
+      <li class="item item-toggle">
+        接受新消息通知
+        <label class="toggle toggle-positive">
+          <input type="checkbox" checked="">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+
+      <div style="height:20px"></div>
+
+      <li class="item item-toggle">
+        声音
+        <label class="toggle toggle-positive">
+          <input type="checkbox" checked="">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+
+      <li class="item item-toggle">
+        震动
+        <label class="toggle toggle-positive">
+          <input type="checkbox" checked="">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+
+      <div style="height:20px"></div>
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          通知开始时间
+        </div>
+        <select>
+          <option>08:00</option>
+          <option selected>09:00</option>
+          <option>10:00</option>
+        </select>
       </label>
-    </div>
-
+      <label class="item item-input item-select">
+        <div class="input-label">
+          通知结束时间
+        </div>
+        <select>
+          <option>20:00</option>
+          <option selected>21:00</option>
+          <option>22:00</option>
+        </select>
+      </label>
+    
+    </ul>
   </ion-content>
 </ion-view>
