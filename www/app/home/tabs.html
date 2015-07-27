@@ -4,7 +4,7 @@ Each tab's child <ion-nav-view> directive will have its own
 navigation history that also transitions its views in and out.
 -->
 <!-- tabs隐藏css：tabs-item-hide，tab隐藏css：hide -->
-<ion-tabs class="tabs-icon-top tabs-color-active-positive">
+<ion-tabs class="tabs-icon-top tabs-color-active-positive" ng-class="{'tabs-item-hide': hideTabs}">
   <!-- Dashboard Tab -->
   <ion-tab title="首页" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/tab/home">
     <ion-nav-view name="home"></ion-nav-view>

@@ -76,7 +76,8 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
   .state('tab', {
     url: '/tab',
     abstract: true,
-    templateUrl: 'app/home/tabs.html'
+    templateUrl: 'app/home/tabs.html',
+    controller: 'tabCtrl'
   })
 
   .state('tab.home', {
@@ -128,6 +129,8 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
       }
     })
 
+
+  // 个人中心
   .state('tab.account', {
     url: '/account',
     views: {
@@ -138,21 +141,66 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
     }
   })
 
-  .state('tab.account_info', {
-    url: '/account_info',
-    views: {
-      'account': {
-        templateUrl: 'app/account/account_info.html',
-        controller: 'AccountInfoCtrl'
+    .state('tab.account_value', {
+      url: '/account_value',
+      views: {
+        'account': {
+          templateUrl: 'app/account/account_value.html',
+          controller: 'AccountValueCtrl'
+        }
       }
-    }
-  })
+    })
 
-  // .state('account_info', {
-  //   url: 'account_info',
-  //   templateUrl: 'app/account/account_info.html',
-  //   controller: 'AccountInfoCtrl'
-  // })
+    .state('tab.account_barcode', {
+      url: '/account_barcode',
+      views: {
+        'account': {
+          templateUrl: 'app/account/account_barcode.html',
+          controller: 'AccountBarcodeCtrl'
+        }
+      }
+    })
+
+    .state('tab.account_timetable', {
+      url: '/account_timetable',
+      views: {
+        'account': {
+          templateUrl: 'app/account/account_timetable.html',
+          controller: 'AccountTimetableCtrl'
+        }
+      }
+    })
+
+    .state('tab.account_info', {
+      url: '/account_info',
+      views: {
+        'account': {
+          templateUrl: 'app/account/account_info.html',
+          controller: 'AccountInfoCtrl'
+        }
+      }
+    })
+
+    .state('tab.account_set', {
+      url: '/account_set',
+      views: {
+        'account': {
+          templateUrl: 'app/account/account_set.html',
+          controller: 'AccountSetCtrl'
+        }
+      }
+    })
+
+    .state('tab.account_modpwd', {
+      url: '/account_modpwd',
+      views: {
+        'account': {
+          templateUrl: 'app/account/account_modpwd.html',
+          controller: 'AccountModpwdCtrl'
+        }
+      }
+    })
+
 
   // 登录、注册、重置密码
   .state('login', {
@@ -208,7 +256,7 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
 angular.module('ddysys.services', []);
 angular.module('ddysys.filters', []);
 angular.module('ddysys.directives', []);
-angular.module('ddysys.controllers', ['ddysys.services']);
+angular.module('ddysys.controllers', ['ddysys.services', 'ddysys.directives', 'ddysys.filters']);
 angular.module('underscore', [])
 .factory('_', function($window) {
   return $window._; // assumes underscore has already been loaded on the page
