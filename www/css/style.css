@@ -23,3 +23,24 @@
 .fr {
   float: right;
 }
+
+.gray-c {
+  color: #cccccc
+}
+
+.gray-9 {
+  color: #999999
+}
+
+.gray-4 {
+  color: #444444
+}
+
+.small {
+  font-size: 14px
+}
+
+a.autolinker {
+  color: #3b88c3;
+  text-decoration: none;
+}

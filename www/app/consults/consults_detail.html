@@ -1,14 +1,82 @@
-<!--
-  This template loads for the 'tab.friend-detail' state (app.js)
-  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
-  The FriendsCtrl pulls data from the Friends service (service.js)
-  The Friends service returns an array of friend data
--->
-<ion-view view-title="{{consult.name}}">
-  <ion-content class="padding">
-    <img ng-src="{{consult.face}}" style="width: 64px; height: 64px">
-    <p>
-      {{consult.lastText}}
-    </p>
+<ion-view view-title="咨询详情" hide-tabs>
+  <style>
+    .bar-footer {
+      overflow: visible !important;
+    }
+    
+    .bar-footer textarea {
+      resize: none;
+      height: 25px;
+    }
+    /* fixes an ios bug bear */
+    
+    button.ion-android-send {
+      padding-top: 2px;
+    }
+    /* add this to keep your footer buttons down 
+at the bottom as the textarea resizes */
+    
+    .footer-btn-wrap {
+      position: relative;
+      height: 100%;
+      width: 50px;
+      top: 7px;
+    }
+    
+    .footer-btn {
+      position: absolute !important;
+      bottom: 0;
+    }   
+    
+    .bar.item-input-inset .item-input-wrapper input {
+      width: 100% !important;
+    }
+    
+    input,
+    textarea,
+    .item-input,
+    .item-input-wrapper {
+      background-color: #f4f4f4 !important;
+    }
+    
+  </style>
+  
+  <ion-content>
+
+    <!-- 问题 -->
+    <ion-item class="item-avatar item-icon-right" type="item-text-wrap">
+      <img src="img/avatar.jpg">
+      <div class="row" style="padding:0px">
+        <div class="col" style="padding:0px"><span>{{consult.patName}}</span>&nbsp;&nbsp;<span class="gray-9 small">{{consult.consultTime | date: "MM-dd hh:mm"}}</span></div>
+        <div class="col tr" style="padding:0px"><span class="gray-9 small">0回复</span></div>
+      </div>
+      <p class="" style="padding-top:10px; white-space:normal">{{consult.consultContent}}</p>
+      <i class="icon ion-chevron-right icon-accessory"></i>
+      <img src="img/flower.jpg">
+    </ion-item>
+
+    <!-- 回复 -->
+    <ion-list >
+      <a class="item item-avatar" style="background-color:#f2f2f2; " ng-repeat="reply in replies">
+        <img ng-src="{{reply.replyFaceUrl}}"> 
+        <p style="white-space:normal">{{reply.replyName}}：{{reply.replyContent}}</p>
+        <p style="color:#999; ">{{consult.consultTime | date: "MM-dd hh:mm"}}</p>
+        
+      </a>
+    </ion-list>
+
   </ion-content>
+
+  <form name="sendMessageForm" ng-submit="sendMessage(sendMessageForm)" novalidate>
+    <ion-footer-bar class="bar-stable item-input-inset message-footer" keyboard-attach>
+      <label class="item-input-wrapper">
+        <textarea ng-model="input.message" value="" placeholder="Send {{toUser.username}} a message..." required minlength="1" maxlength="1500" style="width:100%"></textarea>
+      </label>
+      <div class="footer-btn-wrap">
+        <button class="button button-icon icon ion-android-send footer-btn" type="submit" ng-disabled="!input.message || input.message === ''">
+        </button>
+      </div>
+    </ion-footer-bar>
+  </form>
+
 </ion-view>

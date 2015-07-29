@@ -1,20 +1,34 @@
 <ion-view view-title="咨询">
+
   <ion-content>
-    <div class="button-bar">
-      <a class="button">我的咨询</a>
-      <a class="button">待回复</a>
-      <a class="button">已回复</a>
-      <a class="button">科室咨询</a>
+    <style>
+      .button-bar .button {
+        font-size:14px;
+        line-height: 36px;
+        min-height: 36px;
+      }
+    </style>
+    <div class="button-bar" style="font-size:14px">
+      <a class="button {{(type == '我的咨询')?'active':''}}" ng-click="setType($event)">我的咨询</a>
+      <a class="button {{(type == '待回复')?'active':''}}" ng-click="setType($event)">待回复</a>
+      <a class="button {{(type == '已回复')?'active':''}}" ng-click="setType($event)">已回复</a>
+      <a class="button {{(type == '科室咨询')&&'active'||''}}" ng-click="setType($event)">科室咨询</a>
     </div>
+    
     <ion-list>
-      <ion-item ng-repeat="consult in consults" class="item-remove-animate item-avatar item-icon-right" ng-repeat="consult in consults" type="item-text-wrap" href="#/tab/consults/{{consult.id}}">
+
+      <ion-item class="item-avatar item-icon-right" ng-repeat="consult in consults" type="item-text-wrap" href="#/tab/consults/{{consult.consultId}}">
         <img src="img/avatar.jpg">
-        <h2>{{consult.patName}}</h2>
-        <p>{{consult.consultTime | date: "MM-dd hh:mm"}}</p>
-        <p style="white-space:normal">{{consult.consultContent}}</p>
+        <div class="row" style="padding:0px">
+          <div class="col" style="padding:0px"><span>{{consult.patName}}</span>&nbsp;&nbsp;<span class="gray-9 small">{{consult.consultTime | date: "MM-dd hh:mm"}}</span></div>
+          <div class="col tr" style="padding:0px"><span class="gray-9 small">0回复</span></div>
+        </div>
+        <p class="" style="padding-top:10px; white-space:normal">{{consult.consultContent}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
-        <!-- <img src="img/flower.jpg"> -->
+        <img src="img/flower.jpg">
       </ion-item>
+
     </ion-list>
+
   </ion-content>
 </ion-view>

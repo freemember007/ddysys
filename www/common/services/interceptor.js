@@ -2,7 +2,7 @@ angular.module('ddysys.services')
 
 .factory('Interceptor', function($rootScope, $location, $cordovaToast, $cordovaDialogs) {
 
-    var apiUrl = 'http://192.168.1.22:8004/app';
+    var apiUrl = 'http://192.168.1.12:8004/app';
 
     return {
 

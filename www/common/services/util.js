@@ -94,7 +94,7 @@ angular.module('ddysys.services')
 
       angular.extend(options.params, appendParams)
 
-      $cordovaFileTransfer.upload('http://192.168.1.22:8004/api', fileURL, options)
+      $cordovaFileTransfer.upload('http://192.168.1.12:8004/api', fileURL, options)
         .then(function(result) {
           $rootScope.$broadcast('loading:hide');
           callback(angular.fromJson(result.response))
