@@ -1,0 +1,25 @@
+<ion-view view-title="日程详情" hide-tabs>
+  <ion-content style="background-color: #eee">
+
+    <a class="item item-avatar" href="#">
+      <img src="img/avatar.jpg">
+      <h2>{{event.patName}}</h2>
+    </a>
+
+    <a class="item item-icon-right" style="margin-top:20px;" href="#">
+      <i class="icon"></i> {{event.schContent}}
+      <span class="icon icon-accessory">{{event.scheduleTime|date:"yyyy-MM-dd"}} &nbsp;</span>
+    </a>
+    <a class="item item-icon-right" href="#">
+      <i class="icon"></i> 提醒我和患者
+      <span class="icon icon-accessory">一小时前 &nbsp;</span>
+    </a>
+
+    <div class="padding">
+      <button class="button button-block button-balanced" ng-click="sendEvent()">
+        发送患者
+      </button>
+    </div>
+
+  </ion-content>
+</ion-view>

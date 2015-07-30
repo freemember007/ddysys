@@ -1,0 +1,20 @@
+<ion-view view-title="日程" hide-tabs>
+  <ion-content>
+    <ion-list >
+
+      <ion-item ng-repeat-start="events in eventsGroup" class="item-divider">
+        {{events[0]}}
+      </ion-item>
+
+      <ion-item ng-repeat-end ng-repeat="event in events[1]" class="item item-avatar" style="min-height:60px; height:60px" ui-sref="tab.events_detail({eventId:event.scheduleId, event:event})">
+          <img class="avatar" style="width:32px; height:32px;" ng-src="img/default_nomale_head_photo.png">
+          <div class="row" style="padding:0px; ">
+            <span class="col col-25" >{{event.patName}}</span>
+            <span class="col col-50" >{{event.schContent}}</span>
+            <span class="col col-25" >{{event.scheduleTime|date:"hh:mm"}}</span>
+          </div>
+      </ion-item >
+      
+    </ion-list>
+  </ion-content>
+</ion-view>

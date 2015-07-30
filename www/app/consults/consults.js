@@ -2,9 +2,9 @@ angular.module('ddysys.controllers')
 
 
 //--------- 咨询列表controller ---------//
-.controller('ConsultsCtrl', function($scope, _consults) {
+.controller('ConsultsCtrl', function($scope, consults) {
 
-  $scope.consults = _consults.list;
+  $scope.consults = consults.list;
   console.log($scope.consults[0]);
   $scope.type = '我的咨询';
   $scope.setType = function(event) {
@@ -16,9 +16,9 @@ angular.module('ddysys.controllers')
 
 
 //--------- 患者详情controller ---------//
-.controller('ConsultsDetailCtrl', function($scope, _consult) {
-  console.log(_consult.userConsultForm)
-  console.log(_consult.list[0])
-  $scope.consult = _consult.userConsultForm;
-  $scope.replies = _consult.list;
+.controller('ConsultsDetailCtrl', function($scope, consult) {
+  console.log(consult.userConsultForm)
+  console.log(consult.list[0])
+  $scope.consult = consult.userConsultForm;
+  $scope.replies = consult.list;
 })

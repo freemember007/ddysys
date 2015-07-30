@@ -81,7 +81,7 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
   })
 
 
-  // 首页、日程
+  // 首页
   .state('tab.home', {
     url: '/home',
     views: {
@@ -91,15 +91,29 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
       }
     }
   })
-    .state('tab.events', {
-      url: '/events',
-      views: {
-        'home': {
-          templateUrl: 'app/home/home_events.html',
-          controller: 'HomeEventsCtrl',
-        }
+
+
+  // 日程
+  .state('tab.events', {
+    url: '/events',
+    views: {
+      'home': {
+        templateUrl: 'app/events/events.html',
+        controller: 'EventsCtrl',
       }
-    })
+    }
+  })
+  .state('tab.events_detail', {
+    url: '/events/:eventId',
+    views: {
+      'home': {
+        templateUrl: 'app/events/events_detail.html',
+        controller: 'EventsDetailCtrl'
+      }
+    },
+    params: {event: null}
+  })
+
 
   // 患者管理
   .state('tab.patients', {
@@ -135,7 +149,7 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
           templateUrl: 'app/consults/consults.html',
           controller: 'ConsultsCtrl',
           resolve: {
-            _consults: function(Consults){
+            consults: function(Consults){
               return Consults.all()
             }
           }
@@ -149,7 +163,7 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
           templateUrl: 'app/consults/consults_detail.html',
           controller: 'ConsultsDetailCtrl',
           resolve: {
-            _consult: function(Consults, $stateParams){
+            consult: function(Consults, $stateParams){
               return Consults.get($stateParams.consultId)
             }
           }
