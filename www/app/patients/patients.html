@@ -13,7 +13,7 @@
         星标患者
       </ion-item>
       <ion-list >
-        <a class="item item-icon-left" ui-sref="tab.patients_chat" ng-repeat="patient in patients|filter:{'star':'1'}|orderBy:'dpid':false" >
+        <a class="item item-icon-left" ui-sref="tab.patients_detail" ng-repeat="patient in patients|filter:{'star':'1'}|orderBy:'dpid':false" >
           <img class="icon padding" ng-src="{{patient.faceUrl}}"> &nbsp;{{patient.hzxm}}&nbsp;{{patient.dpid}}岁
         </a>
       </ion-list>

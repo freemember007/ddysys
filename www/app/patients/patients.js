@@ -30,6 +30,15 @@ angular.module('ddysys.controllers')
 })
 
 
+
+//--------- 患者详情controller ---------//
+.controller('PatientsDetailCtrl', function($scope, $state, $http, $localStorage) {
+
+
+
+})
+
+
 //--------- 聊天controller ---------//
 .controller('PatientsChatCtrl', function($scope, $state, $http, $localStorage) {
 
@@ -121,13 +130,5 @@ angular.module('ddysys.controllers')
     "read": true,
     "readDate": "2014-12-01T06:27:38.338Z"
   }];
-
-})
-
-
-//--------- 患者详情controller ---------//
-.controller('PatientsDetailCtrl', function($scope, $state, $http, $localStorage) {
-
-
 
 })

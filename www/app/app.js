@@ -135,7 +135,7 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
   })
 
 
-  // 患者管理
+  // 患者
   .state('tab.patients', {
     url: '/patients',
     views: {
@@ -147,6 +147,16 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
         //     return Patients.all()
         //   }
         // }
+      }
+    }
+  })
+
+  .state('tab.patients_detail', {
+    url: '/patients/:patientId',
+    views: {
+      'patients': {
+        templateUrl: 'app/patients/patients_detail.html',
+        controller: 'PatientsDetailCtrl',
       }
     }
   })
