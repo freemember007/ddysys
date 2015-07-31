@@ -42,7 +42,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 评价controller ---------//
-.controller('AccountValueCtrl', function($scope, $state, $localStorage) {
+.controller('AccountRateCtrl', function($scope, $state, $localStorage) {
 
   $scope.user = $localStorage.getObject('user');
 

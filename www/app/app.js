@@ -92,6 +92,26 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
     }
   })
 
+  .state('tab.home_barcode', {
+    url: '/barcode',
+    views: {
+      'home': {
+        templateUrl: 'app/account/account_barcode.html',
+        controller: 'AccountBarcodeCtrl'
+      }
+    }
+  })
+
+  .state('tab.home_chat', {
+    url: '/chat',
+    views: {
+      'home': {
+        templateUrl: 'app/patients/patients_chat.html',
+        controller: 'PatientsChatCtrl',
+      }
+    }
+  })
+
 
   // 日程
   .state('tab.events', {
@@ -131,7 +151,7 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
     }
   })
 
-  .state('tab.chat', {
+  .state('tab.patients_chat', {
     url: '/chat',
     views: {
       'patients': {
@@ -183,12 +203,12 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
     }
   })
 
-    .state('tab.account_value', {
-      url: '/account_value',
+    .state('tab.account_rate', {
+      url: '/account_rate',
       views: {
         'account': {
-          templateUrl: 'app/account/account_value.html',
-          controller: 'AccountValueCtrl'
+          templateUrl: 'app/account/account_rate.html',
+          controller: 'AccountRateCtrl'
         }
       }
     })
