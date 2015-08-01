@@ -114,19 +114,19 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
 
 
   // 日程
-  .state('tab.events', {
+  .state('events', {
     url: '/events',
     views: {
-      'home': {
+      '': {
         templateUrl: 'app/events/events.html',
         controller: 'EventsCtrl',
       }
     }
   })
-  .state('tab.events_detail', {
+  .state('events_detail', {
     url: '/events/:eventId',
     views: {
-      'home': {
+      '': {
         templateUrl: 'app/events/events_detail.html',
         controller: 'EventsDetailCtrl'
       }
@@ -151,6 +151,26 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
     }
   })
 
+  .state('tab.patients_request', {
+    url: '/patients_request',
+    views: {
+      'patients': {
+        templateUrl: 'app/patients/patients_request.html',
+        controller: 'PatientsRequestCtrl',
+      }
+    }
+  })
+
+  .state('tab.patients_request_detail', {
+    url: '/patients_request_detail',
+    views: {
+      'patients': {
+        templateUrl: 'app/patients/patients_request_detail.html',
+        controller: 'PatientsRequestDetailCtrl',
+      }
+    }
+  })
+
   .state('tab.patients_detail', {
     url: '/patients/:patientId',
     views: {
@@ -167,6 +187,16 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
       'patients': {
         templateUrl: 'app/patients/patients_chat.html',
         controller: 'PatientsChatCtrl',
+      }
+    }
+  })
+
+  .state('tab.patients_events', {
+    url: '/events',
+    views: {
+      'patients': {
+        templateUrl: 'app/events/events.html',
+        // controller: 'PatientsChatCtrl',
       }
     }
   })

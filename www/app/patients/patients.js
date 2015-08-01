@@ -38,6 +38,20 @@ angular.module('ddysys.controllers')
 
 })
 
+//--------- 患者详情controller ---------//
+.controller('PatientsRequestCtrl', function($scope, $state, $http, $localStorage) {
+
+
+
+})
+
+
+.controller('PatientsRequestDetailCtrl', function($scope, $state, $http, $localStorage) {
+
+
+
+})
+
 
 //--------- 聊天controller ---------//
 .controller('PatientsChatCtrl', function($scope, $state, $http, $localStorage) {

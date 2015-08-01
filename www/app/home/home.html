@@ -26,7 +26,7 @@
         
       </div>
       <div class="row tc" style="height:80px; padding-top:10px">
-        <div class="col tc" ng-click="goEvents()">
+        <div class="col tc" ui-sref="events" nav-direction="forward">
           <img src="img/icon1.png" style="height:36px; width:36px">
           <p>随访日程</p>
         </div>
@@ -50,7 +50,7 @@
 
     <!-- 即将随访 -->
     <div style="padding:10px 16px; background:#fff; font-size:16px; border-bottom:1px solid #ddd">即将随访</div>
-    <div class="row tc" style="height:100px" ui-sref="tab.events_detail">
+    <div class="row tc" style="height:100px" ui-sref="events_detail" nav-direction="forward">
       <div class="col">
         <p style="margin-bottom:5px">今天</p>
         <p style="color: #999; margin-bottom:5px">第四个诊程</p>

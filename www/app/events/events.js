@@ -2,7 +2,9 @@ angular.module('ddysys.controllers')
 
 
 //--------- 日程列表页 controller ---------//
-.controller('EventsCtrl', function($scope, $http, $localStorage, _, $filter) {
+.controller('EventsCtrl', function($scope, $http, $ionicHistory, $localStorage, _, $filter) {
+
+  $scope.backTitle = $ionicHistory.backTitle();
 
   var postData = {
     service: 'appdocschedulelist', 

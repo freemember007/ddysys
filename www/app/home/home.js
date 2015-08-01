@@ -12,9 +12,7 @@ angular.module('ddysys.controllers')
 //--------- 首页 controller ---------//
 .controller('HomeCtrl', function($scope, $state) {
 
-  $scope.goEvents = function() {
-    $state.go('tab.events')
-  }
+
 
 })
 
