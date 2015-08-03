@@ -84,53 +84,21 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
   // 首页
   .state('tab.home', {
     url: '/home',
-    views: {
-      'home': {
-        templateUrl: 'app/home/home.html',
-        controller: 'HomeCtrl'
-      }
-    }
-  })
-
-  .state('tab.home_barcode', {
-    url: '/barcode',
-    views: {
-      'home': {
-        templateUrl: 'app/account/account_barcode.html',
-        controller: 'AccountBarcodeCtrl'
-      }
-    }
-  })
-
-  .state('tab.home_chat', {
-    url: '/chat',
-    views: {
-      'home': {
-        templateUrl: 'app/patients/patients_chat.html',
-        controller: 'PatientsChatCtrl',
-      }
-    }
+    templateUrl: 'app/home/home.html',
+    controller: 'HomeCtrl'
   })
 
 
   // 日程
   .state('events', {
     url: '/events',
-    views: {
-      '': {
-        templateUrl: 'app/events/events.html',
-        controller: 'EventsCtrl',
-      }
-    }
+    templateUrl: 'app/events/events.html',
+    controller: 'EventsCtrl'
   })
   .state('events_detail', {
     url: '/events/:eventId',
-    views: {
-      '': {
-        templateUrl: 'app/events/events_detail.html',
-        controller: 'EventsDetailCtrl'
-      }
-    },
+    templateUrl: 'app/events/events_detail.html',
+    controller: 'EventsDetailCtrl',
     params: {event: null}
   })
 
@@ -138,169 +106,110 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
   // 患者
   .state('tab.patients', {
     url: '/patients',
-    views: {
-      'patients': {
-        templateUrl: 'app/patients/patients.html',
-        controller: 'PatientsCtrl',
-        // resolve: {
-        //   patients: function(Patients){ //这样貌似很不健壮，如果Patients服务出问题，不会报错。
-        //     return Patients.all()
-        //   }
-        // }
-      }
-    }
+    templateUrl: 'app/patients/patients.html',
+    controller: 'PatientsCtrl',
+    // resolve: {
+    //   patients: function(Patients){ //这样貌似很不健壮，如果Patients服务出问题，不会报错。
+    //     return Patients.all()
+    //   }
+    // }
   })
 
-  .state('tab.patients_request', {
-    url: '/patients_request',
-    views: {
-      'patients': {
-        templateUrl: 'app/patients/patients_request.html',
-        controller: 'PatientsRequestCtrl',
-      }
-    }
+  .state('patients_requests', {
+    url: '/patients/requests',
+    templateUrl: 'app/patients/patients_requests.html',
+    controller: 'PatientsRequestsCtrl'
   })
 
-  .state('tab.patients_request_detail', {
-    url: '/patients_request_detail',
-    views: {
-      'patients': {
-        templateUrl: 'app/patients/patients_request_detail.html',
-        controller: 'PatientsRequestDetailCtrl',
-      }
-    }
+  .state('patients_requests_detail', {
+    url: '/patients/requests/:requestId',
+    templateUrl: 'app/patients/patients_requests_detail.html',
+    controller: 'PatientsRequestsDetailCtrl'
   })
 
-  .state('tab.patients_detail', {
+  .state('patients_detail', {
     url: '/patients/:patientId',
-    views: {
-      'patients': {
-        templateUrl: 'app/patients/patients_detail.html',
-        controller: 'PatientsDetailCtrl',
-      }
-    }
+    templateUrl: 'app/patients/patients_detail.html',
+    controller: 'PatientsDetailCtrl'
   })
 
-  .state('tab.patients_chat', {
-    url: '/chat',
-    views: {
-      'patients': {
-        templateUrl: 'app/patients/patients_chat.html',
-        controller: 'PatientsChatCtrl',
-      }
-    }
+  .state('patients_chat', {
+    url: '/chat/:chatId',
+    templateUrl: 'app/patients/patients_chat.html',
+    controller: 'PatientsChatCtrl',
   })
 
-  .state('tab.patients_events', {
+  .state('patients_events', {
     url: '/events',
-    views: {
-      'patients': {
-        templateUrl: 'app/events/events.html',
-        // controller: 'PatientsChatCtrl',
-      }
-    }
+    templateUrl: 'app/events/events.html',
+    // controller: 'PatientsChatCtrl',
   })
 
   // 咨询
   .state('tab.consults', {
-      url: '/consults',
-      views: {
-        'consults': {
-          templateUrl: 'app/consults/consults.html',
-          controller: 'ConsultsCtrl',
-          resolve: {
-            consults: function(Consults){
-              return Consults.all()
-            }
-          }
-        }
-      }
-    })
-    .state('tab.consults_detail', {
-      url: '/consults/:consultId',
-      views: {
-        'consults': {
-          templateUrl: 'app/consults/consults_detail.html',
-          controller: 'ConsultsDetailCtrl',
-          resolve: {
-            consult: function(Consults, $stateParams){
-              return Consults.get($stateParams.consultId)
-            }
-          }
-        }
-      }
-    })
-
-
-  // 个人中心
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'account': {
-        templateUrl: 'app/account/account.html',
-        controller: 'AccountCtrl'
+    url: '/consults',
+    templateUrl: 'app/consults/consults.html',
+    controller: 'ConsultsCtrl',
+    resolve: {
+      consults: function(Consults){
+        return Consults.all()
       }
     }
   })
 
-    .state('tab.account_rate', {
-      url: '/account_rate',
-      views: {
-        'account': {
-          templateUrl: 'app/account/account_rate.html',
-          controller: 'AccountRateCtrl'
-        }
+  .state('consults_detail', {
+    url: '/consults/:consultId',
+    templateUrl: 'app/consults/consults_detail.html',
+    controller: 'ConsultsDetailCtrl',
+    resolve: {
+      consult: function(Consults, $stateParams){
+        return Consults.get($stateParams.consultId)
       }
+    }
+  })
+
+
+  // 我
+  .state('tab.account', {
+    url: '/account',
+    templateUrl: 'app/account/account.html',
+    controller: 'AccountCtrl'
+  })
+
+    .state('account_rate', {
+      url: '/account/rate',
+      templateUrl: 'app/account/account_rate.html',
+      controller: 'AccountRateCtrl'
     })
 
-    .state('tab.account_barcode', {
-      url: '/account_barcode',
-      views: {
-        'account': {
-          templateUrl: 'app/account/account_barcode.html',
-          controller: 'AccountBarcodeCtrl'
-        }
-      }
+    .state('account_barcode', {
+      url: '/account/barcode',
+      templateUrl: 'app/account/account_barcode.html',
+      controller: 'AccountBarcodeCtrl'
     })
 
-    .state('tab.account_timetable', {
-      url: '/account_timetable',
-      views: {
-        'account': {
-          templateUrl: 'app/account/account_timetable.html',
-          controller: 'AccountTimetableCtrl'
-        }
-      }
+    .state('account_timetable', {
+      url: '/account/timetable',
+      templateUrl: 'app/account/account_timetable.html',
+      controller: 'AccountTimetableCtrl'
     })
 
-    .state('tab.account_info', {
-      url: '/account_info',
-      views: {
-        'account': {
-          templateUrl: 'app/account/account_info.html',
-          controller: 'AccountInfoCtrl'
-        }
-      }
+    .state('account_info', {
+      url: '/account/info',
+      templateUrl: 'app/account/account_info.html',
+      controller: 'AccountInfoCtrl'
     })
 
-    .state('tab.account_set', {
-      url: '/account_set',
-      views: {
-        'account': {
-          templateUrl: 'app/account/account_set.html',
-          controller: 'AccountSetCtrl'
-        }
-      }
+    .state('account_set', {
+      url: '/account/set',
+      templateUrl: 'app/account/account_set.html',
+      controller: 'AccountSetCtrl'
     })
 
-    .state('tab.account_modpwd', {
+    .state('account_modpwd', {
       url: '/account_modpwd',
-      views: {
-        'account': {
-          templateUrl: 'app/account/account_modpwd.html',
-          controller: 'AccountModpwdCtrl'
-        }
-      }
+      templateUrl: 'app/account/account_modpwd.html',
+      controller: 'AccountModpwdCtrl'
     })
 
 

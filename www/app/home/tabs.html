@@ -1,24 +1,44 @@
-<!--
-Create tabs with an icon and label, using the tabs-positive style.
-Each tab's child <ion-nav-view> directive will have its own
-navigation history that also transitions its views in and out.
--->
-<!-- tabs隐藏css：tabs-item-hide，tab隐藏css：hide -->
-<ion-tabs class="tabs-icon-top tabs-color-active-positive" ng-class="{'tabs-item-hide': hideTabs}">
-  <!-- Dashboard Tab -->
-  <ion-tab title="首页" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/tab/home">
-    <ion-nav-view name="home"></ion-nav-view>
-  </ion-tab>
-  <!-- Chats Tab -->
-  <ion-tab title="患者" icon-off="ion-ios-people-outline" icon-on="ion-ios-people" href="#/tab/patients">
-    <ion-nav-view name="patients"></ion-nav-view>
-  </ion-tab>
-  <!-- Chats Tab -->
-  <ion-tab title="咨询" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" href="#/tab/consults">
-    <ion-nav-view name="consults"></ion-nav-view>
-  </ion-tab>
-  <!-- Account Tab -->
-  <ion-tab title="我" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/account">
-    <ion-nav-view name="account"></ion-nav-view>
-  </ion-tab>
-</ion-tabs>
+<ion-view class="tabs-container" >
+
+    <style>
+        .active {
+            color: #387ef5
+        }
+
+        .active .ion-ios-pulse:before {
+            content: "\f492"; 
+        }
+
+        .active .ion-ios-people-outline:before {
+            content: "\f47c"; 
+        }
+
+        .active .ion-ios-chatboxes-outline:before {
+            content: "\f3fa"; 
+        }
+
+        .active .ion-ios-gear-outline:before {
+            content: "\f43d"; 
+        }
+    </style>
+
+    <!-- Single UI VIEW -->
+    <ion-nav-view ></ion-nav-view>
+
+    <!-- TABS -->
+    <div class="tabs tabs-icon-top">
+        <a class="tab-item" ui-sref="tab.home" ng-click="active('isTab1')" nav-direction="none" nav-transition="none" ng-class="{ active : settings.isTab1}">
+            <i class="icon ion-ios-pulse"></i> 首页
+        </a>
+        <a class="tab-item" ui-sref="tab.patients" ng-click="active('isTab2')" nav-direction="none" nav-transition="none" ng-class="{active: settings.isTab2}">
+            <i class="icon ion-ios-people-outline" ></i> 患者
+        </a>
+        <a class="tab-item" ui-sref="tab.consults" ng-click="active('isTab3')" nav-direction="none" nav-transition="none" ng-class="{ active : settings.isTab3, 'has-badge' : settings.numberOfBadges != 0}">
+            <i class="icon ion-ios-chatboxes-outline"></i> 咨询 
+<!--<span class="badge badge-assertive" ng-if="settings.numberOfBages != 0">{{settings.numberOfBadges}}</span>-->        </a>
+        <a class="tab-item" ui-sref="tab.account" ng-click="active('isTab4')" nav-direction="none" nav-transition="none" ng-class="{ active : settings.isTab4}">
+            <i class="icon ion-ios-gear-outline" ></i> 我
+        </a>
+    </div>
+
+</ion-view>

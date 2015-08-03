@@ -1,16 +1,17 @@
-<ion-view view-title="首页">
+<ion-view view-title="首页" hide-back-button="true">
+
   <ion-nav-buttons side="left">
     <button class="button button-clear">
       <img src="img/avatar.jpg" style="height:24px; width:24px; border-radius:16px; border:2px solid #fff">
     </button>
   </ion-nav-buttons>
   <ion-nav-buttons side="right">
-    <button class="button button-clear" ui-sref="tab.home_barcode">
+    <button class="button button-clear" ui-sref="account_barcode">
       <img src="img/add_patient.png" style="height:24; width:24px">
     </button>
   </ion-nav-buttons>
 
-  <ion-content>
+  <ion-content style="bottom:48px">
     
     <!-- // 顶部板块 -->
     <div style="height:180px">
@@ -74,7 +75,7 @@
 
     <!-- 患者沟通 -->
     <div style="padding:10px 16px; font-size:16px">患者沟通</div>
-    <div class="list" ui-sref="tab.home_chat">
+    <div class="list" ui-sref="patients_chat">
       <a class="item item-avatar">
         <img src="img/avatar.jpg">
         <h2>李正雷</h2>
