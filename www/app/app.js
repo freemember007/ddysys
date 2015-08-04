@@ -258,7 +258,6 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
 
   // $urlRouterProvider.otherwise('/login'); //这个会导致在iOS上每次打开软件时首先进入登录页
 
-
 });
 
 

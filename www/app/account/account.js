@@ -14,7 +14,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 评价列表controller ---------//
-.controller('AccountRateCtrl', function($scope, $state, $http, $localStorage) {
+.controller('AccountRateCtrl', function($scope, $http, $localStorage) {
 
   var postData = {
     service: 'appuserratelist', 
@@ -33,7 +33,6 @@ angular.module('ddysys.controllers')
     for(var i=0; i<point; i++){
       arr[i] = true;
     };
-    console.log(1)
     return arr;
   }
 
@@ -41,7 +40,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 二维码controller ---------//
-.controller('AccountBarcodeCtrl', function($scope, $state, $localStorage) {
+.controller('AccountBarcodeCtrl', function($scope, $http, $localStorage) {
 
   $scope.user = $localStorage.getObject('user');
 
@@ -49,9 +48,23 @@ angular.module('ddysys.controllers')
 
 
 //--------- 出诊时间controller ---------//
-.controller('AccountTimetableCtrl', function($scope, $state, $localStorage) {
+.controller('AccountTimetableCtrl', function($scope, $http, $localStorage) {
 
-  $scope.user = $localStorage.getObject('user');
+  var user = $localStorage.getObject('user');
+
+  var postData = {
+    service: 'appdocScheme', 
+    orgid: '957105',
+    docid: '1828',
+    docname: '虞晓菁'
+  };
+
+  $http.post('api', postData).then(
+    function(data){
+    if(data){
+      $scope.timeList = data.list;
+    }
+  });
 
 
 
@@ -96,7 +109,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 设置controller ---------//
-.controller('AccountSetCtrl', function($scope, $state, $localStorage) {
+.controller('AccountSetCtrl', function($scope, $http, $localStorage) {
 
   $scope.user = $localStorage.getObject('user');
 
@@ -104,9 +117,24 @@ angular.module('ddysys.controllers')
 
 
 //--------- 修改密码controller ---------//
-.controller('AccountModpwdCtrl', function($scope, $state, $localStorage) {
+.controller('AccountModpwdCtrl', function($scope, $state, $http, $localStorage, $md5) {
 
-  $scope.user = $localStorage.getObject('user');
+  $scope.modData = {};
+
+  var postData = {
+    service: 'appresetpwd', 
+    token: $localStorage.get('token')
+  }
+
+  $scope.doModpwd = function(){
+    postData.pwd = $md5.createHash($scope.modData.pwd);
+    postData.newpwd = $md5.createHash($scope.modData.newpwd);
+    $http.post('api', postData).then(function(data){
+      if(data && data.succ) {
+        console.log('成功！');
+      }
+    })
+  }
 
 })
 

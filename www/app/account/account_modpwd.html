@@ -1,30 +1,31 @@
 <ion-view view-title="修改密码" hide-tabs>
 
   <ion-content style="background-color: #eee">
+    <form name="form" role="form" novalidate>
 
-    <div class="list list-inset">
-      <label class="item item-input">
-        <i class="icon ion-ios-locked-outline placeholder-icon"></i>
-        <input type="text" placeholder="原密码">
-      </label>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <i class="icon ion-ios-locked-outline placeholder-icon"></i>
+          <input type="password" name="pwd" required ng-minlength="4" ng-maxlength="20" ng-model="modData.pwd" placeholder="原密码">
+        </label>
 
-      <label class="item item-input">
-        <i class="icon ion-ios-locked-outline placeholder-icon"></i>
-        <input type="text" placeholder="新密码">
-      </label>
+        <label class="item item-input">
+          <i class="icon ion-ios-locked-outline placeholder-icon"></i>
+          <input type="password" name="newpwd" required ng-minlength="4" ng-maxlength="20" ng-model="modData.newpwd" placeholder="新密码">
+        </label>
 
-      <label class="item item-input">
-        <i class="icon ion-ios-locked-outline placeholder-icon"></i>
-        <input type="text" placeholder="重复新密码">
-      </label>
-    </div>
+        <label class="item item-input">
+          <i class="icon ion-ios-locked-outline placeholder-icon"></i>
+          <input type="password" name="againNewpwd" required ng-minlength="4" ng-maxlength="20" ng-model="modData.againNewpwd" placeholder="重复新密码" repeat-password="newpwd">
+        </label>
+      </div>
 
-    <div class="padding">
-      <button class="button button-block button-balanced" ng-disabled="!form.$valid" ng-click="doModpwd()">
-        确定
-      </button>
-    </div>
-    
-
+      <div class="padding">
+        <button class="button button-block button-balanced" ng-disabled="!form.$valid" ng-click="doModpwd()">
+          确定
+        </button>
+      </div>
+      
+    </form>
   </ion-content>
 </ion-view>

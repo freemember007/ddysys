@@ -7,15 +7,16 @@ angular.module('ddysys.services')
   }
 
   return {
-    all: function() {
+    all: function(type) {
       postData.service = 'appconsultlist';
+      postData.type = type;
       return $http.post('api', postData);
     },
     get: function(id) {
       postData.service = 'appconsultinfo';
       postData.consultId = id;
       return $http.post('api', postData);
-    },
+    }
   }
 
 })

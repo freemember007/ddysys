@@ -1,4 +1,4 @@
-<ion-view view-title="咨询详情" hide-tabs>
+<ion-view view-title="咨询详情">
   <style>
     .bar-footer {
       overflow: visible !important;
@@ -48,7 +48,7 @@ at the bottom as the textarea resizes */
       <img src="img/avatar.jpg">
       <div class="row" style="padding:0px">
         <div class="col" style="padding:0px"><span>{{consult.patName}}</span>&nbsp;&nbsp;<span class="gray-9 small">{{consult.consultTime | date: "MM-dd hh:mm"}}</span></div>
-        <div class="col tr" style="padding:0px"><span class="gray-9 small">0回复</span></div>
+        <div class="col tr" style="padding:0px"><span class="gray-9 small">{{consult.replyCount}}回复</span></div>
       </div>
       <p class="" style="padding-top:10px; white-space:normal">{{consult.consultContent}}</p>
       <img src="img/flower.jpg">
@@ -66,13 +66,13 @@ at the bottom as the textarea resizes */
 
   </ion-content>
 
-  <form name="sendMessageForm" ng-submit="sendMessage(sendMessageForm)" novalidate>
+  <form name="sendMessageForm" novalidate>
     <ion-footer-bar class="bar-stable item-input-inset message-footer" keyboard-attach>
       <label class="item-input-wrapper">
-        <textarea ng-model="input.message" value="" placeholder="Send {{toUser.username}} a message..." required minlength="1" maxlength="1500" style="width:100%"></textarea>
+        <textarea ng-model="reply.content" value="" placeholder="回复这条咨询..." required minlength="1" maxlength="1500" style="width:100%"></textarea>
       </label>
       <div class="footer-btn-wrap">
-        <button class="button button-icon icon ion-android-send footer-btn" type="submit" ng-disabled="!input.message || input.message === ''">
+        <button class="button button-icon icon ion-android-send footer-btn" ng-click="doReply()" ng-disabled="!reply.content || reply.content === ''" >
         </button>
       </div>
     </ion-footer-bar>

@@ -56,7 +56,7 @@
       <div class="col col-55 rate-summary-star">
         <div class="col">
           <span>服务态度:</span>
-          <i class="ion-star" ng-repeat="value in (values = point2Arr(summary.rateManner)) track by $index" ng-class="{assertive: value}"></i>
+          <i class="ion-star" ng-repeat="value in point2Arr(summary.rateManner) track by $index" ng-class="{assertive: value}"></i>
 
         </div>
         <div class="col">
