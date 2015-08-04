@@ -1,4 +1,4 @@
-<ion-view view-title="患者评价" hide-tabs>
+<ion-view view-title="患者评价">
   <style>
       .rate-summary {
         background-color: #fff;
@@ -36,8 +36,10 @@
         border-bottom: none;
       }
       .rate-item-summary {
+        height: 24px;
       }
       .rate-item-content {
+        color: #444;
         margin-top: 10px;
         line-height: 24px;
         font-size: 16px;
@@ -54,19 +56,12 @@
       <div class="col col-55 rate-summary-star">
         <div class="col">
           <span>服务态度:</span>
-          <i class="ion-star assertive"></i>
-          <i class="ion-star assertive"></i>
-          <i class="ion-star assertive"></i>
-          <i class="ion-star assertive"></i>
-          <i class="ion-star gray-9"></i>
+          <i class="ion-star" ng-repeat="value in (values = point2Arr(summary.rateManner)) track by $index" ng-class="{assertive: value}"></i>
+
         </div>
         <div class="col">
           <span>治疗效果:</span>
-          <i class="ion-star assertive"></i>
-          <i class="ion-star assertive"></i>
-          <i class="ion-star assertive"></i>
-          <i class="ion-star assertive"></i>
-          <i class="ion-star gray-9"></i>
+          <i class="ion-star" ng-repeat="value in point2Arr(summary.rateEffect) track by $index" ng-class="{assertive: value}"></i>
         </div>
       </div>
 
@@ -74,12 +69,12 @@
       <div class="col  col-45">
         <div class="row">
           <div class="col rate-summary-point">
-            <span class="assertive">8.6</span><span>&nbsp;分</span>
+            <span class="assertive">{{summary.rateCost}}</span><span>&nbsp;分</span>
           </div>
           <div class="col rate-summary-total">
             <span>总评价</span>
             <br>
-            <span>1025条</span>
+            <span>{{summary.rateCount}}</span>
           </div>
         </div>
       </div>
@@ -89,38 +84,17 @@
     <!-- list -->
     <div class="rate-list">
 
-      <div class="rate-item">
+      <div class="rate-item" ng-repeat="rate in rates">
         <div class="rate-item-summary">
           <div class="tl fl">
-            <i class="ion-star assertive"></i>
-            <i class="ion-star assertive"></i>
-            <i class="ion-star assertive"></i>
-            <i class="ion-star assertive"></i>
-            <i class="ion-star gray-9"></i>
+            <i class="ion-star" ng-repeat="value in point2Arr(rate.rateCost) track by $index" ng-class="{assertive: value}"></i>
           </div>
-          <div class="tr fr">李冰 2015-10-10</div>
+          <div class="tr fr">{{rate.ysxm}}&nbsp;{{rate.clinicTime|date:"yyyy-MM-dd hh:mm"}}</div>
         </div>
         <div class="rate-item-content">
-          alskfjd;alksjdf;lakjsdf;lkajs;dlfkja;lsdkjfal;ksdjfoiweur09u2;ljkshv;jasnvkasbnk aw08394jlk
+          {{rate.rateContent}}
         </div>
       </div>
-
-      <div class="rate-item">
-        <div class="rate-item-summary">
-          <div class="tl fl">
-            <i class="ion-star assertive"></i>
-            <i class="ion-star assertive"></i>
-            <i class="ion-star assertive"></i>
-            <i class="ion-star assertive"></i>
-            <i class="ion-star gray-9"></i>
-          </div>
-          <div class="tr fr">李冰 2015-10-10</div>
-        </div>
-        <div class="rate-item-content">
-          alskfjd;alksjdf;lakjsdf;lkajs;dlfkja;lsdkjfal;ksdjfoiweur09u2;ljkshv;jasnvkasbnk aw08394jlk
-        </div>
-      </div>
-      
       
     </div>
 

@@ -37,7 +37,7 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
 //--------- 配置 ---------//
 .config(function($provide, $stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
 
-  // 允许cors请求
+  // 允许CORS请求
   $httpProvider.defaults.useXDomain = true;
   $httpProvider.defaults.headers.post['Content-Type'] = 'text/plain';
   delete $httpProvider.defaults.headers.common['X-Requested-With'];

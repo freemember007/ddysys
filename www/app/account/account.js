@@ -6,34 +6,6 @@ angular.module('ddysys.controllers')
 
   $scope.user = $localStorage.getObject('user');
 
-  $scope.goInfo = function() {
-    // $state.go('account_info');
-    $state.go('tab.account_info');
-  }
-
-  $scope.goValue = function() {
-    // $state.go('tab.account_value')
-    $cordovaToast.showShortBottom('暂无评价！')
-
-  }
-
-  $scope.goBarcode = function() {
-    $state.go('tab.account_barcode')
-  }
-
-  $scope.goTimetable = function() {
-    // $state.go('tab.account_timetable')
-    $cordovaToast.showShortBottom('暂无时间表！')
-  }
-
-  $scope.goSet = function() {
-    $state.go('tab.account_set')
-  }
-
-  $scope.goModpwd = function() {
-    $state.go('tab.account_modpwd')
-  }
-
   $scope.doLogout = function() {
     $state.go('login')
   };
@@ -41,10 +13,29 @@ angular.module('ddysys.controllers')
 })
 
 
-//--------- 评价controller ---------//
-.controller('AccountRateCtrl', function($scope, $state, $localStorage) {
+//--------- 评价列表controller ---------//
+.controller('AccountRateCtrl', function($scope, $state, $http, $localStorage) {
 
-  $scope.user = $localStorage.getObject('user');
+  var postData = {
+    service: 'appuserratelist', 
+    token: $localStorage.get('token')
+  }
+  $http.post('api', postData).then(
+    function(data){
+    if(data){
+      $scope.summary = data.userRate;
+      $scope.rates = data.list;
+    }
+  });
+
+  $scope.point2Arr = function(point){
+    var arr = new Array(5);
+    for(var i=0; i<point; i++){
+      arr[i] = true;
+    };
+    console.log(1)
+    return arr;
+  }
 
 })
 
@@ -61,6 +52,8 @@ angular.module('ddysys.controllers')
 .controller('AccountTimetableCtrl', function($scope, $state, $localStorage) {
 
   $scope.user = $localStorage.getObject('user');
+
+
 
 })
 
