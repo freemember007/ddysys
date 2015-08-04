@@ -150,22 +150,22 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
     url: '/consults',
     templateUrl: 'app/consults/consults.html',
     controller: 'ConsultsCtrl',
-    resolve: {
-      consults: function(Consults){
-        return Consults.all()
-      }
-    }
+    // resolve: {
+    //   consults: function(Consults){
+    //     return Consults.all()
+    //   }
+    // }
   })
 
   .state('consults_detail', {
     url: '/consults/:consultId',
     templateUrl: 'app/consults/consults_detail.html',
     controller: 'ConsultsDetailCtrl',
-    resolve: {
-      consult: function(Consults, $stateParams){
-        return Consults.get($stateParams.consultId)
-      }
-    }
+    // resolve: {
+    //   consult: function(Consults, $stateParams){
+    //     return Consults.get($stateParams.consultId)
+    //   }
+    // }
   })
 
 

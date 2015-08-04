@@ -11,21 +11,21 @@ angular.module('ddysys.controllers')
     token: $localStorage.get('token')
   }
 
-  // $http.post('api', postData).then(function(data) {
-  //   if(!data)return;
-  //   $scope.patients = data.docPatientVoList;
-  //   for(var i=0; i<$scope.patients.length; i++){
-  //     var patient = $scope.patients[i];
-  //     if(!patient.faceUrl){
-  //       if(patient.yhxb === '男'){
-  //         patient.faceUrl = 'img/default_male_head_photo1.png';
-  //       } else {
-  //         patient.faceUrl = 'img/default_female_head_photo1.png';
-  //       }
-  //     }
-  //   }
-  //   $localStorage.setObject('patients', $scope.patients)
-  // })
+  $http.post('api', postData).then(function(data) {
+    if(!data)return;
+    $scope.patients = data.docPatientVoList;
+    for(var i=0; i<$scope.patients.length; i++){
+      var patient = $scope.patients[i];
+      if(!patient.faceUrl){
+        if(patient.yhxb === '男'){
+          patient.faceUrl = 'img/default_male_head_photo1.png';
+        } else {
+          patient.faceUrl = 'img/default_female_head_photo1.png';
+        }
+      }
+    }
+    $localStorage.setObject('patients', $scope.patients)
+  })
 
 })
 

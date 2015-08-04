@@ -1,5 +1,41 @@
 angular.module('ddysys.services')
 
+.factory('PostData', function($localStorage){
+  var PostData = function(service) {
+    this.token = $localStorage.get('token'); 
+    this.service = service;
+  };
+  return PostData;
+})
+
+.factory('Token', function($localStorage){
+  return {
+    get: function(){
+      return $localStorage.get('token')
+    },
+    save: function(value){
+      $localStorage.save('token', value)
+    },
+    remove: (function(){
+      $localStorage.remove('token')
+    })
+  }
+})
+
+.factory('LocalUser', function($localStorage){
+  return {
+    get: function(){
+      return $localStorage.get('user')
+    },
+    save: function(value){
+      $localStorage.save('user', value)
+    },
+    remove: (function(){
+      $localStorage.remove('user')
+    })
+  }
+})
+
 .factory('Interceptor', function($rootScope, $location, $cordovaToast, $cordovaDialogs) {
 
     var apiUrl = 'http://192.168.1.12:8004/app';
