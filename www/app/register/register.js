@@ -1,22 +1,19 @@
 angular.module('ddysys.controllers')
 
 //--------- 验证手机controller ---------//
-.controller('RegisterVerifyCtrl', function($scope, $state, $http, $localStorage) {
+.controller('RegisterVerifyCtrl', function($scope, $state, PostData, $http, $localStorage) {
 
   $scope.user = {
     agree: true,
   }; 
 
-  var params = {
-    service: 'appcaptcha',
-    type: '1',
-    ctype: '3'
-  };
-
+  var postData = new PostData('appcaptcha');
+  postData.type = '1';
+  postData.ctype = '3';
 
   $scope.getCaptcha = function(){
-    params.mobileno = $scope.user.mobileno;
-    $http.post('api', params).then(function(data){
+    postData.mobileno = $scope.user.mobileno;
+    $http.post('api', postData).then(function(data){
       if(data){
         $scope.user.captcha = data.captcha
       }
@@ -40,14 +37,12 @@ angular.module('ddysys.controllers')
 
 
 //--------- 注册controller ---------//
-.controller('RegisterCtrl', function($scope, $state, $http, $localStorage, $md5) {
+.controller('RegisterCtrl', function($scope, $state, PostData, $http, $localStorage, $md5) {
 
   var localUser = $localStorage.getObject('user'); // 注意：若页面是缓存的，如前进后退，此步不会执行
 
-  var params = {
-    service: 'appregister',
-    type: '1',
-  };
+  var postData = new PostData('appregister');
+  postData.type = '1';
   $scope.user = {
     dMobile: localUser.mobileno,
     captcha: localUser.captcha,
@@ -64,9 +59,9 @@ angular.module('ddysys.controllers')
     } else if (!$scope.form.hos.$valid) {
       alert('请填写您所在的医院！')
     } else {
-      angular.extend(params, $scope.user);
-      params.dPassword = $md5.createHash(params.dPassword);
-      $http.post('api', params).then(function(data){
+      angular.extend(postData, $scope.user);
+      postData.dPassword = $md5.createHash(postData.dPassword);
+      $http.post('api', postData).then(function(data){
         if(data){
           $localStorage.setObject('user', data.docInfo);
           $state.go('register_upload');
@@ -78,7 +73,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 上传证件controller ---------//
-.controller('RegisterUploadCtrl', function($scope, $state, $http, $localStorage, $imageHelper, $fileHelper, $cordovaDialogs) {
+.controller('RegisterUploadCtrl', function($scope, $state, PostData, $http, $localStorage, $imageHelper, $fileHelper, $cordovaDialogs) {
 
   $scope.user = {
     identityImg: 'img/photo_upload.png'
@@ -96,12 +91,10 @@ angular.module('ddysys.controllers')
   }
 
   $scope.submit = function(){
-    var params = {
-      service: 'appuploadlicense',
-      did: $localStorage.getObject('user').did,
-      dLicenseUrl: $scope.user.identityImg
-    };
-    $http.post('api', params).then(function(data){
+    var postData = new PostData('appuploadlicense');
+    // postData.did = $localStorage.getObject('user').did;
+    postData.dLicenseUrl = $scope.user.identityImg;
+    $http.post('api', postData).then(function(data){
       if(data && data.succ) $state.go('register_waiting')
     })
   }

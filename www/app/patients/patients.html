@@ -1,31 +1,18 @@
 <ion-view view-title="患者" hide-back-button="true">
   <ion-content style="bottom:48px">
 
-      <a class="item item-icon-left" ui-sref="patients_requests">
-        <img class="icon padding" src="img/new_patient.png"> &nbsp;&nbsp;新的患者请求
+    <a class="item item-icon-left" ui-sref="patients_requests">
+      <img class="icon padding" src="img/new_patient.png"> &nbsp;&nbsp;新的患者请求
+    </a>
+
+    <ion-list>
+      <ion-item ng-repeat-start="patients in patientsGroup" class="item-divider">
+        {{patients[0] === '1' ? "星标患者" : "普通患者"}}
+      </ion-item>
+      <a ng-repeat-end class="item item-icon-left" ng-repeat="patient in patients[1]" ui-sref="patients_detail({patientId: patient.patId})">
+        <img class="icon padding" ng-src="{{patient.faceUrl}}"> &nbsp;{{patient.hzxm}}&nbsp;{{patient.patId}}岁
       </a>
+    </ion-list>
 
-      <!-- <a class="item item-icon-left" href="#">
-        <img class="icon padding" src="img/check_group.png"> &nbsp;&nbsp;分组查看
-      </a> -->
-
-      <ion-item class="item-divider">
-        星标患者
-      </ion-item>
-      <ion-list >
-        <a class="item item-icon-left" ui-sref="patients_detail" ng-repeat="patient in patients|filter:{'star':'1'}|orderBy:'dpid':false" >
-          <img class="icon padding" ng-src="{{patient.faceUrl}}"> &nbsp;{{patient.hzxm}}&nbsp;{{patient.dpid}}岁
-        </a>
-      </ion-list>
-
-      <ion-item class="item-divider">
-        普通患者
-      </ion-item>
-      <ion-list>
-        <a class="item item-icon-left"  ng-repeat="patient in patients|filter:{'star':'0'}|orderBy:'dpid':false" href="#">
-          <img class="icon padding" ng-src="{{patient.faceUrl}}"> &nbsp;{{patient.hzxm}}&nbsp;{{patient.dpid}}岁
-        </a>
-      </ion-list>
-    
   </ion-content>
 </ion-view>

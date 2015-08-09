@@ -4,6 +4,9 @@ angular.module('ddysys.controllers')
   $scope.goResetPasswd = function() {
     $state.go("reset_passwd")
   }
+  $scope.getCaptcha = function(){
+    alert(1)
+  }
 })
 
 .controller('ResetPasswdCtrl', function($scope, $http, $state) {

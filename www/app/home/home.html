@@ -1,10 +1,11 @@
 <ion-view view-title="首页" hide-back-button="true">
 
-  <ion-nav-buttons side="left">
+  <!-- <ion-nav-buttons side="left">
     <button class="button button-clear">
       <img src="img/avatar.jpg" style="height:24px; width:24px; border-radius:16px; border:2px solid #fff">
     </button>
-  </ion-nav-buttons>
+  </ion-nav-buttons> -->
+  
   <ion-nav-buttons side="right">
     <button class="button button-clear" ui-sref="account_barcode">
       <img src="img/add_patient.png" style="height:24; width:24px">
@@ -18,26 +19,26 @@
       <div class="row tc" style="height:100px; background:#918DB0 url('img/homebg.png') no-repeat fixed top; padding:15px ">
         <div class="col col-10"></div>
         <div class="col col-33 tr">
-          <img src="img/avatar.jpg" style="height:60px; width:60px; border-radius:35px; border:2px solid #fff"> 
+          <img ng-src="{{user.dFaceUrl}}" style="height:60px; width:60px; border-radius:35px; border:2px solid #fff"> 
         </div>
         <div class="col tl" style="padding-left:12px; color: #fff">
-          <p><span style="font-size:16px">刘德华</span> 主任医师</p>
-          <p>4个患者</p>
+          <p><span style="font-size:16px">{{user.dName}}</span></p>
+          <p>{{user.dTitle}}</p>
         </div>
         
       </div>
       <div class="row tc" style="height:80px; padding-top:10px">
-        <div class="col tc" ui-sref="events" nav-direction="forward">
+        <div class="col tc" ui-sref="events">
           <img src="img/icon1.png" style="height:36px; width:36px">
           <p>随访日程</p>
         </div>
-        <div class="col tc">
+        <div class="col tc" ui-sref="account_barcode">
           <img src="img/icon2.png" style="height:36px; width:36px">
-          <p>加号管理</p>
+          <p>二维码</p>
         </div>
-        <div class="col tc" ui-sref="tab.consults">
+        <div class="col tc" ui-sref="account_rate">
           <img src="img/icon3.png" style="height:36px; width:36px">
-          <p>咨询管理</p>
+          <p>患者评价</p>
         </div>
         <div class="col tc" ui-sref="patients_requests">
           <img src="img/icon4.png" style="height:36px; width:36px">
@@ -75,7 +76,7 @@
 
     <!-- 患者沟通 -->
     <div style="padding:10px 16px; font-size:16px">患者沟通</div>
-    <div class="list" ui-sref="patients_chat">
+    <div class="list" ui-sref="messages({patientId: 1})">
       <a class="item item-avatar">
         <img src="img/avatar.jpg">
         <h2>李正雷</h2>

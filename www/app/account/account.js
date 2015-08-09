@@ -14,12 +14,9 @@ angular.module('ddysys.controllers')
 
 
 //--------- 评价列表controller ---------//
-.controller('AccountRateCtrl', function($scope, $http, $localStorage) {
+.controller('AccountRateCtrl', function($scope, $http, PostData) {
 
-  var postData = {
-    service: 'appuserratelist', 
-    token: $localStorage.get('token')
-  }
+  var postData = new PostData('appuserratelist');
   $http.post('api', postData).then(
     function(data){
     if(data){
@@ -48,16 +45,16 @@ angular.module('ddysys.controllers')
 
 
 //--------- 出诊时间controller ---------//
-.controller('AccountTimetableCtrl', function($scope, $http, $localStorage) {
+.controller('AccountTimetableCtrl', function($scope, $http, PostData, $localStorage) {
 
   var user = $localStorage.getObject('user');
 
-  var postData = {
-    service: 'appdocScheme', 
-    orgid: '957105',
-    docid: '1828',
-    docname: '虞晓菁'
-  };
+  var postData = new PostData('appuserratelist');
+  postData.orgid = '957105';
+  postData.docid = '1828';
+  postData.docname = '虞晓菁';
+
+
 
   $http.post('api', postData).then(
     function(data){
@@ -72,7 +69,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 个人资料controller ---------//
-.controller('AccountInfoCtrl', function($scope, $state, $http, $localStorage, $imageHelper, $fileHelper, $cordovaToast) {
+.controller('AccountInfoCtrl', function($scope, $state, $http, PostData, $localStorage, $imageHelper, $fileHelper, $cordovaToast) {
 
   $scope.user = $localStorage.getObject('user');
 
@@ -90,14 +87,12 @@ angular.module('ddysys.controllers')
   }
 
   function submit(imgUrl){
-    var params = {
-      service: 'appmodperinfo',
-      type: '1',
-      token: $localStorage.get('token'),
-      did: $localStorage.getObject('user').did,
-      faceUrl: imgUrl
-    };
-    $http.post('api', params).then(function(data){
+    var postData = new PostData('appmodperinfo');
+    postData.type = '1';
+    postData.did = $localStorage.getObject('user').did;
+    postData.faceUrl = imgUrl;
+    
+    $http.post('api', postData).then(function(data){
       if(data && data.succ) {
         $cordovaToast.showShortBottom('头像上传成功！');
         $localStorage.setObject('user', data.docInfo);
@@ -117,14 +112,11 @@ angular.module('ddysys.controllers')
 
 
 //--------- 修改密码controller ---------//
-.controller('AccountModpwdCtrl', function($scope, $state, $http, $localStorage, $md5) {
+.controller('AccountModpwdCtrl', function($scope, $state, $http, PostData, $md5) {
 
   $scope.modData = {};
 
-  var postData = {
-    service: 'appresetpwd', 
-    token: $localStorage.get('token')
-  }
+  var postData = new PostData('appresetpwd');
 
   $scope.doModpwd = function(){
     postData.pwd = $md5.createHash($scope.modData.pwd);

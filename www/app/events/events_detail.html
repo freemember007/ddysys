@@ -1,4 +1,4 @@
-<ion-view view-title="日程详情" hide-tabs>
+<ion-view view-title="日程详情">
   <ion-content style="background-color: #eee">
 
     <a class="item item-avatar" href="#">
@@ -6,8 +6,8 @@
       <h2>{{event.patName}}</h2>
     </a>
 
-    <a class="item item-icon-right" style="margin-top:20px;" href="#">
-      <i class="icon"></i> {{event.schContent}}
+    <a class="item item-icon-right" style="margin-top:20px;padding-right:100px" href="#">
+      <i class="icon"></i> <span style="style="overflow:hidden;text-overflow:ellipsis"">{{event.schContent}}</span>
       <span class="icon icon-accessory">{{event.scheduleTime|date:"yyyy-MM-dd"}} &nbsp;</span>
     </a>
     <a class="item item-icon-right" href="#">

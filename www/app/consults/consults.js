@@ -7,7 +7,8 @@ angular.module('ddysys.controllers')
   $scope.setType = function(type) {
     $scope.type = type;
     Consults.all(type).then(function(data){
-      if (data) $scope.consults = data.list;
+      if(!data) return;
+      $scope.consults = data.list;
     })
   }
 
@@ -23,24 +24,22 @@ angular.module('ddysys.controllers')
   $scope.user = $localStorage.getObject('user');
 
   Consults.get($stateParams.consultId).then(function(data){
-    if(data){
-      $scope.consult = data.userConsultForm;
-      $scope.replies = data.list;
-    }
+    if(!data) return;
+    $scope.consult = data.userConsultForm;
+    $scope.replies = data.list;
   })
 
   $scope.doReply = function() {
     Consults.reply($scope.consult.consultId, $scope.reply.content).then(function(data){
-      if(data){
-        // $scope.consult = data.userConsultForm; //接口没有传加userConsultForm对象
-        $scope.replies.unshift({
-          replyContent: $scope.reply.content,
-          replyName: $scope.user.dName,
-          replyTime: new Date(),
-          replyFaceUrl: $scope.user.dFaceUrl,
-        })
-        $scope.reply.content = ''
-      }
+      if(!data) return;
+      // $scope.consult = data.userConsultForm; //接口没有传加userConsultForm对象
+      $scope.replies.unshift({
+        replyContent: $scope.reply.content,
+        replyName: $scope.user.dName,
+        replyTime: new Date(),
+        replyFaceUrl: $scope.user.dFaceUrl,
+      })
+      $scope.reply.content = ''
     })
   }
 

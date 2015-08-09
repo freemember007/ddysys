@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.hztywl.ddysys" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>ddysys</name>
+  <name>DDoctor</name>
   <description>
         An Ionic Framework and Cordova project.
     </description>
@@ -9,6 +9,8 @@
     </author>
   <content src="index.html"/>
   <access origin="*"/>
+<!--   <access origin="tel:*" launch-external="yes" />
+  <access origin="mailto:*" launch-external="yes" /> -->
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
@@ -19,6 +21,26 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
+  <platform name="ios">
+    <!-- iOS 7.0+ -->
+    <!-- iPhone / iPod Touch -->
+    <icon src="icons/ios/icon-60.png" width="60" height="60" />
+    <icon src="icons/ios/icon-60@2x.png" width="120" height="120" />
+
+    <!-- iOS 6.1 -->
+    <!-- Spotlight Icon -->
+    <icon src="icons/ios/icon-40.png" width="40" height="40" />
+    <icon src="icons/ios/icon-40@2x.png" width="80" height="80" />
+
+    <!-- iPhone / iPod Touch -->
+    <icon src="icons/ios/icon.png" width="57" height="57" />
+    <icon src="icons/ios/icon@2x.png" width="114" height="114" />
+
+    <!-- iPhone Spotlight and Settings Icon -->
+    <icon src="icons/ios/icon-small.png" width="29" height="29" />
+    <icon src="icons/ios/icon-small@2x.png" width="58" height="58" />
+
+  </platform>
   <platform name="android">
     <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>
     <icon src="resources/android/icon/drawable-mdpi-icon.png" density="mdpi"/>

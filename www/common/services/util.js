@@ -77,24 +77,18 @@ angular.module('ddysys.services')
 
 
 //--------- 上传 ---------//
-.factory('$fileHelper', function($rootScope, $cordovaFileTransfer){
+.factory('$fileHelper', function($rootScope, $cordovaFileTransfer, apiUrl, PostData){
   return {
     upload: function(fileURL, appendParams, callback){
       $rootScope.$broadcast('loading:show');
       var options = {
         fileName: fileURL.substr(fileURL.lastIndexOf('/')+1), //服务端接口上这个必须有
-        params: {
-          format: "JSON",
-          spid: "9901",
-          sign: "3120e0d0313ddc4e9aceb818be24c03b",
-          random: "1234",
-          channel: "1"
-        }
+        params: new PostData()
       };
 
       angular.extend(options.params, appendParams)
 
-      $cordovaFileTransfer.upload('http://192.168.1.12:8004/api', fileURL, options)
+      $cordovaFileTransfer.upload(apiUrl.replace('app','api'), fileURL, options) //此路径为api，不是app
         .then(function(result) {
           $rootScope.$broadcast('loading:hide');
           callback(angular.fromJson(result.response))

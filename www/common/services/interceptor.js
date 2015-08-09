@@ -2,7 +2,13 @@ angular.module('ddysys.services')
 
 .factory('PostData', function($localStorage){
   var PostData = function(service) {
-    this.token = $localStorage.get('token'); 
+    this.spid = '9901';
+    this.channel = '1';
+    this.random = '1234';
+    this.sign = '3120e0d0313ddc4e9aceb818be24c03b';
+    this.format = 'JSON';
+    this.oper = '127.0.0.1';
+    this.token = $localStorage.get('token');
     this.service = service;
   };
   return PostData;
@@ -36,9 +42,9 @@ angular.module('ddysys.services')
   }
 })
 
-.factory('Interceptor', function($rootScope, $location, $cordovaToast, $cordovaDialogs) {
+.factory('Interceptor', function($rootScope, $location, $cordovaToast, $cordovaDialogs, apiUrl) {
 
-    var apiUrl = 'http://192.168.1.12:8004/app';
+    // var apiUrl = 'http://192.168.1.12:8004/app';
 
     return {
 
@@ -46,7 +52,7 @@ angular.module('ddysys.services')
         if (config.url === 'api') {
           $rootScope.$broadcast('loading:show');
           config.url = apiUrl;
-          console.log(config.url);
+          console.log(config.data);
         }
         return config;
       },

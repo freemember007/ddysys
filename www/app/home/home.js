@@ -22,9 +22,9 @@ angular.module('ddysys.controllers')
 
 
 //--------- 首页 controller ---------//
-.controller('HomeCtrl', function($scope, $state) {
+.controller('HomeCtrl', function($scope, $localStorage) {
 
-
+  $scope.user = $localStorage.getObject('user');
 
 })
 

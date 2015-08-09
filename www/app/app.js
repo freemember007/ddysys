@@ -8,6 +8,8 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      // cordova.plugins.Keyboard.disableScroll(true);
+      
     }
     if (window.StatusBar) {
       // cordova-plugin-statusba required
@@ -37,38 +39,45 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
 //--------- 配置 ---------//
 .config(function($provide, $stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
 
+  // 定义常量
+  // $provide.constant('apiUrl', 'http://192.168.1.12:8004/app');
+  $provide.constant('apiUrl', 'http://teyangnet.eicp.net:8004/app');
+
   // 允许CORS请求
   $httpProvider.defaults.useXDomain = true;
   $httpProvider.defaults.headers.post['Content-Type'] = 'text/plain';
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
-  // 请求拦截器
+
+  // http拦截器
   $httpProvider.interceptors.push('Interceptor');
-  var baseParams = {
-      spid: '9901',
-      channel: '1',
-      random: '1234',
-      sign: '3120e0d0313ddc4e9aceb818be24c03b',
-      format: 'JSON',
-      oper: '127.0.0.1'
-    };
-  $httpProvider.defaults.transformRequest.push(function(data){
-    if(data && data.indexOf('"service":') !== -1){
-      console.log(data)
-      data = angular.fromJson(data);
-      angular.extend(data, baseParams);
-      data = angular.toJson(data);
-      console.log(data)
-    }
-    return data;
-  });
+
+  // http请求体变换
+  // var baseParams = {
+  //     spid: '9901',
+  //     channel: '1',
+  //     random: '1234',
+  //     sign: '3120e0d0313ddc4e9aceb818be24c03b',
+  //     format: 'JSON',
+  //     oper: '127.0.0.1'
+  //   };
+  // $httpProvider.defaults.transformRequest.push(function(data){
+  //   if(data && data.indexOf('"service":') !== -1){
+  //     console.log(data)
+  //     data = angular.fromJson(data);
+  //     angular.extend(data, baseParams);
+  //     data = angular.toJson(data);
+  //     console.log(data)
+  //   }
+  //   return data;
+  // });
 
   //使用原生滚动
   // $ionicConfigProvider.scrolling.jsScrolling(false); 
 
   //tab与nav风格
-  $ionicConfigProvider.tabs.position('bottom');
+  // $ionicConfigProvider.tabs.position('bottom');
   $ionicConfigProvider.navBar.alignTitle('center');
-  $ionicConfigProvider.tabs.style('standard');
+  // $ionicConfigProvider.tabs.style('standard');
 
   $stateProvider
 
@@ -91,7 +100,7 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
 
   // 日程
   .state('events', {
-    url: '/events',
+    url: '/events/:patientId',
     templateUrl: 'app/events/events.html',
     controller: 'EventsCtrl'
   })
@@ -116,13 +125,14 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
   })
 
   .state('patients_requests', {
+    cache: false,
     url: '/patients/requests',
     templateUrl: 'app/patients/patients_requests.html',
     controller: 'PatientsRequestsCtrl'
   })
 
   .state('patients_requests_detail', {
-    url: '/patients/requests/:requestId',
+    url: '/patients/requests/:patientId',
     templateUrl: 'app/patients/patients_requests_detail.html',
     controller: 'PatientsRequestsDetailCtrl'
   })
@@ -133,16 +143,17 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
     controller: 'PatientsDetailCtrl'
   })
 
-  .state('patients_chat', {
-    url: '/chat/:chatId',
-    templateUrl: 'app/patients/patients_chat.html',
-    controller: 'PatientsChatCtrl',
-  })
-
   .state('patients_events', {
     url: '/events',
     templateUrl: 'app/events/events.html',
     // controller: 'PatientsChatCtrl',
+  })
+
+  // 消息
+  .state('messages', {
+    url: '/messages/:patientId',
+    templateUrl: 'app/messages/messages.html',
+    controller: 'MessagesCtrl',
   })
 
   // 咨询

@@ -1,9 +1,8 @@
 angular.module('ddysys.filters')
 
-.filter('test', function($http) {
 
-  return {
-    test: 'test',
-  }
-
-})
+.filter('num2star', function() {
+  return function(input) {
+    return (input === '1') && '星标患者' || '普通患者' ;
+  };
+});

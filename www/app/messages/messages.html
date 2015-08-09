@@ -1,7 +1,10 @@
-<ion-view view-title="刘德华" hide-tabs>
+<ion-view view-title="{{toUser.hzxm}}">
   <ion-content>
 
     <style>
+/*    body, .ionic-body {
+      position: static;
+    }*/
     
     .bar-footer {
       overflow: visible !important;
@@ -11,13 +14,10 @@
       resize: none;
       height: 25px;
     }
-    /* fixes an ios bug bear */
     
     button.ion-android-send {
       padding-top: 2px;
     }
-    /* add this to keep your footer buttons down 
-at the bottom as the textarea resizes */
     
     .footer-btn-wrap {
       position: relative;
@@ -117,11 +117,6 @@ at the bottom as the textarea resizes */
       -webkit-transform: rotate(118deg) skew(-5deg);
     }
     
-    .chat-bubble.right a.autolinker {
-      color: #fff;
-      font-weight: bold;
-    }
-    
     .user-messages-top-icon {
       font-size: 28px;
       display: inline-block;
@@ -152,44 +147,44 @@ at the bottom as the textarea resizes */
     .cf {
       clear: both !important;
     }
-    
-    a.autolinker {
-      color: #3b88c3;
-      text-decoration: none;
-    }
 
     </style>
 
         <div ng-repeat="message in messages" class="message-wrapper" on-hold="onMessageHold($event, $index, message)">
-          <div ng-if="user._id !== message.userId">
-            <img ng-click="viewProfile(message)" class="profile-pic left" ng-src="{{toUser.pic}}" onerror="onProfilePicError(this)" />
+          
+          <!-- 如果是患者 -->
+          <div ng-if="message.msgSource === 'U'">
+            <img ng-click="viewProfile(message)" class="profile-pic left" ng-src="{{toUser.faceUrl}}" onerror="onProfilePicError(this)" />
             <div class="chat-bubble left">
-              <div class="message" ng-bind-html="message.text" autolinker>
+              <div class="message" ng-bind-html="message.msgContent">
               </div>
               <div class="message-detail">
-                <span ng-click="viewProfile(message)" class="bold">{{toUser.username}}</span>,
-                <span am-time-ago="message.date"></span>
+                <span ng-click="viewProfile(message)" class="bold">{{toUser.hzxm}}</span>,
+                <span am-time-ago="">{{message.sentTime|date:'MM-dd hh:mm:ss'}}</span>
               </div>
             </div>
           </div>
-          <div ng-if="user._id === message.userId">
-            <img ng-click="viewProfile(message)" class="profile-pic right" ng-src="{{user.pic}}" onerror="onProfilePicError(this)" />
+
+          <!-- 如果是医生 -->
+          <div ng-if="message.msgSource !== 'U'">
+            <img ng-click="viewProfile(message)" class="profile-pic right" ng-src="{{user.dFaceUrl}}" onerror="onProfilePicError(this)" />
             <div class="chat-bubble right">
-              <div class="message" ng-bind-html="message.text" autolinker>
+              <div class="message" ng-bind-html="message.msgContent">
               </div>
               <div class="message-detail">
-                <span ng-click="viewProfile(message)" class="bold">{{user.username}}</span>,
-                <span am-time-ago="message.date"></span>
+                <span ng-click="viewProfile(message)" class="bold">{{user.dName}}</span>,
+                <span am-time-ago="">{{message.sentTime|date:'MM-dd hh:mm:ss'}}</span>
               </div>
             </div>
           </div>
           <div class="cf"></div>
         </div>
       </ion-content>
+
       <form name="sendMessageForm" ng-submit="sendMessage(sendMessageForm)" novalidate>
-        <ion-footer-bar class="bar-stable item-input-inset message-footer" keyboard-attach>
+        <ion-footer-bar class="bar-stable item-input-inset message-footer">
           <label class="item-input-wrapper">
-            <textarea ng-model="input.message" value="" placeholder="Send {{toUser.username}} a message..." required minlength="1" maxlength="1500" style="width:100%"></textarea>
+            <textarea ng-model="input.message" value="" placeholder="回复{{toUser.hzxm}}..." required minlength="1" maxlength="1500" style="width:100%"></textarea>
           </label>
           <div class="footer-btn-wrap">
             <button class="button button-icon icon ion-android-send footer-btn" type="submit" ng-disabled="!input.message || input.message === ''">
@@ -197,4 +192,5 @@ at the bottom as the textarea resizes */
           </div>
         </ion-footer-bar>
       </form>
+
 </ion-view>

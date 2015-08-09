@@ -2,26 +2,26 @@
 
   <ion-content>
 
-    <a class="item item-avatar" href="#">
-      <img src="img/avatar.jpg">
-      <h2>张三&nbsp;20岁</h2>
+    <a class="item item-avatar">
+      <img ng-src="{{patient.faceUrl}}">
+      <h2>{{patient.hzxm}}</span>&nbsp;&nbsp;<span>{{patient.patAge}}岁</h2>
       <p>浙江省杭州市</p>
     </a>
 
     <div class="item" style="margin-top:20px" >
       <h2 style="color:#666">
-        <b>上次就诊</b>：2012年11月12日 周三上午
+        <b>上次就诊</b>：{{patient.regTime|date:"yyyy-MM-dd hh:mm"}}
       </h2 >
       <h2 style="margin-top:10px; color:#666">
-        <b>主　　诉</b>：牙龈出血
+        <b>主　　诉</b>：{{patient.regInfo || "暂无"}}
       </h2 >
     </div>
 
     <div class="padding" style="margin-top:10px">
-      <button class="button button-block button-balanced" ng-click="doLogin()">
+      <button class="button button-block button-balanced" ng-click="handleRequest(patient.patId, 1)">
         接受该患者
       </button>
-      <button class="button button-block button-assertive" ng-click="doLogin()">
+      <button class="button button-block button-assertive" ng-click="handleRequest(patient.patId, 2)">
         拒绝该患者
       </button>
     </div>

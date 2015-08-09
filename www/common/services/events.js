@@ -1,19 +1,16 @@
 angular.module('ddysys.services')
 
-.factory('Events', function($localStorage, $http) {
-
-  var postData = {
-    token: $localStorage.get('token')
-  }
+.factory('Events', function(PostData, $http) {
 
   return {
-    all: function() {
-      postData.service = 'appdocschedulelist';
+    all: function(patientId) {
+      var postData = new PostData('appdocschedulelist');
+      postData.patId = patientId || null;
       return $http.post('api', postData);
     },
-    get: function(id) {
-      postData.service = 'appconsultinfo';
-      postData.consultId = id;
+    get: function(eventId) {
+      var postData = new PostData('');
+      postData.eventId = eventId;
       return $http.post('api', postData);
     },
   }
