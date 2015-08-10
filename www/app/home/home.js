@@ -16,22 +16,20 @@ angular.module('ddysys.controllers')
     }
     $scope.settings[tab] = true;
   }
-  
 
 })
 
 
 //--------- 首页 controller ---------//
-.controller('HomeCtrl', function($scope, $localStorage) {
+.controller('HomeCtrl', function($scope, $localStorage, PostData, $http) {
 
   $scope.user = $localStorage.getObject('user');
+  var postData = new PostData('appindex');
 
-})
-
-
-//--------- 日程列表页 controller ---------//
-.controller('HomeEventsCtrl', function($scope, $state) {
-
-
+  $http.post('api', postData).then(function(data){
+    if(!data)return;
+    $scope.docSchedules = data.dsList.slice(0,2);
+    $scope.UserMessages = data.umList;
+  })
 
 })

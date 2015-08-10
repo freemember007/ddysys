@@ -5,6 +5,11 @@
       <img src="img/avatar.jpg" style="height:24px; width:24px; border-radius:16px; border:2px solid #fff">
     </button>
   </ion-nav-buttons> -->
+  <style>
+    .right-line{
+      border-right: 1px solid #cccccc; 
+    }
+  </style>
   
   <ion-nav-buttons side="right">
     <button class="button button-clear" ui-sref="account_barcode">
@@ -52,22 +57,14 @@
 
     <!-- 即将随访 -->
     <div style="padding:10px 16px; background:#fff; font-size:16px; border-bottom:1px solid #ddd">即将随访</div>
-    <div class="row tc" style="height:100px" ui-sref="events_detail" nav-direction="forward">
-      <div class="col">
-        <p style="margin-bottom:5px">今天</p>
-        <p style="color: #999; margin-bottom:5px">第四个诊程</p>
-        <p style="color: #387EF5; margin-bottom:5px">李冰</p>
+    <div class="row tc" style="height:100px">
+      <div class="col-30" ng-repeat-start="docSchedule in docSchedules" ui-sref="events_detail{patientId: docSchedule.patId}" >
+        <p style="margin-bottom:5px">{{docSchedule.scheduleTime | date: "mm-dd"}}</p>
+        <p style="color: #999; margin-bottom:5px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">&nbsp;{{docSchedule.schContent}}</p>
+        <p style="color: #387EF5; margin-bottom:5px">{{docSchedule.patName}}</p>
       </div>
-      <div class="col-20" style="border-right: 1px solid #cccccc; line-height:64px" >
+      <div class="col-20" style="line-height:64px" ng-class="{'right-line': {{$index}} == 0}" ng-repeat-end ui-sref="events_detail{patientId: docSchedules.patId}">
         <img src="img/avatar.jpg" style="height:40px; width:40px; border-radius:50%; vertical-align:middle" >
-      </div>
-      <div class="col">
-        <p style="margin-bottom:5px">今天</p>
-        <p style="color: #999; margin-bottom:5px">第四个诊程</p>
-        <p style="color: #387EF5; margin-bottom:5px">李冰</p>
-      </div>
-      <div class="col-20" style="line-height:64px">
-        <img src="img/avatar.jpg" style="height:40px; width:40px; border-radius:50%; vertical-align:middle">
       </div>
     </div>
 
