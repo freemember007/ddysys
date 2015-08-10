@@ -24,7 +24,6 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
       $ionicLoading.hide()
     })
 
-
     // 登录状态判断
     if($localStorage.get('token')){
       $state.go('tab.home');
@@ -277,7 +276,6 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
 });
 
 
-
 //--------- 模块宣扬及依存 ---------//
 angular.module('ddysys.services', []);
 angular.module('ddysys.filters', []);
@@ -287,3 +285,9 @@ angular.module('underscore', [])
 .factory('_', function($window) {
   return $window._; // assumes underscore has already been loaded on the page
 });
+
+//--------- 全局函数 ---------//
+// onerror
+function onProfilePicError(ele){
+  ele.src = 'img/default_nomale_head_photo.png'
+}

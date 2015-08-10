@@ -9,11 +9,11 @@
       <h4>您全新的联系方式</h4>
       <p>不会泄露您的微信或手机号</p>
       <br>
-      <img src="img/barcode.png" style="width:200px; height:200px">
+      <img ng-src="{{doctor.dQrcodeUrl}}" style="width:200px; height:200px">
       <br>
       <br>
-      <h4>陈丽英</h4>
-      <p>绿城口腔医院|外科|主任医师</p>
+      <h4>{{doctor.dName}}</h4>
+      <p>{{doctor.hosName}}|{{doctor.deptName}}|{{doctor.yszc}}</p>
     </div>
 
   </ion-content>

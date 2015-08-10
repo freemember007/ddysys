@@ -13,6 +13,7 @@ angular.module('ddysys.controllers')
       if(data){
         $localStorage.set('token', data.token);
         $localStorage.setObject('user', data.docInfo);
+        $localStorage.setObject('doctor', data.yyysList[0]);
         $state.go("tab.home")
       }
     })

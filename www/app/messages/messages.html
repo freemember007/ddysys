@@ -154,7 +154,7 @@
           
           <!-- 如果是患者 -->
           <div ng-if="message.msgSource === 'U'">
-            <img ng-click="viewProfile(message)" class="profile-pic left" ng-src="{{toUser.faceUrl}}" onerror="onProfilePicError(this)" />
+            <img ng-click="viewProfile(message)" class="profile-pic left" ng-src="{{toUser.faceUrl||'img/default_nomale_head_photo.png'}}" onerror="onerror="onProfilePicError(this)" />
             <div class="chat-bubble left">
               <div class="message" ng-bind-html="message.msgContent">
               </div>
@@ -167,7 +167,7 @@
 
           <!-- 如果是医生 -->
           <div ng-if="message.msgSource !== 'U'">
-            <img ng-click="viewProfile(message)" class="profile-pic right" ng-src="{{user.dFaceUrl}}" onerror="onProfilePicError(this)" />
+            <img ng-click="viewProfile(message)" class="profile-pic right" ng-src="{{user.dFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)" />
             <div class="chat-bubble right">
               <div class="message" ng-bind-html="message.msgContent">
               </div>

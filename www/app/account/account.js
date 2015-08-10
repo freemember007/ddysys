@@ -40,6 +40,7 @@ angular.module('ddysys.controllers')
 .controller('AccountBarcodeCtrl', function($scope, $http, $localStorage) {
 
   $scope.user = $localStorage.getObject('user');
+  $scope.doctor = $localStorage.getObject('doctor');
 
 })
 
