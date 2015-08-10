@@ -45,25 +45,40 @@ angular.module('ddysys.controllers')
 
 
 //--------- 出诊时间controller ---------//
-.controller('AccountTimetableCtrl', function($scope, $http, PostData, $localStorage) {
+.controller('AccountTimetableCtrl', function($scope, $http, PostData) {
 
-  var user = $localStorage.getObject('user');
+  var postData = new PostData('appdocScheme');
+  postData.orgid = '157502';
+  postData.docid = '32647';
 
-  var postData = new PostData('appuserratelist');
-  postData.orgid = '957105';
-  postData.docid = '1828';
-  postData.docname = '虞晓菁';
+  $http.post('api', postData).then(function(data){
+    if(!data) return;
+    var list = data.list;
+    var arr = [
+      {day:'周一', am:false, pm:false, eve:false}, 
+      {day:'周二', am:false, pm:false, eve:false}, 
+      {day:'周三', am:false, pm:false, eve:false}, 
+      {day:'周四', am:false, pm:false, eve:false}, 
+      {day:'周五', am:false, pm:false, eve:false}, 
+      {day:'周六', am:false, pm:false, eve:false}, 
+      {day:'周日', am:false, pm:false, eve:false}
+    ];
 
-
-
-  $http.post('api', postData).then(
-    function(data){
-    if(data){
-      $scope.timeList = data.list;
+    if(list && list.length){
+      for(var i=0; i<list.length; i++){
+        var dateStr = list[i].schdate.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+        var date = new Date(dateStr);
+        var day = date.getDay();
+        if(list[i].ampm === '1'){
+          arr[day-1].am = true;
+        }else{
+          arr[day-1].pm = true;
+        };
+      }
     }
+
+    $scope.schedules = arr;
   });
-
-
 
 })
 

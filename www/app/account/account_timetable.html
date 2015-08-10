@@ -26,48 +26,13 @@
         <td>下午</td>
         <td>晚上</td>
       </tr>
-      <tr>
-        <td>周一</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
+      <tr ng-repeat="schedule in schedules">
+        <td>{{schedule.day}}</td>
+        <td><span ng-if="schedule.am">出诊</span></td>
+        <td><span ng-if="schedule.pm">出诊</span></td>
+        <td><span ng-if="schedule.eve">出诊</span></td>
       </tr>
-      <tr>
-        <td>周二</td>
-        <td>出诊</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>周三</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>周四</td>
-        <td>&nbsp;</td>
-        <td>出诊</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>周五</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>周六</td>
-        <td>&nbsp;</td>
-        <td>出诊</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>周日</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
+      
     </table>
   </ion-content>
 </ion-view>

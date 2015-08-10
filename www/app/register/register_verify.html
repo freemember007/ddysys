@@ -21,12 +21,13 @@
 
       </div>
 
-      <div class="item item-text-wrap item-checkbox" style="border-width:0">
-        <label class="checkbox">
+      <div class="item item-text-wrap item-checkbox" style="border-width:0;">
+        <label class="checkbox" style="width:50px; display:inline">
           <input type="checkbox" name="agree" ng-model="user.agree">
         </label>
-        同意《点点医生服务协议》
+        同意 <a href="http://www.baidu.com">《点点医生服务协议》</a>
       </div>
+      
 
       <div class="padding">
         <button class="button button-block button-balanced" ng-disabled="!form.$valid" ng-click="goRegister()">
