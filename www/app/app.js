@@ -237,6 +237,11 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
     controller: 'RegisterVerifyCtrl'
   })
 
+  .state('register_agreement', {
+    url: '/register_agreement',
+    templateUrl: 'app/register/register_agreement.html',
+  })
+
   .state('register', {
     url: '/register',
     templateUrl: 'app/register/register.html',
