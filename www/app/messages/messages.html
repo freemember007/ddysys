@@ -181,13 +181,13 @@
         </div>
       </ion-content>
 
-      <form name="sendMessageForm" ng-submit="sendMessage(sendMessageForm)" novalidate>
+      <form name="sendMessageForm" novalidate>
         <ion-footer-bar class="bar-stable item-input-inset message-footer">
           <label class="item-input-wrapper">
             <textarea ng-model="input.message" value="" placeholder="回复{{toUser.hzxm}}..." required minlength="1" maxlength="1500" style="width:100%"></textarea>
           </label>
           <div class="footer-btn-wrap">
-            <button class="button button-icon icon ion-android-send footer-btn" type="submit" ng-disabled="!input.message || input.message === ''">
+            <button class="button button-icon icon ion-android-send footer-btn" ng-disabled="!input.message || input.message === ''" ng-click="sendMessage()">
             </button>
           </div>
         </ion-footer-bar>
