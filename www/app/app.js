@@ -1,31 +1,35 @@
-angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.controllers', 'underscore']) 
+angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.controllers', 'underscore'])
 
 
 //--------- 运行 ---------//
 .run(function($ionicPlatform, $rootScope, $ionicLoading, $state, $localStorage) {
   $ionicPlatform.ready(function() {
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       // cordova.plugins.Keyboard.disableScroll(true);
-      
     }
+
+    // 状态bar风格
     if (window.StatusBar) {
       // cordova-plugin-statusba required
       StatusBar.styleLightContent();
     }
 
+    // 全局loading
     $rootScope.$on('loading:show', function() {
-      $ionicLoading.show({template: '请稍等...'})
+      $ionicLoading.show({
+        template: '请稍等...'
+      })
     })
-
     $rootScope.$on('loading:hide', function() {
       $ionicLoading.hide()
     })
 
     // 登录状态判断
-    if($localStorage.get('token')){
+    if ($localStorage.get('token')) {
       $state.go('tab.home');
     } else {
       $state.go('login');
@@ -81,7 +85,7 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
   $stateProvider
 
   // tab组
-  .state('tab', {
+    .state('tab', {
     url: '/tab',
     abstract: true,
     templateUrl: 'app/home/tabs.html',
@@ -99,16 +103,18 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
 
   // 日程
   .state('events', {
-    url: '/events/:patientId',
-    templateUrl: 'app/events/events.html',
-    controller: 'EventsCtrl'
-  })
-  .state('events_detail', {
-    url: '/events/:eventId',
-    templateUrl: 'app/events/events_detail.html',
-    controller: 'EventsDetailCtrl',
-    params: {event: null}
-  })
+      url: '/events/:patientId',
+      templateUrl: 'app/events/events.html',
+      controller: 'EventsCtrl'
+    })
+    .state('events_detail', {
+      url: '/events/:eventId',
+      templateUrl: 'app/events/events_detail.html',
+      controller: 'EventsDetailCtrl',
+      params: {
+        event: null
+      }
+    })
 
 
   // 患者
@@ -186,41 +192,41 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
     controller: 'AccountCtrl'
   })
 
-    .state('account_rate', {
-      url: '/account/rate',
-      templateUrl: 'app/account/account_rate.html',
-      controller: 'AccountRateCtrl'
-    })
+  .state('account_rate', {
+    url: '/account/rate',
+    templateUrl: 'app/account/account_rate.html',
+    controller: 'AccountRateCtrl'
+  })
 
-    .state('account_barcode', {
-      url: '/account/barcode',
-      templateUrl: 'app/account/account_barcode.html',
-      controller: 'AccountBarcodeCtrl'
-    })
+  .state('account_barcode', {
+    url: '/account/barcode',
+    templateUrl: 'app/account/account_barcode.html',
+    controller: 'AccountBarcodeCtrl'
+  })
 
-    .state('account_timetable', {
-      url: '/account/timetable',
-      templateUrl: 'app/account/account_timetable.html',
-      controller: 'AccountTimetableCtrl'
-    })
+  .state('account_timetable', {
+    url: '/account/timetable',
+    templateUrl: 'app/account/account_timetable.html',
+    controller: 'AccountTimetableCtrl'
+  })
 
-    .state('account_info', {
-      url: '/account/info',
-      templateUrl: 'app/account/account_info.html',
-      controller: 'AccountInfoCtrl'
-    })
+  .state('account_info', {
+    url: '/account/info',
+    templateUrl: 'app/account/account_info.html',
+    controller: 'AccountInfoCtrl'
+  })
 
-    .state('account_set', {
-      url: '/account/set',
-      templateUrl: 'app/account/account_set.html',
-      controller: 'AccountSetCtrl'
-    })
+  .state('account_set', {
+    url: '/account/set',
+    templateUrl: 'app/account/account_set.html',
+    controller: 'AccountSetCtrl'
+  })
 
-    .state('account_modpwd', {
-      url: '/account_modpwd',
-      templateUrl: 'app/account/account_modpwd.html',
-      controller: 'AccountModpwdCtrl'
-    })
+  .state('account_modpwd', {
+    url: '/account_modpwd',
+    templateUrl: 'app/account/account_modpwd.html',
+    controller: 'AccountModpwdCtrl'
+  })
 
 
   // 登录、注册、重置密码
@@ -282,12 +288,12 @@ angular.module('ddysys.filters', []);
 angular.module('ddysys.directives', []);
 angular.module('ddysys.controllers', ['ddysys.services', 'ddysys.directives', 'ddysys.filters']);
 angular.module('underscore', [])
-.factory('_', function($window) {
-  return $window._; // assumes underscore has already been loaded on the page
-});
+  .factory('_', function($window) {
+    return $window._; // assumes underscore has already been loaded on the page
+  });
 
 //--------- 全局函数 ---------//
 // onerror
-function onProfilePicError(ele){
+function onProfilePicError(ele) {
   ele.src = 'img/default_nomale_head_photo.png'
 }

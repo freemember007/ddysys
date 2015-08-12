@@ -4,6 +4,9 @@ angular.module('ddysys.controllers')
 //--------- 我的controller ---------//
 .controller('AccountCtrl', function($scope, $state, $localStorage, $cordovaToast) {
 
+  $scope.$on( "$ionicView.enter", function(){
+    $scope.active('isTab4');
+  })
   $scope.user = $localStorage.getObject('user');
 
   $scope.doLogout = function() {

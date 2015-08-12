@@ -1,0 +1,15 @@
+{
+  "name": "ddysys",
+  "version": "1.0.0",
+  "description": "push test",
+  "main": "SendNotification.js",
+  "scripts": {
+    "test": "node SendNotification.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apn": "^1.7.4",
+    "url": "^0.10.3"
+  }
+}

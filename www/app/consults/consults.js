@@ -4,6 +4,9 @@ angular.module('ddysys.controllers')
 //--------- 咨询列表controller ---------//
 .controller('ConsultsCtrl', function($scope, Consults) {
 
+  $scope.$on( "$ionicView.enter", function(){
+    $scope.active('isTab3');
+  })
   $scope.setType = function(type) {
     $scope.type = type;
     Consults.all(type).then(function(data){

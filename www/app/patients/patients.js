@@ -4,11 +4,15 @@ angular.module('ddysys.controllers')
 //--------- 患者列表controller ---------//
 .controller('PatientsCtrl', function($scope, Patients) {
 
+  $scope.$on( "$ionicView.enter", function(){
+    $scope.active('isTab2');
+  })
   sortList(Patients.getLocal())
 
   Patients.all().then(function(data) {
     if(!data) return;
     var list = _.sortBy(data.docPatientVoList, 'patId');
+    $scope.reqCount = _.countBy(list, {status: "0"}).true;
     Patients.setLocal(list);
     sortList(Patients.getLocal())
   })
