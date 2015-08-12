@@ -30,6 +30,11 @@ angular.module('ddysys.controllers')
     $scope.active('isTab1');
   })
 
+  // 注册推送
+  if (ionic.Platform.isIOS()) {
+    pushService.register();
+  }
+
   $scope.user = $localStorage.getObject('user');
   var postData = new PostData('appindex');
 
@@ -43,10 +48,5 @@ angular.module('ddysys.controllers')
     });
     badge.set('home', allUnreadCount);
   })
-
-  // 注册推送
-  if (ionic.Platform.isIOS()) {
-    pushService.register();
-  }
 
 })

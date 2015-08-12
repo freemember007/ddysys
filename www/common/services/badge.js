@@ -11,12 +11,12 @@ angular.module('ddysys.services')
     set: function(type, number) {
       $rootScope.badge[type] = number;
       $localStorage.set('badge-' + type, $rootScope.badge[type]);
-      if (ionic.Platform.isIOS()) $cordovaPush.setBadge($rootScope.badge.home + $rootScope.badge.patients);
+      if (ionic.Platform.isIOS()) $cordovaPush.setBadgeNumber($rootScope.badge.home + $rootScope.badge.patients);
     },
     plus: function(type, number) {
       $rootScope.badge[type] += 1;
       $localStorage.set('badge-' + type, $rootScope.badge[type]);
-      if (ionic.Platform.isIOS()) $cordovaPush.setBadge($rootScope.badge.home + $rootScope.badge.patients);
+      if (ionic.Platform.isIOS()) $cordovaPush.setBadgeNumber($rootScope.badge.home + $rootScope.badge.patients);
     },
     minus: function(id) {
       $rootScope.badge[type] -= 1;

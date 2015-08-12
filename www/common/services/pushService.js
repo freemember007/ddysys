@@ -16,7 +16,7 @@ angular.module('ddysys.services')
         var postData = new PostData('appupdatepushid');
         postData.pushId = result;
         $http.post('api', postData).then(function(data){
-          if(data) alert('推送ID已成功保存至服务器');
+          if(data) console.log('推送ID已成功保存至服务器');
         })
       }, function(err) {
         alert('Registration error: ' + err)
