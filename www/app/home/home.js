@@ -2,11 +2,14 @@ angular.module('ddysys.controllers')
 
 
 //--------- tab controller ---------//
-.controller('tabCtrl', function($scope, $state, $rootScope) {
+.controller('tabCtrl', function($scope, $state, $rootScope, $localStorage) {
 
   $scope.settings = {
     isTab1: true,
   }
+
+  $scope.badgeNumberHome = Number($localStorage.get('badgeNumberHome')) || 0;
+  $scope.badgeNumberPatients = Number($localStorage.get('badgeNumberPatients')) || 0;
 
   $scope.active = function(tab) {
     $scope.settings = {
@@ -34,7 +37,14 @@ angular.module('ddysys.controllers')
   $http.post('api', postData).then(function(data) {
     if (!data) return;
     $scope.docSchedules = data.dsList.slice(0, 2);
-    $scope.UserMessages = data.umList;
+    $scope.userMessages = data.umList;
+    var badgeNumber = 0;
+    _.each(data.umList, function(element){
+      badgeNumber += element.unreadCount;
+    });
+    $scope.badgeNumberHome = badgeNumber;
+    $localStorage.set('badgeNumberHome', $scope.badgeNumberHome)
+
   })
 
   // 注册推送

@@ -2,7 +2,7 @@ angular.module('ddysys.services')
 
 
 //--------- 本地存储 ---------//
-.factory('pushService', ['$http', '$rootScope', '$state', '$cordovaPush', function($http, $rootScope, $state, $cordovaPush) {
+.factory('pushService', ['$http', '$rootScope', '$state', '$cordovaPush', 'PostData', function($http, $rootScope, $state, $cordovaPush, PostData) {
   return {
     register: function() {
       var iosConfig = {
@@ -13,7 +13,11 @@ angular.module('ddysys.services')
       $cordovaPush.register(iosConfig).then(function(result) {
         console.log('result: ' + result)
         $rootScope.deviceToken = result;
-        //$http.post('http://server.co/', {user: 'Bob', tokenID: result.deviceToken})
+        var postData = new PostData('appupdatepushid');
+        postData.pushId = result;
+        $http.post('api', postData).then(function(data){
+          if(data) alert('推送ID已成功保存至服务器');
+        })
       }, function(err) {
         alert('Registration error: ' + err)
       });

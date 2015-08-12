@@ -2,7 +2,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 患者列表controller ---------//
-.controller('PatientsCtrl', function($scope, Patients) {
+.controller('PatientsCtrl', function($scope, Patients, $localStorage) {
 
   $scope.$on( "$ionicView.enter", function(){
     $scope.active('isTab2');
@@ -12,7 +12,8 @@ angular.module('ddysys.controllers')
   Patients.all().then(function(data) {
     if(!data) return;
     var list = _.sortBy(data.docPatientVoList, 'patId');
-    $scope.reqCount = _.countBy(list, {status: "0"}).true;
+    $scope.badgeNumberPatients = _.countBy(list, {status: "0"}).true;
+    $localStorage.setObject('badgeNumberPatients', $scope.badgeNumberPatients)
     Patients.setLocal(list);
     sortList(Patients.getLocal())
   })

@@ -12,6 +12,13 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
       // cordova.plugins.Keyboard.disableScroll(true);
     }
 
+    // if ('addEventListener' in document) {
+    //   document.addEventListener('DOMContentLoaded', function() {
+    //     alert(FastClick)
+    //     FastClick.attach(document.body);
+    //   }, false);
+    // }
+
     // 状态bar风格
     if (window.StatusBar) {
       // cordova-plugin-statusba required

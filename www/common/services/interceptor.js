@@ -2,10 +2,10 @@ angular.module('ddysys.services')
 
 .factory('PostData', function($localStorage){
   var PostData = function(service) {
-    this.spid = '9901';
+    this.spid = '9920';
     this.channel = '1';
     this.random = '1234';
-    this.sign = '3120e0d0313ddc4e9aceb818be24c03b';
+    this.sign = 'c559573c2589f78d376da8476edf946a';
     this.format = 'JSON';
     this.oper = '127.0.0.1';
     this.token = $localStorage.get('token');

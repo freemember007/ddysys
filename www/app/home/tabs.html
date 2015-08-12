@@ -27,16 +27,17 @@
 
     <!-- TABS -->
     <div class="tabs tabs-icon-top">
-        <a class="tab-item" ui-sref="tab.home" nav-direction="none" ng-class="{ active : settings.isTab1}">
+        <a class="tab-item has-badge" ui-sref="tab.home" nav-direction="none" ng-class="{ active : settings.isTab1}">
+            <span class="badge badge-assertive" ng-show="badgeNumberHome">{{badgeNumberHome}}</span>
             <i class="icon ion-ios-pulse"></i> 首页
         </a>
         <a class="tab-item has-badge" ui-sref="tab.patients" nav-direction="none" ng-class="{active: settings.isTab2}">
-            <span class="badge badge-assertive">3</span>
+            <span class="badge badge-assertive" ng-show="badgeNumberPatients">{{badgeNumberPatients}}</span>
             <i class="icon ion-ios-people-outline" ></i>患者
         </a>
         <a class="tab-item" ui-sref="tab.consults" nav-direction="none" ng-class="{ active : settings.isTab3, 'has-badge' : settings.numberOfBadges != 0}">
             <i class="icon ion-ios-chatboxes-outline"></i> 咨询 
-<!--<span class="badge badge-assertive" ng-if="settings.numberOfBages != 0">{{settings.numberOfBadges}}</span>-->        </a>
+        </a>
         <a class="tab-item" ui-sref="tab.account" nav-direction="none" ng-class="{ active : settings.isTab4}">
             <i class="icon ion-ios-gear-outline" ></i> 我
         </a>
