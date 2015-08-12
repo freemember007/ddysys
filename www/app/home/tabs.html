@@ -28,11 +28,11 @@
     <!-- TABS -->
     <div class="tabs tabs-icon-top">
         <a class="tab-item has-badge" ui-sref="tab.home" nav-direction="none" ng-class="{ active : settings.isTab1}">
-            <span class="badge badge-assertive" ng-show="badgeNumberHome">{{badgeNumberHome}}</span>
+            <span class="badge badge-assertive" ng-if="badge.home">{{badge.home}}</span>
             <i class="icon ion-ios-pulse"></i> 首页
         </a>
         <a class="tab-item has-badge" ui-sref="tab.patients" nav-direction="none" ng-class="{active: settings.isTab2}">
-            <span class="badge badge-assertive" ng-show="badgeNumberPatients">{{badgeNumberPatients}}</span>
+            <span class="badge badge-assertive" ng-if="badge.patients">{{badge.patients}}</span>
             <i class="icon ion-ios-people-outline" ></i>患者
         </a>
         <a class="tab-item" ui-sref="tab.consults" nav-direction="none" ng-class="{ active : settings.isTab3, 'has-badge' : settings.numberOfBadges != 0}">

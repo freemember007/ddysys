@@ -3,7 +3,7 @@
 
     <a class="item item-icon-left" ui-sref="patients_requests">
       <img class="icon padding" src="img/new_patient.png"> &nbsp;&nbsp;新的患者请求
-      <span class="badge badge-assertive">{{badgeNumberPatients}}</span>
+      <span class="badge badge-assertive" ng-if="badge.patients">{{badge.patients}}</span>
     </a>
 
     <ion-list>

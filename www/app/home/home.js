@@ -2,14 +2,13 @@ angular.module('ddysys.controllers')
 
 
 //--------- tab controller ---------//
-.controller('tabCtrl', function($scope, $state, $rootScope, $localStorage) {
+.controller('tabCtrl', function($scope, $state, $rootScope, $localStorage, badge) {
 
   $scope.settings = {
     isTab1: true,
   }
 
-  $scope.badgeNumberHome = Number($localStorage.get('badgeNumberHome')) || 0;
-  $scope.badgeNumberPatients = Number($localStorage.get('badgeNumberPatients')) || 0;
+  badge.get();
 
   $scope.active = function(tab) {
     $scope.settings = {
@@ -25,7 +24,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 首页 controller ---------//
-.controller('HomeCtrl', function($scope, $localStorage, PostData, $http, pushService) {
+.controller('HomeCtrl', function($scope, $localStorage, PostData, $http, pushService, badge) {
 
   $scope.$on( "$ionicView.enter", function(){
     $scope.active('isTab1');
@@ -38,13 +37,11 @@ angular.module('ddysys.controllers')
     if (!data) return;
     $scope.docSchedules = data.dsList.slice(0, 2);
     $scope.userMessages = data.umList;
-    var badgeNumber = 0;
+    var allUnreadCount = 0;
     _.each(data.umList, function(element){
-      badgeNumber += element.unreadCount;
+      allUnreadCount += element.unreadCount;
     });
-    $scope.badgeNumberHome = badgeNumber;
-    $localStorage.set('badgeNumberHome', $scope.badgeNumberHome)
-
+    badge.set('home', allUnreadCount);
   })
 
   // 注册推送

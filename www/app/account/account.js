@@ -40,8 +40,9 @@ angular.module('ddysys.controllers')
 
 
 //--------- 二维码controller ---------//
-.controller('AccountBarcodeCtrl', function($scope, $http, $localStorage) {
+.controller('AccountBarcodeCtrl', function($scope, $http, $localStorage, badge) {
 
+  badge.plus('home',1) //just test
   $scope.user = $localStorage.getObject('user');
   $scope.doctor = $localStorage.getObject('doctor');
 
@@ -49,7 +50,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 出诊时间controller ---------//
-.controller('AccountTimetableCtrl', function($scope, $http, PostData) {
+.controller('AccountTimetableCtrl', function($scope, $http, PostData,$rootScope) {
 
   var postData = new PostData('appdocScheme');
   postData.orgid = '157502';
