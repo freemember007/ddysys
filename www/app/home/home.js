@@ -42,6 +42,14 @@ angular.module('ddysys.controllers')
     if (!data) return;
     $scope.docSchedules = data.dsList.slice(0, 2);
     $scope.userMessages = data.umList;
+    _.map($scope.userMessages, function(item){
+      if(item.msgType === 'P'){
+        item.msgContent = '[图片]';
+      }else if(item.msgType === 'A'){
+        item.msgContent = '[语音]';
+      }
+      console.log(item.msgContent)
+    })
     var allUnreadCount = 0;
     _.each(data.umList, function(element){
       allUnreadCount += element.unreadCount;

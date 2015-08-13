@@ -166,6 +166,9 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
     url: '/messages/:patientId',
     templateUrl: 'app/messages/messages.html',
     controller: 'MessagesCtrl',
+    // params: {
+    //   patient: null
+    // }
   })
 
   // 咨询

@@ -11,7 +11,7 @@
         {{patients[0] === '1' ? "星标患者" : "普通患者"}}
       </ion-item>
       <a ng-repeat-end class="item item-icon-left" ng-repeat="patient in patients[1]" ui-sref="patients_detail({patientId: patient.patId})">
-        <img class="icon padding" ng-src="{{patient.faceUrl}}"> &nbsp;{{patient.hzxm}}&nbsp;{{patient.patId}}岁
+        <img class="icon padding" ng-src="{{patient.faceUrl}}"> &nbsp;{{patient.hzxm}}&nbsp;{{patient.patAge}}岁
       </a>
     </ion-list>
 

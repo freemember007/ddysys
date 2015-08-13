@@ -12,7 +12,8 @@ angular.module('ddysys.controllers')
   Patients.all().then(function(data) {
     if(!data) return;
     var list = _.sortBy(data.docPatientVoList, 'patId');
-    badge.set('patients', _.countBy(list, {status: "0"}).true);
+    var count = _.countBy(list, {status: "0"}).true || 0; //如果没有匹配结果会返回undefined，这会引发后续错误，故或0
+    badge.set('patients', count);
     Patients.setLocal(list);
     sortList(Patients.getLocal())
   })

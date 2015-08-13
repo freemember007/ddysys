@@ -44,4 +44,36 @@ angular.module('ddysys.directives')
       });
     }
   };
-});
+})
+
+
+.directive("zoomView", function($compile, $ionicModal) {
+
+  return {
+
+    restrict: "A",
+
+    link: function link(scope, elem, attr) {
+
+      elem.attr("ng-click", "showZoomView()");
+      elem.removeAttr("zoom-view");
+      $compile(elem)(scope);
+
+      $ionicModal.fromTemplateUrl('app/templates/zoom_view.html', {
+        scope: scope,
+        animation: "slide-in-up"
+      }).then(function(modal){
+        scope.zoomViewModal = modal;
+      });
+
+      scope.showZoomView = function() {
+        scope.zoomViewModal.show();
+        scope.ngSrc = attr.ngSrc;
+      };
+
+      scope.closeZoomView = function() {
+        scope.zoomViewModal.hide();
+      };
+    }
+  };
+})
