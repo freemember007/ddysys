@@ -2,7 +2,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 聊天controller ---------//
-.controller('MessagesCtrl', function($scope, $ionicScrollDelegate, Messages, $stateParams, $localStorage, _, PostData, $http, $ionicModal) {
+.controller('MessagesCtrl', function($scope, $ionicScrollDelegate, Messages, $stateParams, $localStorage, _, PostData, $http, $ionicModal, $imageHelper, $fileHelper, $cordovaMedia, $timeout) {
 
   $scope.user = $localStorage.getObject('user');
   $scope.toUser = _.findWhere($localStorage.getObject('patients'), {
@@ -28,7 +28,8 @@ angular.module('ddysys.controllers')
         console.log(message.msgContent)
       })
 
-      $ionicScrollDelegate.scrollBottom();
+      // $ionicScrollDelegate.scrollBottom();
+      $ionicScrollDelegate.$getByHandle('main').scrollBottom();
     });
   }
 
@@ -59,11 +60,49 @@ angular.module('ddysys.controllers')
     $scope.zoomViewModal.remove();
   });
 
-  $scope.sendMessage = function() {
+  $scope.uploadImage = function() {
+    $imageHelper.choose(function(status) {
+      $imageHelper.getImage(status, function(imageUrl) {
+        alert(imageUrl)
+        $fileHelper.upload(imageUrl, {
+          service: 'appuploadimg',
+          type: '6'
+        }, function(res) {
+          if (res && res.filePath) {
+            $scope.sendMessage('P', res.filePath);
+          }
+        })
+      })
+    })
+  }
+
+  $scope.uploadAudio = function() {
+    var src = 'beep.aac';
+    var media = $cordovaMedia.newMedia(src);
+    media.startRecord();
+    function play(){
+      media.stopRecord();
+      alert(angular.toJson(media));
+      // alert(media.src);
+      media.setVolume(0.5);
+      media.play();
+      $fileHelper.upload(cordova.file.tempDirectory + 'beep.aac', {
+        service: 'appuploadaudio',
+        type: '11'
+      }, function(res) {
+        if (res && res.filePath) {
+          $scope.sendMessage('A', res.filePath);
+        }
+      })
+    }
+    $timeout(play,1000);
+  }
+
+  $scope.sendMessage = function(type, content) {
     var postData = new PostData('appsendmessage');
     postData.patId = $stateParams.patientId;
-    postData.msgType = 'T';
-    postData.msgContent = $scope.input.message;
+    postData.msgType = type || 'T';
+    postData.msgContent = content || $scope.input.message;
     $http.post('api', postData).then(function(data) {
       if (!data) return;
       $scope.input.message = '';

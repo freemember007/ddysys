@@ -51,6 +51,7 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
 
   // 定义常量
   $provide.constant('apiUrl', 'http://192.168.1.12:8004/app');
+  // $provide.constant('apiUrl', 'http://192.168.0.140:8080/gh_ws_webfep/app');
   // $provide.constant('apiUrl', 'http://teyangnet.eicp.net:8004/app');
 
   // 允许CORS请求

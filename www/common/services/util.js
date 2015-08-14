@@ -95,10 +95,10 @@ angular.module('ddysys.services')
         .then(function(result) {
           $rootScope.$broadcast('loading:hide');
           callback(angular.fromJson(result.response))
-          $cordovaCamera.cleanup()
+          // $cordovaCamera.cleanup()
         }, function(err) {
           $rootScope.$broadcast('loading:hide');
-          alert('文件上传错误，请重试。')
+          alert(angular.toJson(err) + '文件上传错误，请重试。')
         }, function (progress) {
           // alert('progress')
       });

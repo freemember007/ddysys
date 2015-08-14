@@ -16,7 +16,7 @@ angular.module('ddysys.services')
         var postData = new PostData('appupdatepushid');
         postData.pushId = result;
         $http.post('api', postData).then(function(data){
-          if(data) alert('推送ID已成功保存至服务器');
+          if(data) console.log('推送ID已成功保存至服务器');
         })
       }, function(err) {
         alert('Registration error: ' + err)
@@ -29,6 +29,9 @@ angular.module('ddysys.services')
             case 'B1':
               $state.go('messages', { patientId: notification.patId });
               break;
+            case 'A1':
+              $state.go('patients_requests');
+              break;
             default:
               $state.go('tab.patients')
           }
@@ -36,6 +39,9 @@ angular.module('ddysys.services')
           switch(notification.type){
             case 'B1':
               badge.plus('home');
+              break;
+            case 'A1':
+              badge.plus('patients');
               break;
             default:
               badge.plus('patients');

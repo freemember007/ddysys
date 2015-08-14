@@ -1,196 +1,195 @@
 <ion-view view-title="{{toUser.hzxm}}" cache-view="false">
-  <ion-content>
-
-    <style>
-/*    body, .ionic-body {
+  <style>
+  /*    body, .ionic-body {
       position: static;
     }*/
-    
-    .bar-footer {
-      overflow: visible !important;
-    }
-    
-    .bar-footer textarea {
-      resize: none;
-      height: 25px;
-    }
-    
-    button.ion-android-send {
-      padding-top: 2px;
-    }
-    
-    .footer-btn-wrap {
-      position: relative;
-      height: 100%;
-      width: 50px;
-      top: 7px;
-    }
-    
-    .footer-btn {
-      position: absolute !important;
-      bottom: 0;
-    }
-    
-    img.profile-pic {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      position: absolute;
-      bottom: 10px;
-    }
-    
-    img.profile-pic.left {
-      left: 10px;
-    }
-    
-    img.profile-pic.right {
-      right: 10px;
-    }
-    
-    .ion-email {
-      float: right;
-      font-size: 32px;
-      vertical-align: middle;
-    }
-    
-    .message {
-      font-size: 14px;
-    }
-    
-    .message-detail {
-      white-space: nowrap;
-      font-size: 14px;
-    }
-    
-    .bar.item-input-inset .item-input-wrapper input {
-      width: 100% !important;
-    }
-    
-    .message-wrapper {
-      position: relative;
-    }
-    
-    .message-wrapper:last-child {
-      margin-bottom: 10px;
-    }
-    
-    .chat-bubble {
-      border-radius: 5px;
-      display: inline-block;
-      padding: 10px 18px;
-      position: relative;
-      margin: 10px;
-      max-width: 80%;
-    }
-    
-    .chat-bubble:before {
-      content: "\00a0";
-      display: block;
-      height: 16px;
-      width: 9px;
-      position: absolute;
-      bottom: -7.5px;
-    }
-    
-    .chat-bubble.left {
-      background-color: #e6e5eb;
-      float: left;
-      margin-left: 55px;
-    }
-    
-    .chat-bubble.left:before {
-      background-color: #e6e5eb;
-      left: 10px;
-      -webkit-transform: rotate(70deg) skew(5deg);
-    }
-    
-    .chat-bubble.right {
-      background-color: #158ffe;
-      color: #fff;
-      float: right;
-      margin-right: 55px;
-    }
-    
-    .chat-bubble.right:before {
-      background-color: #158ffe;
-      right: 10px;
-      -webkit-transform: rotate(118deg) skew(-5deg);
-    }
-    
-    .user-messages-top-icon {
-      font-size: 28px;
-      display: inline-block;
-      vertical-align: middle;
-      position: relative;
-      top: -3px;
-      right: 5px;
-    }
-    
-    .msg-header-username {
-      display: inline-block;
-      vertical-align: middle;
-      position: relative;
-      top: -3px;
-    }
-    
-    input,
-    textarea,
-    .item-input,
-    .item-input-wrapper {
-      background-color: #f4f4f4 !important;
-    }
-    
-    .bold {
-      font-weight: bold;
-    }
-    
-    .cf {
-      clear: both !important;
-    }
-
-    </style>
-
-        <div ng-repeat="message in messages" class="message-wrapper" on-hold="onMessageHold($event, $index, message)">
-          
-          <!-- 如果是患者 -->
-          <div ng-if="message.msgSource === 'U'">
-            <img ng-click="viewProfile(message)" class="profile-pic left" ng-src="{{toUser.faceUrl||'img/default_nomale_head_photo.png'}}" onerror="onerror="onProfilePicError(this)" />
-            <div class="chat-bubble left">
-              <div class="message" ng-click="message.msgType === 'A' && play(message.audioUrl) || message.msgType === 'P' && zoomImage(message.imageUrl)" ng-bind-html="message.msgContent">
-              </div>
-              <div class="message-detail">
-                <span ng-click="viewProfile(message)" class="bold">{{toUser.hzxm}}</span>,
-                <span am-time-ago="">{{message.sentTime|date:"MM-dd hh:mm:ss"}}</span>
-              </div>
-            </div>
+  
+  .bar-footer {
+    overflow: visible !important;
+  }
+  
+  .bar-footer textarea {
+    resize: none;
+    height: 25px;
+  }
+  
+  button.ion-android-send {
+    padding-top: 2px;
+  }
+  
+  .footer-btn-wrap {
+    position: relative;
+    height: 100%;
+    width: 50px;
+    top: 7px;
+  }
+  
+  .footer-btn {
+    position: absolute !important;
+    bottom: 0;
+  }
+  
+  img.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 10px;
+  }
+  
+  img.profile-pic.left {
+    left: 10px;
+  }
+  
+  img.profile-pic.right {
+    right: 10px;
+  }
+  
+  .ion-email {
+    float: right;
+    font-size: 32px;
+    vertical-align: middle;
+  }
+  
+  .message {
+    font-size: 14px;
+  }
+  
+  .message-detail {
+    white-space: nowrap;
+    font-size: 14px;
+  }
+  
+  .bar.item-input-inset .item-input-wrapper input {
+    width: 100% !important;
+  }
+  
+  .message-wrapper {
+    position: relative;
+  }
+  
+  .message-wrapper:last-child {
+    margin-bottom: 10px;
+  }
+  
+  .chat-bubble {
+    border-radius: 5px;
+    display: inline-block;
+    padding: 10px 18px;
+    position: relative;
+    margin: 10px;
+    max-width: 80%;
+  }
+  
+  .chat-bubble:before {
+    content: "\00a0";
+    display: block;
+    height: 16px;
+    width: 9px;
+    position: absolute;
+    bottom: -7.5px;
+  }
+  
+  .chat-bubble.left {
+    background-color: #e6e5eb;
+    float: left;
+    margin-left: 55px;
+  }
+  
+  .chat-bubble.left:before {
+    background-color: #e6e5eb;
+    left: 10px;
+    -webkit-transform: rotate(70deg) skew(5deg);
+  }
+  
+  .chat-bubble.right {
+    background-color: #158ffe;
+    color: #fff;
+    float: right;
+    margin-right: 55px;
+  }
+  
+  .chat-bubble.right:before {
+    background-color: #158ffe;
+    right: 10px;
+    -webkit-transform: rotate(118deg) skew(-5deg);
+  }
+  
+  .user-messages-top-icon {
+    font-size: 28px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -3px;
+    right: 5px;
+  }
+  
+  .msg-header-username {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -3px;
+  }
+  
+  input,
+  textarea,
+  .item-input,
+  .item-input-wrapper {
+    background-color: #f4f4f4 !important;
+  }
+  
+  .bold {
+    font-weight: bold;
+  }
+  
+  .cf {
+    clear: both !important;
+  }
+  </style>
+  <ion-content delegate-handle="main">
+    <div ng-repeat="message in messages" class="message-wrapper">
+      
+      <!-- 如果是患者 -->
+      <div ng-if="message.msgSource === 'U'">
+        <img ng-click="viewProfile(message)" class="profile-pic left" ng-src="{{toUser.faceUrl||'img/default_nomale_head_photo.png'}}" onerror="onerror=" onProfilePicError(this) " />
+        <div class="chat-bubble left ">
+          <div class="message " ng-click="message.msgType==='A' && play(message.audioUrl) || message.msgType==='P' && zoomImage(message.imageUrl) " ng-bind-html="message.msgContent ">
           </div>
-
-          <!-- 如果是医生 -->
-          <div ng-if="message.msgSource === 'D'">
-            <img ng-click="viewProfile(message)" class="profile-pic right" ng-src="{{user.dFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)" />
-            <div class="chat-bubble right">
-              <div class="message" ng-click="message.msgType === 'A' && play(message.audioUrl) || message.msgType === 'P' && showZoomView(message.imageUrl)" ng-bind-html="message.msgContent">
-              </div>
-              <div class="message-detail">
-                <span ng-click="viewProfile(message)" class="bold">{{user.dName}}</span>,
-                <span am-time-ago="">{{message.sentTime|date:'MM-dd hh:mm:ss'}}</span>
-              </div>
-            </div>
+          <div class="message-detail ">
+            <span ng-click="viewProfile(message) " class="bold ">{{toUser.hzxm}}</span>,
+            <span am-time-ago=" ">{{message.sentTime|date:"MM-dd hh:mm:ss "}}</span>
           </div>
-          <div class="cf"></div>
         </div>
-      </ion-content>
+      </div>
 
-      <form name="sendMessageForm" novalidate>
-        <ion-footer-bar class="bar-stable item-input-inset message-footer">
-          <label class="item-input-wrapper">
-            <textarea ng-model="input.message" value="" placeholder="回复{{toUser.hzxm}}..." required minlength="1" maxlength="1500" style="width:100%"></textarea>
-          </label>
-          <div class="footer-btn-wrap">
-            <button class="button button-icon icon ion-android-send footer-btn" ng-disabled="!input.message || input.message === ''" ng-click="sendMessage()">
-            </button>
+      <!-- 如果是医生 -->
+      <div ng-if="message.msgSource==='D' ">
+        <img ng-click="viewProfile(message) " class="profile-pic right " ng-src="{{user.dFaceUrl|| 'img/default_nomale_head_photo.png'}} " onerror="onProfilePicError(this) " />
+        <div class="chat-bubble right ">
+          <div class="message " ng-click="message.msgType==='A' && play(message.audioUrl) || message.msgType==='P' && showZoomView(message.imageUrl) " ng-bind-html="message.msgContent ">
           </div>
-        </ion-footer-bar>
-      </form>
+          <div class="message-detail ">
+            <span ng-click="viewProfile(message) " class="bold ">{{user.dName}}</span>,
+            <span am-time-ago=" ">{{message.sentTime|date:'MM-dd hh:mm:ss'}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="cf ">
+      </div>
+
+    </div>
+  </ion-content>
+
+  <form name="sendMessageForm " novalidate>
+    <ion-footer-bar class="bar-stable item-input-inset message-footer ">
+      <label class="item-input-wrapper ">
+        <textarea ng-model="input.message " value=" " placeholder="回复{{toUser.hzxm}}... " required minlength="1 " maxlength="1500 " style="width:100% "></textarea>
+      </label>
+      <div class="footer-btn-wrap ">
+        <button class="button button-icon icon ion-android-send footer-btn "  ng-click="uploadAudio() ">
+        </button>
+      </div>
+    </ion-footer-bar>
+  </form>
 
 </ion-view>
