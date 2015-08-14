@@ -10,6 +10,13 @@ angular.module('ddysys.controllers')
   });
   // $scope.toUser = $stateParams.patient
   $scope.input = {};
+  $scope.input.audio = false;
+  $scope.input.text = true;
+
+  $scope.toggleInputStatus = function(){
+    $scope.input.audio = !$scope.input.audio;
+    $scope.input.text = !$scope.input.text;
+  }
 
   function init() {
     Messages.all($stateParams.patientId).then(function(data) {
@@ -36,8 +43,12 @@ angular.module('ddysys.controllers')
   init();
 
   $scope.play = function(audioUrl) {
-    var audio = new Audio(audioUrl);
-    audio.play();
+    // var audio = new Audio(audioUrl);
+    // audio.play();
+    var media = $cordovaMedia.newMedia(audioUrl);
+    media.play();
+    // media.release();
+
   }
 
   $ionicModal.fromTemplateUrl('app/templates/zoom_view.html', {
@@ -82,20 +93,19 @@ angular.module('ddysys.controllers')
     media.startRecord();
     function play(){
       media.stopRecord();
-      alert(angular.toJson(media));
-      // alert(media.src);
-      media.setVolume(0.5);
-      media.play();
+      // media.setVolume(0.5);
+      // media.play();
       $fileHelper.upload(cordova.file.tempDirectory + 'beep.aac', {
         service: 'appuploadaudio',
         type: '11'
       }, function(res) {
         if (res && res.filePath) {
           $scope.sendMessage('A', res.filePath);
+          // media.release();
         }
       })
     }
-    $timeout(play,1000);
+    $timeout(play,5000);
   }
 
   $scope.sendMessage = function(type, content) {

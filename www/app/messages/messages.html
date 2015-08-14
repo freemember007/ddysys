@@ -1,20 +1,15 @@
 <ion-view view-title="{{toUser.hzxm}}" cache-view="false">
   <style>
-  /*    body, .ionic-body {
-      position: static;
-    }*/
   
   .bar-footer {
     overflow: visible !important;
+    background-color: #fff;
   }
   
   .bar-footer textarea {
     resize: none;
     height: 25px;
-  }
-  
-  button.ion-android-send {
-    padding-top: 2px;
+    background-color: #fff;
   }
   
   .footer-btn-wrap {
@@ -22,11 +17,13 @@
     height: 100%;
     width: 50px;
     top: 7px;
+    background-color: #fff;
   }
   
   .footer-btn {
     position: absolute !important;
     bottom: 0;
+    background-color: #fff;
   }
   
   img.profile-pic {
@@ -45,12 +42,6 @@
     right: 10px;
   }
   
-  .ion-email {
-    float: right;
-    font-size: 32px;
-    vertical-align: middle;
-  }
-  
   .message {
     font-size: 14px;
   }
@@ -59,10 +50,7 @@
     white-space: nowrap;
     font-size: 14px;
   }
-  
-  .bar.item-input-inset .item-input-wrapper input {
-    width: 100% !important;
-  }
+
   
   .message-wrapper {
     position: relative;
@@ -130,24 +118,12 @@
     position: relative;
     top: -3px;
   }
-  
-  input,
-  textarea,
-  .item-input,
-  .item-input-wrapper {
-    background-color: #f4f4f4 !important;
-  }
-  
-  .bold {
-    font-weight: bold;
-  }
-  
-  .cf {
-    clear: both !important;
-  }
   </style>
-  <ion-content delegate-handle="main">
-    <div ng-repeat="message in messages" class="message-wrapper">
+
+  <ion-content delegate-handle="main" style="background:#f4f4f4">
+
+    <!-- 对话区 -->
+    <div ng-repeat="message in messages" class="message-wrapper" >
       
       <!-- 如果是患者 -->
       <div ng-if="message.msgSource === 'U'">
@@ -180,16 +156,37 @@
     </div>
   </ion-content>
 
-  <form name="sendMessageForm " novalidate>
-    <ion-footer-bar class="bar-stable item-input-inset message-footer ">
-      <label class="item-input-wrapper ">
-        <textarea ng-model="input.message " value=" " placeholder="回复{{toUser.hzxm}}... " required minlength="1 " maxlength="1500 " style="width:100% "></textarea>
+
+  <!-- 发区布 -->
+  <form name="sendMessageForm " novalidate style="background-color: #fff;">
+
+    <!-- 发文字 -->
+    <ion-footer-bar ng-if="input.text" class="bar-stable item-input-inset message-footer " style="background-color:#fff;">
+      <div class="footer-btn-wrap">
+        <input class="button button-icon footer-btn" height="32px" type="image" src="img/chat_voice.png" ng-click="toggleInputStatus()"/>
+      </div>
+
+      <label class="item-input-wrapper " style="background-color: #fff; ">
+        <input class="input item-input" ng-model="input.message " style="border: solid 1px #ccc; width:100%;" placeholder="回复{{toUser.hzxm}}... " required minlength="1 " maxlength="1500" style="width:100%"></input>
       </label>
-      <div class="footer-btn-wrap ">
-        <button class="button button-icon icon ion-android-send footer-btn "  ng-click="uploadAudio() ">
-        </button>
+
+      <div class="footer-btn-wrap" >
+        <button class="button button-icon icon ion-android-send footer-btn" ng-disabled="!input.message || input.message === ''" ng-click="sendMessage()">
+            </button>
       </div>
     </ion-footer-bar>
+
+    <!-- 发语音 -->
+    <ion-footer-bar ng-if="input.audio" class="bar-stable item-input-inset message-footer " style="background-color:#fff;">
+      <div class="footer-btn-wrap">
+        <input class="button button-icon footer-btn" height="32px" type="image" src="img/chat_keyboard.png" ng-click="toggleInputStatus()"/>
+      </div>
+
+      <button  style="margin-left:20px" class="button button-block " ng-click="uploadAudio()">
+        按住说话
+      </button> 
+    </ion-footer-bar>
+
   </form>
 
 </ion-view>

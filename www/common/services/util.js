@@ -72,7 +72,7 @@ angular.module('ddysys.services')
         }, function(err) {
           alert(error)
         });
-        // $cordovaCamera.cleanup(); // 此项打开会导致callback无法运行
+        $cordovaCamera.cleanup(); // 此项打开会导致callback无法运行
       };
     },
   }
@@ -95,10 +95,9 @@ angular.module('ddysys.services')
         .then(function(result) {
           $rootScope.$broadcast('loading:hide');
           callback(angular.fromJson(result.response))
-          // $cordovaCamera.cleanup()
         }, function(err) {
           $rootScope.$broadcast('loading:hide');
-          alert(angular.toJson(err) + '文件上传错误，请重试。')
+          alert('文件上传错误: ' + angular.toJson(err))
         }, function (progress) {
           // alert('progress')
       });

@@ -24,6 +24,14 @@
   float: right;
 }
 
+.cf {
+  clear: both !important;
+}
+
+.bold {
+  font-weight: bold;
+}
+
 .gray-c {
   color: #cccccc
 }
