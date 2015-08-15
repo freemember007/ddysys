@@ -50,7 +50,8 @@ angular.module('ddysys.services')
 
       'request': function(config) {
         if (config.url === 'api') {
-          $rootScope.$broadcast('loading:show');
+          // $rootScope.$broadcast('loading:show');
+          NProgress.start();
           config.url = apiUrl;
           console.log(config.data);
         }
@@ -58,12 +59,14 @@ angular.module('ddysys.services')
       },
 
       'requestError': function(rejection) {
-        $rootScope.$broadcast('loading:hide');
+        // $rootScope.$broadcast('loading:hide');
+        NProgress.done();
         alert('请求错误：' + rejection); 
       },
 
       'response': function(res) {
-        $rootScope.$broadcast('loading:hide');
+        // $rootScope.$broadcast('loading:hide');
+        NProgress.done();
         var data = res.data;
         if (res.config.url === apiUrl) {
           console.log(data);
@@ -80,7 +83,8 @@ angular.module('ddysys.services')
       },
 
       'responseError': function(res) { //处理HTTP错误
-        $rootScope.$broadcast('loading:hide');
+        // $rootScope.$broadcast('loading:hide');
+        NProgress.done();
         var status = res.status;
         if (status === 0 ) {
           alert('网络异常、超时或不支持跨域请求！');

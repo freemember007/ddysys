@@ -48,7 +48,7 @@ angular.module('ddysys.controllers')
       }else if(item.msgType === 'A'){
         item.msgContent = '[语音]';
       }
-      console.log(item.msgContent)
+      // console.log(item.msgContent)
     })
     var allUnreadCount = 0;
     _.each(data.umList, function(element){

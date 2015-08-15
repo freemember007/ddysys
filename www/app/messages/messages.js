@@ -2,7 +2,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 聊天controller ---------//
-.controller('MessagesCtrl', function($scope, $ionicScrollDelegate, Messages, $stateParams, $localStorage, _, PostData, $http, $ionicModal, $imageHelper, $fileHelper, $cordovaMedia, $timeout) {
+.controller('MessagesCtrl', function($scope, $ionicScrollDelegate, Messages, $stateParams, $localStorage, _, PostData, $http, $ionicModal, $imageHelper, $fileHelper, $cordovaMedia, $timeout, $interval, $cordovaToast) {
 
   $scope.user = $localStorage.getObject('user');
   $scope.toUser = _.findWhere($localStorage.getObject('patients'), {
@@ -12,8 +12,10 @@ angular.module('ddysys.controllers')
   $scope.input = {};
   $scope.input.audio = false;
   $scope.input.text = true;
+  $scope.input.isRecording = false
+  $scope.input.recordTime = "00:00";
 
-  $scope.toggleInputStatus = function(){
+  $scope.toggleInputStatus = function() {
     $scope.input.audio = !$scope.input.audio;
     $scope.input.text = !$scope.input.text;
   }
@@ -32,25 +34,21 @@ angular.module('ddysys.controllers')
           message.audioUrl = message.msgContent;
           message.msgContent = message.msgSource === 'D' ? '<img src="img/chatto_voice_playing.png">' : '<img src="img/chat_voice_frame.png">';
         }
-        console.log(message.msgContent)
+        // console.log(message.msgContent)
       })
 
-      // $ionicScrollDelegate.scrollBottom();
-      $ionicScrollDelegate.$getByHandle('main').scrollBottom();
+      $timeout(scroll, 300)
+
+      function scroll() {
+        $ionicScrollDelegate.$getByHandle('main').scrollBottom();
+      }
+
     });
   }
 
   init();
 
-  $scope.play = function(audioUrl) {
-    // var audio = new Audio(audioUrl);
-    // audio.play();
-    var media = $cordovaMedia.newMedia(audioUrl);
-    media.play();
-    // media.release();
-
-  }
-
+  // 放大图片
   $ionicModal.fromTemplateUrl('app/templates/zoom_view.html', {
     scope: $scope,
     animation: "slide-in-up"
@@ -71,10 +69,19 @@ angular.module('ddysys.controllers')
     $scope.zoomViewModal.remove();
   });
 
+  //播放声音
+  $scope.play = function(audioUrl) {
+    // var audio = new Audio(audioUrl);
+    // audio.play();
+    var media = $cordovaMedia.newMedia(audioUrl);
+    media.play();
+  }
+
+
+  // 发图片
   $scope.uploadImage = function() {
     $imageHelper.choose(function(status) {
       $imageHelper.getImage(status, function(imageUrl) {
-        alert(imageUrl)
         $fileHelper.upload(imageUrl, {
           service: 'appuploadimg',
           type: '6'
@@ -87,27 +94,57 @@ angular.module('ddysys.controllers')
     })
   }
 
-  $scope.uploadAudio = function() {
-    var src = 'beep.aac';
-    var media = $cordovaMedia.newMedia(src);
-    media.startRecord();
-    function play(){
-      media.stopRecord();
-      // media.setVolume(0.5);
-      // media.play();
-      $fileHelper.upload(cordova.file.tempDirectory + 'beep.aac', {
-        service: 'appuploadaudio',
-        type: '11'
-      }, function(res) {
-        if (res && res.filePath) {
-          $scope.sendMessage('A', res.filePath);
-          // media.release();
-        }
-      })
+  // 发语音
+  var src = 'beep.aac';
+  if (ionic.Platform.isIOS()) var media = $cordovaMedia.newMedia(src);
+
+  var mm = 0;
+  var ss = 0;
+  var str = '';
+  var t = null;
+  var timer = function() {
+    str = '';
+    if (++ss == 60) {
+      ++mm
+      ss = 0;
     }
-    $timeout(play,5000);
+    str += mm < 10 ? '0' + mm : mm;
+    str += ':';
+    str += ss < 10 ? '0' + ss : ss;
+    $scope.input.recordTime = str;
   }
 
+  $scope.startRecord = function() {
+    $scope.input.recordTime = "00:00";
+    t = $interval(timer, 1000);
+    $scope.input.isRecording = true;
+    media.startRecord();
+  }
+
+  $scope.uploadAudio = function() {
+    $interval.cancel(t); //清除定时器
+    $scope.input.isRecording = false;
+    $scope.input.recordTime = '00:00';
+    var _ss = ss;
+    mm = 0;
+    ss = 0;
+    media.stopRecord();
+    if(_ss<2){
+      $cordovaToast.showShortBottom('录音时间太短！');
+      return;
+    };
+    $fileHelper.upload(cordova.file.tempDirectory + 'beep.aac', {
+      service: 'appuploadaudio',
+      type: '11'
+    }, function(res) {
+      if (res && res.filePath) {
+        $scope.sendMessage('A', res.filePath);
+        // media.release(); 
+      }
+    })
+  }
+
+  // 发文本
   $scope.sendMessage = function(type, content) {
     var postData = new PostData('appsendmessage');
     postData.patId = $stateParams.patientId;

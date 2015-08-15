@@ -19,7 +19,7 @@ angular.module('ddysys.services')
           if(data) console.log('推送ID已成功保存至服务器');
         })
       }, function(err) {
-        alert('Registration error: ' + err)
+        console.log('Registration error: ' + err)
       });
 
       // 推送回调

@@ -118,9 +118,48 @@
     position: relative;
     top: -3px;
   }
+
+  .fullscreen-image {
+    max-width: 100%;
+    max-height: 100%;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+  }
+  .recording-mask {
+    position:absolute; 
+    left:0; 
+    right:0; 
+    bottom:0; 
+    top:0; 
+    width:100%; 
+    height:100%; 
+    background-color:#fff; 
+    filter:alpha(Opacity=90);-moz-opacity:0.9;opacity: 0.9;
+  }
+
+  
+  .recording-panel {
+    position: absolute;
+    top:50%;
+    left:50%;
+    margin-left:-100px; 
+    margin-top:-100px; 
+    color:#fff; 
+    text-align:center; 
+    vertical-align:center; 
+    width:200px;
+    height:200px;
+    color: #ccc;
+    font-size: 24px;
+    /*background-color:#eee;*/
+  }
   </style>
 
-  <ion-content delegate-handle="main" style="background:#f4f4f4">
+  <ion-content delegate-handle="main" style="background:#f4f4f4;margin-bottom:44px">
 
     <!-- 对话区 -->
     <div ng-repeat="message in messages" class="message-wrapper" >
@@ -156,33 +195,47 @@
     </div>
   </ion-content>
 
+  <!-- 录音弹层 -->
+  <div ng-if="input.isRecording">
+    <div class="recording-mask" />
+    </div>
+    <div class="recording-panel">
+      <img class="" src="img/1439633179_media-record.png" />
+      <h5 style="color:#999">录音中，持续时间:</h5>
+      <h3 style="color:#999">{{input.recordTime}}</h3>
+    </div>
+  </div>
 
   <!-- 发区布 -->
   <form name="sendMessageForm " novalidate style="background-color: #fff;">
 
     <!-- 发文字 -->
-    <ion-footer-bar ng-if="input.text" class="bar-stable item-input-inset message-footer " style="background-color:#fff;">
+    <ion-footer-bar ng-if="input.text" class="bar-stable item-input-inset message-footer " style="background-color:#fff; padding:10px 0;">
+
       <div class="footer-btn-wrap">
-        <input class="button button-icon footer-btn" height="32px" type="image" src="img/chat_voice.png" ng-click="toggleInputStatus()"/>
+        <button class="button button-icon ion-volume-high footer-btn" ng-click="toggleInputStatus()" />
+      </div>
+
+      <div class="footer-btn-wrap">
+        <button class="button button-icon ion-image footer-btn" ng-click="uploadImage()" />
       </div>
 
       <label class="item-input-wrapper " style="background-color: #fff; ">
-        <input class="input item-input" ng-model="input.message " style="border: solid 1px #ccc; width:100%;" placeholder="回复{{toUser.hzxm}}... " required minlength="1 " maxlength="1500" style="width:100%"></input>
+        <input class="input item-input" ng-model="input.message " style="border: solid 1px #ccc; width:100%;" placeholder="回复{{toUser.hzxm}}... " required minlength="1 " maxlength="1500" style="width:100%" />
       </label>
 
       <div class="footer-btn-wrap" >
-        <button class="button button-icon icon ion-android-send footer-btn" ng-disabled="!input.message || input.message === ''" ng-click="sendMessage()">
-            </button>
+        <button class="button button-icon icon ion-android-send footer-btn" ng-disabled="!input.message || input.message === ''" ng-click="sendMessage()" />
       </div>
     </ion-footer-bar>
 
     <!-- 发语音 -->
     <ion-footer-bar ng-if="input.audio" class="bar-stable item-input-inset message-footer " style="background-color:#fff;">
       <div class="footer-btn-wrap">
-        <input class="button button-icon footer-btn" height="32px" type="image" src="img/chat_keyboard.png" ng-click="toggleInputStatus()"/>
+        <button class="button button-icon ion-grid footer-btn" ng-click="toggleInputStatus()" />
       </div>
 
-      <button  style="margin-left:20px" class="button button-block " ng-click="uploadAudio()">
+      <button  style="margin-left:20px" class="button button-block " on-long-press="startRecord()" on-touch-end="uploadAudio()">
         按住说话
       </button> 
     </ion-footer-bar>

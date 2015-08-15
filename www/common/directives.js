@@ -62,7 +62,7 @@ angular.module('ddysys.directives')
       $ionicModal.fromTemplateUrl('app/templates/zoom_view.html', {
         scope: scope,
         animation: "slide-in-up"
-      }).then(function(modal){
+      }).then(function(modal) {
         scope.zoomViewModal = modal;
       });
 
@@ -74,6 +74,82 @@ angular.module('ddysys.directives')
       scope.closeZoomView = function() {
         scope.zoomViewModal.hide();
       };
+    }
+  };
+})
+
+// 'use strict';
+
+// .directive('onLongPress', ['$timeout', '$swipe', function($timeout, $swipe) {
+//   return {
+//     restrict: 'A',
+//     link: function($scope, $elm, $attrs) {
+
+//       $swipe.bind($elm, {
+//         'start': function(coords) {
+//           // Locally scoped variable that will keep track of the long press
+//           $scope.longPress = true;
+
+//           // We'll set a timeout for 600 ms for a long press
+//           $timeout(function() {
+//             if ($scope.longPress) {
+//               // If the touchend event hasn't fired,
+//               // apply the function given in on the element's on-long-press attribute
+//               $scope.$apply(function() {
+//                 $scope.$eval($attrs.onLongPress)
+//               });
+//             }
+//           }, 600);
+//         },
+//         'move': function(coords) {},
+//         'end': function(coords) {
+//           // Prevent the onLongPress event from firing
+//           $scope.longPress = false;
+//           // If there is an on-touch-end function attached to this element, apply it
+//           if ($attrs.onTouchEnd) {
+//             $scope.$apply(function() {
+//               $scope.$eval($attrs.onTouchEnd)
+//             });
+//           }
+//         },
+//         'cancel': function(coords) {}
+//       });
+
+//     }
+//   };
+// }]);
+
+// Add this directive where you keep your directives
+.directive('onLongPress', function($timeout) {
+  return {
+    restrict: 'A',
+    link: function($scope, $elm, $attrs) {
+      $elm.bind('touchstart', function(evt) {
+        // Locally scoped variable that will keep track of the long press
+        $scope.longPress = true;
+
+        // We'll set a timeout for 600 ms for a long press
+        $timeout(function() {
+          if ($scope.longPress) {
+            // If the touchend event hasn't fired,
+            // apply the function given in on the element's on-long-press attribute
+            $scope.$apply(function() {
+              $scope.$eval($attrs.onLongPress)
+            });
+          }
+        }, 600);
+      });
+
+      $elm.bind('touchend', function(evt) {
+        // Prevent the onLongPress event from firing
+        $scope.longPress = false;
+        // If there is an on-touch-end function attached to this element, apply it
+        if ($attrs.onTouchEnd) {
+          $scope.$apply(function() {
+            $scope.$eval($attrs.onTouchEnd)
+          });
+        }
+      });
     }
   };
 })

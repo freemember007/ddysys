@@ -83,7 +83,8 @@ angular.module('ddysys.services')
 .factory('$fileHelper', function($rootScope, $cordovaFileTransfer, apiUrl, PostData){
   return {
     upload: function(fileURL, appendParams, callback){
-      $rootScope.$broadcast('loading:show');
+      // $rootScope.$broadcast('loading:show');
+      NProgress.start();
       var options = {
         fileName: fileURL.substr(fileURL.lastIndexOf('/')+1), //服务端接口上这个必须有
         params: new PostData()
@@ -93,10 +94,12 @@ angular.module('ddysys.services')
 
       $cordovaFileTransfer.upload(apiUrl.replace('app','api'), fileURL, options) //此路径为api，不是app
         .then(function(result) {
-          $rootScope.$broadcast('loading:hide');
+          // $rootScope.$broadcast('loading:hide');
+          NProgress.done();
           callback(angular.fromJson(result.response))
         }, function(err) {
-          $rootScope.$broadcast('loading:hide');
+          // $rootScope.$broadcast('loading:hide');
+          NProgress.done();
           alert('文件上传错误: ' + angular.toJson(err))
         }, function (progress) {
           // alert('progress')
