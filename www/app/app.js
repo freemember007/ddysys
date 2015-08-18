@@ -50,9 +50,9 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
 .config(function($provide, $stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
 
   // 定义常量
-  // $provide.constant('apiUrl', 'http://192.168.1.12:8004/app');
+  $provide.constant('apiUrl', 'http://192.168.1.12:8004/app');
   // $provide.constant('apiUrl', 'http://192.168.0.140:8080/gh_ws_webfep/app');
-  $provide.constant('apiUrl', 'http://teyangnet.eicp.net:8004/app');
+  // $provide.constant('apiUrl', 'http://teyangnet.eicp.net:8004/app');
 
   // 允许CORS请求
   $httpProvider.defaults.useXDomain = true;
@@ -115,14 +115,19 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
       templateUrl: 'app/events/events.html',
       controller: 'EventsCtrl'
     })
-    .state('events_detail', {
-      url: '/events/:eventId',
-      templateUrl: 'app/events/events_detail.html',
-      controller: 'EventsDetailCtrl',
-      params: {
-        event: null
-      }
-    })
+  .state('events_detail', {
+    url: '/events/:eventId',
+    templateUrl: 'app/events/events_detail.html',
+    controller: 'EventsDetailCtrl',
+    params: {
+      event: null
+    }
+  })
+  .state('addEvent', {
+    url: '/addEvent/:patientId',
+    templateUrl: 'app/events/add_event.html',
+    controller: 'AddEventCtrl'
+  })
 
 
   // 患者
@@ -167,9 +172,9 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
     url: '/messages/:patientId',
     templateUrl: 'app/messages/messages.html',
     controller: 'MessagesCtrl',
-    // params: {
-    //   patient: null
-    // }
+    params: {
+      msg: null
+    }
   })
 
   // 咨询

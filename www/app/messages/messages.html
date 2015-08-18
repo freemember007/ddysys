@@ -161,18 +161,20 @@
 
   <ion-content delegate-handle="main" style="background:#f4f4f4;margin-bottom:44px">
 
+     <ion-refresher on-refresh="loadMore()" pulling-text="加载历史"></ion-refresher>
+
     <!-- 对话区 -->
     <div ng-repeat="message in messages" class="message-wrapper" >
       
       <!-- 如果是患者 -->
       <div ng-if="message.msgSource === 'U'">
-        <img ng-click="viewProfile(message)" class="profile-pic left" ng-src="{{toUser.faceUrl||'img/default_nomale_head_photo.png'}}" onerror="onerror=" onProfilePicError(this) " />
+        <img ui-sref="patients_detail({patientId:message.patId})" class="profile-pic left" ng-src="{{toUser.faceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)" />
         <div class="chat-bubble left ">
           <div class="message " ng-click="message.msgType==='A' && play(message.audioUrl) || message.msgType==='P' && zoomImage(message.imageUrl) " ng-bind-html="message.msgContent ">
           </div>
           <div class="message-detail ">
             <span ng-click="viewProfile(message) " class="bold ">{{toUser.hzxm}}</span>,
-            <span am-time-ago=" ">{{message.sentTime|date:"MM-dd hh:mm:ss "}}</span>
+            <span>{{message.sentTime|date:"MM-dd hh:mm"}}</span>
           </div>
         </div>
       </div>
@@ -185,7 +187,7 @@
           </div>
           <div class="message-detail ">
             <span ng-click="viewProfile(message) " class="bold ">{{user.dName}}</span>,
-            <span am-time-ago=" ">{{message.sentTime|date:'MM-dd hh:mm:ss'}}</span>
+            <span>{{message.sentTime|date:"MM-dd hh:mm"}}</span>
           </div>
         </div>
       </div>

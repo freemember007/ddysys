@@ -2,31 +2,28 @@ angular.module('ddysys.controllers')
 
 
 //--------- 聊天controller ---------//
-.controller('MessagesCtrl', function($scope, $ionicScrollDelegate, Messages, $stateParams, $localStorage, _, PostData, $http, $ionicModal, $imageHelper, $fileHelper, $cordovaMedia, $timeout, $interval, $cordovaToast) {
+.controller('MessagesCtrl', function($scope, $ionicScrollDelegate, Messages, $stateParams, $localStorage, _, PostData, $http, $ionicModal, $imageHelper, $fileHelper, $cordovaMedia, $timeout, $interval, $system) {
 
   $scope.user = $localStorage.getObject('user');
   $scope.toUser = _.findWhere($localStorage.getObject('patients'), {
     patId: Number($stateParams.patientId)
   });
-  // $scope.toUser = $stateParams.patient
   $scope.input = {};
+  $scope.input.message = $stateParams.msg || '';
   $scope.input.audio = false;
   $scope.input.text = true;
   $scope.input.isRecording = false
   $scope.input.recordTime = "00:00";
+  var page = 1;
+  var messages = [];
 
-  $scope.toggleInputStatus = function() {
-    $scope.input.audio = !$scope.input.audio;
-    $scope.input.text = !$scope.input.text;
-  }
-
-  function init() {
-    Messages.all($stateParams.patientId).then(function(data) {
+  //加载消息
+  function queryMsg(isFirst) {
+    if(isFirst) page = 1;
+    Messages.query($stateParams.patientId, page).then(function(data) {
       if (!data) return;
-      $scope.messages = _.sortBy(data.list, 'sentTime');
-
-      //用underscore的map函数进行数据转换
-      _.map($scope.messages, function(message) {
+      var list = _.sortBy(data.list, 'sentTime');
+      _.map(list, function(message) {
         if (message.msgType === 'P') {
           message.imageUrl = message.msgContent;
           message.msgContent = '<img width="100%" src="' + message.msgContent + '">';
@@ -34,19 +31,29 @@ angular.module('ddysys.controllers')
           message.audioUrl = message.msgContent;
           message.msgContent = message.msgSource === 'D' ? '<img src="img/chatto_voice_playing.png">' : '<img src="img/chat_voice_frame.png">';
         }
-        // console.log(message.msgContent)
       })
-
-      $timeout(scroll, 300)
-
-      function scroll() {
-        $ionicScrollDelegate.$getByHandle('main').scrollBottom();
+      if(isFirst){
+        messages = list;
+        $timeout(scrollBottom, 300);
+      }else{
+        messages = list.concat(messages);
+        $scope.$broadcast('scroll.refreshComplete');
       }
-
+      $scope.messages = messages
+      page ++;
     });
   }
 
-  init();
+  function scrollBottom() {
+    $ionicScrollDelegate.$getByHandle('main').scrollBottom();
+  }
+
+  queryMsg(true);
+
+  //加载消息历史
+  $scope.loadMore = function(){
+    queryMsg(false);
+  }
 
   // 放大图片
   $ionicModal.fromTemplateUrl('app/templates/zoom_view.html', {
@@ -77,6 +84,11 @@ angular.module('ddysys.controllers')
     media.play();
   }
 
+  //切换输入状态
+  $scope.toggleInputStatus = function() {
+    $scope.input.audio = !$scope.input.audio;
+    $scope.input.text = !$scope.input.text;
+  }
 
   // 发图片
   $scope.uploadImage = function() {
@@ -130,7 +142,7 @@ angular.module('ddysys.controllers')
     ss = 0;
     media.stopRecord();
     if(_ss<2){
-      $cordovaToast.showShortBottom('录音时间太短！');
+      $system.toast('录音时间太短！');
       return;
     };
     $fileHelper.upload(cordova.file.tempDirectory + 'beep.aac', {
@@ -144,7 +156,7 @@ angular.module('ddysys.controllers')
     })
   }
 
-  // 发文本
+  // 发消息
   $scope.sendMessage = function(type, content) {
     var postData = new PostData('appsendmessage');
     postData.patId = $stateParams.patientId;
@@ -153,7 +165,7 @@ angular.module('ddysys.controllers')
     $http.post('api', postData).then(function(data) {
       if (!data) return;
       $scope.input.message = '';
-      init();
+      queryMsg(true);
     })
   }
 

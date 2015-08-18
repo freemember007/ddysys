@@ -42,7 +42,7 @@ angular.module('ddysys.services')
   }
 })
 
-.factory('Interceptor', function($rootScope, $location, $cordovaToast, $cordovaDialogs, apiUrl) {
+.factory('Interceptor', function($rootScope, $location, $system, apiUrl, $system) {
 
     // var apiUrl = 'http://192.168.1.12:8004/app';
 
@@ -61,7 +61,7 @@ angular.module('ddysys.services')
       'requestError': function(rejection) {
         // $rootScope.$broadcast('loading:hide');
         NProgress.done();
-        alert('请求错误：' + rejection); 
+        $system.alert('请求错误：' + rejection); 
       },
 
       'response': function(res) {
@@ -71,8 +71,7 @@ angular.module('ddysys.services')
         if (res.config.url === apiUrl) {
           console.log(data);
           if (angular.isObject(data) && data.code && !data.succ) {
-            alert(data.msg + '(' + data.code +')'); //处理接口错误
-            $cordovaToast.showShortBottom(data.msg + '(' + data.code +')'); //处理接口错误
+            $system.alert(data.msg + '（错误代码：' + data.code +'）'); //处理接口错误
           } else { 
             return data; //处理接口正常返回
           }
@@ -87,16 +86,15 @@ angular.module('ddysys.services')
         NProgress.done();
         var status = res.status;
         if (status === 0 ) {
-          alert('网络异常、超时或不支持跨域请求！');
-          $cordovaDialogs.alert('网络异常、超时或不支持跨域请求！', '提示', '确定')
+          $system.alert('网络异常、超时或不支持跨域请求！');
         } else if (status === 404) {
-          alert('请求的资源不存在！');
+          $system.alert('请求的资源不存在！');
           $location.path('/notFound')
         } else if (status === 500) {
-          alert('服务器内部错误！');
+          $system.alert('服务器内部错误！');
           $location.path('/error')
         } else {
-          alert('HTTP错误：' + status);
+          $system.alert('HTTP错误：' + status);
         }
       }
     };

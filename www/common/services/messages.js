@@ -3,8 +3,10 @@ angular.module('ddysys.services')
 .factory('Messages', function(PostData, $http) {
 
   return {
-    all: function(patientId) {
+    query: function(patientId, page) {
       var postData = new PostData('appmessagelist');
+      postData.page = page || 1;
+      postData.limit = 10;
       postData.patId = patientId;
       return $http.post('api', postData);
     },

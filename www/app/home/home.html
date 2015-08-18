@@ -18,6 +18,8 @@
   </ion-nav-buttons>
 
   <ion-content style="bottom:48px">
+    <ion-refresher pulling-text="下拉刷新..." on-refresh="init()">
+    </ion-refresher>
     
     <!-- // 顶部板块 -->
     <div style="height:180px">
@@ -74,7 +76,7 @@
     <!-- 患者沟通 -->
     <div style="padding:10px 16px; font-size:16px">患者沟通</div>
     <div class="list">
-      <a class="item item-avatar has-badge" ng-repeat="userMessage in userMessages" ui-sref="messages({patientId: userMessage.patId, patient:userMessage})">
+      <a class="item item-avatar has-badge" ng-repeat="userMessage in userMessages" ui-sref="messages({patientId: userMessage.patId, patient:userMessage})" ng-click="changeBadge($index, userMessage.unreadCount)">
         <img ng-src="{{userMessage.patFaceUrl}}">
         <span class="badge badge-assertive" ng-if="userMessage.unreadCount">{{userMessage.unreadCount}}</span>
         <h2>{{userMessage.patName}}</h2>

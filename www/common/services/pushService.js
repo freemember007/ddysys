@@ -30,6 +30,7 @@ angular.module('ddysys.services')
               $state.go('messages', { patientId: notification.patId });
               break;
             case 'A1':
+              badge.plus('patients');
               $state.go('patients_requests');
               break;
             default:

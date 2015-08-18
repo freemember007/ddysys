@@ -1,6 +1,26 @@
 angular.module('ddysys.services')
 
 
+//--------- $alert ---------//
+.factory('$system', function($cordovaDialogs, $cordovaToast) {
+  return {
+    alert: function(msg){
+      if (ionic.Platform.isIOS()){
+        $cordovaDialogs.alert(msg, '提示', '确定');
+      }else{
+        alert(msg)
+      }
+    },
+    toast: function(msg){
+      if(ionic.Platform.isIOS()||ionic.Platform.isAndroid()){
+        $cordovaToast.showShortBottom(msg);
+      }else{
+        console.log(msg)
+      }
+    }
+  }
+})
+
 //--------- 本地存储 ---------//
 .factory('$localStorage', ['$window', function($window) {
   return {
@@ -18,6 +38,9 @@ angular.module('ddysys.services')
     },
     getObject: function(key) {
       return JSON.parse($window.localStorage[key] || '{}');
+    },
+    clear: function(){
+      $window.localStorage.clear();
     }
   }
 }])
@@ -80,7 +103,7 @@ angular.module('ddysys.services')
 
 
 //--------- 上传 ---------//
-.factory('$fileHelper', function($rootScope, $cordovaFileTransfer, apiUrl, PostData){
+.factory('$fileHelper', function($rootScope, $cordovaFileTransfer, apiUrl, PostData, $system){
   return {
     upload: function(fileURL, appendParams, callback){
       // $rootScope.$broadcast('loading:show');
@@ -100,7 +123,7 @@ angular.module('ddysys.services')
         }, function(err) {
           // $rootScope.$broadcast('loading:hide');
           NProgress.done();
-          alert('文件上传错误: ' + angular.toJson(err))
+          $system.alert('文件上传错误: ' + angular.toJson(err))
         }, function (progress) {
           // alert('progress')
       });

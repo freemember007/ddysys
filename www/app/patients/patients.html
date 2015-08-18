@@ -1,5 +1,7 @@
 <ion-view view-title="患者" hide-back-button="true">
   <ion-content style="bottom:48px">
+    <ion-refresher pulling-text="下拉刷新..." on-refresh="refresh()">
+    </ion-refresher>
 
     <a class="item item-icon-left" ui-sref="patients_requests">
       <img class="icon padding" src="img/new_patient.png"> &nbsp;&nbsp;新的患者请求

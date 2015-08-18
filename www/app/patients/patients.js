@@ -7,16 +7,22 @@ angular.module('ddysys.controllers')
   $scope.$on( "$ionicView.enter", function(){
     $scope.active('isTab2');
   })
-  sortList(Patients.getLocal())
+  
+  sortList(Patients.getLocal());
 
-  Patients.all().then(function(data) {
-    if(!data) return;
-    var list = _.sortBy(data.docPatientVoList, 'patId');
-    var count = _.countBy(list, {status: "0"}).true || 0; //如果没有匹配结果会返回undefined，这会引发后续错误，故或0
-    badge.set('patients', count);
-    Patients.setLocal(list);
-    sortList(Patients.getLocal())
-  })
+  $scope.refresh = function(){
+    Patients.all().then(function(data) {
+      $scope.$broadcast('scroll.refreshComplete');
+      if(!data) return;
+      var list = _.sortBy(data.docPatientVoList, 'patId');
+      var count = _.countBy(list, {status: "0"}).true || 0; //如果没有匹配结果会返回undefined，这会引发后续错误，故或0
+      badge.set('patients', count);
+      sortList(list)
+      Patients.setLocal(list);
+    })
+  }
+
+  $scope.refresh();
 
   function sortList(list){
     list = _.where(list, {status: "1"});
@@ -38,7 +44,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 患者详情controller ---------//
-.controller('PatientsDetailCtrl', function($scope, Patients, $stateParams, $cordovaToast) {
+.controller('PatientsDetailCtrl', function($scope, Patients, $stateParams, $system) {
 
   Patients.getById($stateParams.patientId).then(function(data){
     if(!data) return;
@@ -49,7 +55,7 @@ angular.module('ddysys.controllers')
   $scope.star = function(patientId, stared){
     Patients.star(patientId, stared).then(function(data){
       if(!data) return;
-      $cordovaToast.showShortBottom(stared === true ? '收藏成功！' : '取消收藏成功！');
+      $system.toast(stared === true ? '收藏成功！' : '取消收藏成功！');
     })
   }
 
@@ -67,7 +73,7 @@ angular.module('ddysys.controllers')
 })
 
 //--------- 患者请求详情controller ---------//
-.controller('PatientsRequestsDetailCtrl', function($scope, Patients, $stateParams, $cordovaToast, $ionicHistory) {
+.controller('PatientsRequestsDetailCtrl', function($scope, Patients, $stateParams, $system, $ionicHistory, badge) {
 
   Patients.getById($stateParams.patientId).then(function(data){
     if(!data) return;
@@ -77,7 +83,8 @@ angular.module('ddysys.controllers')
   $scope.handleRequest = function(patientId, status){
     Patients.handleRequest(patientId, status).then(function(data){
       if(!data)return;
-      $cordovaToast.showShortBottom(status === 1 ? '您接受了该患者。' : '您拒绝了该患者。');
+      badge.minus('patients');
+      $system.toast(status === 1 ? '您接受了该患者。' : '您拒绝了该患者。');
       $ionicHistory.goBack();
     })
   }

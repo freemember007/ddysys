@@ -5,7 +5,7 @@ angular.module('ddysys.services')
   return {
     all: function(patientId) {
       var postData = new PostData('appdocschedulelist');
-      postData.patId = patientId || null;
+      postData.patId = patientId;
       return $http.post('api', postData);
     },
     get: function(eventId) {
@@ -13,6 +13,12 @@ angular.module('ddysys.services')
       postData.eventId = eventId;
       return $http.post('api', postData);
     },
+    add: function(patientId, appendData){
+      var postData = new PostData('appadddocschedule');
+      postData.patId = patientId;
+      angular.extend(postData, appendData);
+      return $http.post('api', postData);
+    }
   }
 
 })

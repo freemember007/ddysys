@@ -36,25 +36,36 @@ angular.module('ddysys.controllers')
   }
 
   $scope.user = $localStorage.getObject('user');
-  var postData = new PostData('appindex');
 
-  $http.post('api', postData).then(function(data) {
-    if (!data) return;
-    $scope.docSchedules = data.dsList.slice(0, 2);
-    $scope.userMessages = data.umList;
-    _.map($scope.userMessages, function(item){
-      if(item.msgType === 'P'){
-        item.msgContent = '[图片]';
-      }else if(item.msgType === 'A'){
-        item.msgContent = '[语音]';
-      }
-      // console.log(item.msgContent)
+  $scope.init = function(){
+    var postData = new PostData('appindex');
+    $http.post('api', postData).then(function(data) {
+      $scope.$broadcast('scroll.refreshComplete');
+      if (!data) return;
+      $scope.docSchedules = data.dsList.slice(0, 2);
+      $scope.userMessages = data.umList;
+      _.map($scope.userMessages, function(item){
+        if(item.msgType === 'P'){
+          item.msgContent = '[图片]';
+        }else if(item.msgType === 'A'){
+          item.msgContent = '[语音]';
+        }
+        // console.log(item.msgContent)
+      })
+      // var allUnreadCount = 0;
+      // _.each(data.umList, function(element){
+      //   allUnreadCount += element.unreadCount;
+      // });
+      badge.set('home', data.yyys.messageCount);
+      badge.set('patients', data.yyys.applyCount);
     })
-    var allUnreadCount = 0;
-    _.each(data.umList, function(element){
-      allUnreadCount += element.unreadCount;
-    });
-    badge.set('home', allUnreadCount);
-  })
+  }
+  
+  $scope.init();
+
+  $scope.changeBadge = function(index, num){
+    $scope.userMessages[index].unreadCount = 0;
+    if(num !== 0) badge.minus('home', num);
+  }
 
 })

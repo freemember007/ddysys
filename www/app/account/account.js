@@ -2,7 +2,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 我的controller ---------//
-.controller('AccountCtrl', function($scope, $state, $localStorage, $localStorage) {
+.controller('AccountCtrl', function($scope, $state, $localStorage, PostData, $http, $ionicHistory ) {
 
   $scope.$on( "$ionicView.enter", function(){
     $scope.active('isTab4');
@@ -10,8 +10,15 @@ angular.module('ddysys.controllers')
   $scope.user = $localStorage.getObject('user');
 
   $scope.doLogout = function() {
-    $localStorage.remove('token');
-    $state.go('login')
+    var postData = new PostData('applogout');
+    $http.post('api', postData).then(
+      function(data){
+      if(data){
+        $localStorage.clear();
+        $ionicHistory.clearCache();
+        $state.go('login')
+      }
+    });
   };
 
 })
@@ -41,9 +48,8 @@ angular.module('ddysys.controllers')
 
 
 //--------- 二维码controller ---------//
-.controller('AccountBarcodeCtrl', function($scope, $http, $localStorage, badge) {
+.controller('AccountBarcodeCtrl', function($scope, $http, $localStorage) {
 
-  badge.plus('home', 1) //just test
   $scope.user = $localStorage.getObject('user');
   $scope.doctor = $localStorage.getObject('doctor');
 
@@ -90,7 +96,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 个人资料controller ---------//
-.controller('AccountInfoCtrl', function($scope, $state, $http, PostData, $localStorage, $imageHelper, $fileHelper, $cordovaToast) {
+.controller('AccountInfoCtrl', function($scope, $state, $http, PostData, $localStorage, $imageHelper, $fileHelper, $system) {
 
   $scope.user = $localStorage.getObject('user');
 
@@ -115,7 +121,7 @@ angular.module('ddysys.controllers')
     
     $http.post('api', postData).then(function(data){
       if(data && data.succ) {
-        $cordovaToast.showShortBottom('头像上传成功！');
+        $system.toast('头像上传成功！');
         $localStorage.setObject('user', data.docInfo);
       }
     })
@@ -133,18 +139,18 @@ angular.module('ddysys.controllers')
 
 
 //--------- 修改密码controller ---------//
-.controller('AccountModpwdCtrl', function($scope, $state, $http, PostData, $md5) {
+.controller('AccountModpwdCtrl', function($scope, $state, $http, PostData, $md5, $system) {
 
   $scope.modData = {};
 
-  var postData = new PostData('appresetpwd');
-
   $scope.doModpwd = function(){
+    var postData = new PostData('appresetpwd');
     postData.pwd = $md5.createHash($scope.modData.pwd);
     postData.newpwd = $md5.createHash($scope.modData.newpwd);
     $http.post('api', postData).then(function(data){
       if(data && data.succ) {
-        console.log('成功！');
+        $system.toast('密码修改成功！');
+        $state.go('tab.account');
       }
     })
   }

@@ -11,10 +11,24 @@ angular.module('ddysys.controllers')
     $http.post('api', postData).then(
       function(data){
       if(data){
-        $localStorage.set('token', data.token);
         $localStorage.setObject('user', data.docInfo);
         $localStorage.setObject('doctor', data.yyysList[0]);
-        $state.go("tab.home")
+
+        switch (data.docInfo.dAuth) {
+          case '0':
+            $state.go("register_upload");
+            break;
+          case '1':
+            $state.go("register_waiting");
+            break;
+          case '2':
+            $localStorage.set('token', data.token);
+            $state.go("tab.home");
+            break;
+          case '3':
+            $state.go("register_waiting")
+            break;
+        }
       }
     })
 

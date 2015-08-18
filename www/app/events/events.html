@@ -1,4 +1,10 @@
-<ion-view view-title="日程列表">
+<ion-view view-title="日程列表" cache-view="false">
+
+  <ion-nav-buttons side="right" >
+    <button class="button button-clear" ng-if="patientId" ui-sref="addEvent({patientId: patientId})">
+      + 日程
+    </button>
+  </ion-nav-buttons>
 
   <ion-content>
     <ion-list >
@@ -6,15 +12,6 @@
       <ion-item ng-repeat-start="events in eventsGroup" class="item-divider" style="padding-left:10px">
         {{events[0]}}
       </ion-item>
-
-      <!-- <ion-item ng-repeat-end ng-repeat="event in events[1]" class="item item-avatar" style="min-height:60px; height:60px" ui-sref="events_detail({eventId:event.scheduleId, event:event})">
-          <img class="avatar" style="width:32px; height:32px;" ng-src="img/default_nomale_head_photo.png">
-          <div class="row" style="padding:0px; ">
-            <span class="col col-25" >{{event.patName}}</span>
-            <span class="col col-50" >{{event.schContent}}</span>
-            <span class="col col-25" >{{event.scheduleTime|date:"hh:mm"}}</span>
-          </div>
-      </ion-item> -->
 
       <div ng-repeat-end ng-repeat="event in events[1]" class="item" style="padding:5px" ui-sref="events_detail({eventId:event.scheduleId, event:event})">
           <div class="row" style="padding:0px; ">

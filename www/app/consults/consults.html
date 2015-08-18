@@ -18,10 +18,10 @@
     <ion-list>
 
       <ion-item class="item-avatar item-icon-right" ng-repeat="consult in consults" type="item-text-wrap" ui-sref="consults_detail({consultId:consult.consultId})" >
-        <img src="img/avatar.jpg">
+        <img ng-src="{{consult.patFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)">
         <div class="row" style="padding:0px">
           <div class="col" style="padding:0px"><span>{{consult.patName}}</span>&nbsp;&nbsp;<span class="gray-9 small">{{consult.consultTime | date: "MM-dd hh:mm"}}</span></div>
-          <div class="col tr" style="padding:0px"><span class="gray-9 small">0回复</span></div>
+          <div class="col tr" style="padding:0px"><span class="gray-9 small">{{consult.replyCount}}回复</span></div>
         </div>
         <p class="" style="padding-top:10px; white-space:normal">{{consult.consultContent}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>

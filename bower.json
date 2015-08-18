@@ -7,6 +7,7 @@
   "dependencies": {
     "angular-moment": "~0.10.2",
     "fastclick": "~1.0.6",
-    "nprogress": "~0.2.0"
+    "nprogress": "~0.2.0",
+    "ngInfiniteScroll": "1.0.0"
   }
 }
