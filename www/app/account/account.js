@@ -109,7 +109,7 @@ angular.module('ddysys.controllers')
               submit($scope.user.dFaceUrl);
             }
           })
-        })
+        }, true)
     })
   }
 

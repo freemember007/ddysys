@@ -28,6 +28,7 @@ angular.module('ddysys.controllers')
 
   $scope.$on( "$ionicView.enter", function(){
     $scope.active('isTab1');
+    $scope.user = $localStorage.getObject('user'); //实时从本地取
   })
 
   // 注册推送
@@ -35,7 +36,7 @@ angular.module('ddysys.controllers')
     pushService.register();
   }
 
-  $scope.user = $localStorage.getObject('user');
+  
 
   $scope.init = function(){
     var postData = new PostData('appindex');

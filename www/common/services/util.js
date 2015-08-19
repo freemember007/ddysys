@@ -71,12 +71,12 @@ angular.module('ddysys.services')
         }
       });
     },
-    getImage: function(status, callback){
+    getImage: function(status, callback, allowEdit){
       if (status === 2) {
         var options = {
           maximumImagesCount: 1,
-          width: 800,
-          height: 800,
+          width: 1080,
+          height: 1920,
           quality: 80
         };
         $cordovaImagePicker.getPictures(options).then(function(results) {
@@ -86,8 +86,16 @@ angular.module('ddysys.services')
         });
       } else {
         var options = {
+          quality: 80,
           destinationType: Camera.DestinationType.FILE_URI,
           sourceType: Camera.PictureSourceType.CAMERA,
+          allowEdit: allowEdit,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 1080,
+          targetHeight: 1920,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false
+
         };
 
         $cordovaCamera.getPicture(options).then(function(imageURI) {

@@ -5,8 +5,8 @@
             color: #387ef5
         }
 
-        .active .ion-ios-pulse:before {
-            content: "\f492"; 
+        .active .ion-ios-home-outline:before {
+            content: "\f448"; 
         }
 
         .active .ion-ios-people-outline:before {
@@ -17,8 +17,8 @@
             content: "\f3fa"; 
         }
 
-        .active .ion-ios-gear-outline:before {
-            content: "\f43d"; 
+        .active .ion-ios-person-outline:before {
+            content: "\f47e"; 
         }
     </style>
 
@@ -35,7 +35,7 @@
             <span class="badge badge-assertive" ng-if="badge.patients">{{badge.patients}}</span>
             <i class="icon ion-ios-people-outline" ></i>患者
         </a>
-        <a class="tab-item" ui-sref="tab.consults" nav-direction="none" ng-class="{ active : settings.isTab3, 'has-badge' : settings.numberOfBadges != 0}">
+        <a class="tab-item" ui-sref="tab.consults" nav-direction="none" ng-class="{ active : settings.isTab3}">
             <i class="icon ion-ios-chatboxes-outline"></i> 咨询 
         </a>
         <a class="tab-item" ui-sref="tab.account" nav-direction="none" ng-class="{ active : settings.isTab4}">

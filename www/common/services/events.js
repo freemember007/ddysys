@@ -6,6 +6,7 @@ angular.module('ddysys.services')
     all: function(patientId) {
       var postData = new PostData('appdocschedulelist');
       postData.patId = patientId;
+      postData.limit = 20;
       return $http.post('api', postData);
     },
     get: function(eventId) {
