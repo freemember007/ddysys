@@ -85,7 +85,7 @@ angular.module('ddysys.controllers')
             $system.alert('图片上传成功，请点击右上角的提交按钮。')
             if(res && res.filePath) $scope.user.identityImg = res.filePath;
           })
-        })
+        }, true)
     })
   }
 

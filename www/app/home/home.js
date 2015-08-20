@@ -24,7 +24,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 首页 controller ---------//
-.controller('HomeCtrl', function($scope, $localStorage, PostData, $http, pushService, badge) {
+.controller('HomeCtrl', function($scope, $rootScope, $localStorage, PostData, $http, pushService, badge) {
 
   $scope.$on( "$ionicView.enter", function(){
     $scope.active('isTab1');
@@ -62,8 +62,10 @@ angular.module('ddysys.controllers')
     })
   }
   
-  $scope.init();
+  $rootScope.initHome = $scope.init;
 
+  $scope.init();
+  
   $scope.changeBadge = function(index, num){
     $scope.userMessages[index].unreadCount = 0;
     if(num !== 0) badge.minus('home', num);

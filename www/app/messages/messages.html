@@ -159,7 +159,7 @@
   }
   </style>
 
-  <ion-content delegate-handle="main" style="background:#f4f4f4;margin-bottom:44px">
+  <ion-content delegate-handle="main" style="background:#f4f4f4">
 
      <ion-refresher on-refresh="loadMore()" pulling-text="加载历史"></ion-refresher>
 
@@ -191,6 +191,7 @@
           </div>
         </div>
       </div>
+      
       <div class="cf ">
       </div>
 
@@ -212,7 +213,7 @@
   <form name="sendMessageForm " novalidate style="background-color: #fff;">
 
     <!-- 发文字 -->
-    <ion-footer-bar ng-if="input.text" class="bar-stable item-input-inset message-footer " style="background-color:#fff; padding:10px 0;">
+    <ion-footer-bar class="bar-stable item-input-inset message-footer " style="background-color:#fff; padding:10px 0" keyboard-attach>
 
       <div class="footer-btn-wrap">
         <button class="button button-icon ion-volume-high footer-btn" ng-click="toggleInputStatus()" />
@@ -223,7 +224,7 @@
       </div>
 
       <label class="item-input-wrapper " style="background-color: #fff; ">
-        <input class="input item-input" ng-model="input.message " style="border: solid 1px #ccc; width:100%;" placeholder="回复{{toUser.hzxm}}... " required minlength="1 " maxlength="1500" style="width:100%" />
+        <textarea value="" ng-model="input.message " style="border: solid 1px #ccc; width:100%" placeholder="回复{{toUser.hzxm}}... " required minlength="1 " maxlength="1500"></textarea>
       </label>
 
       <div class="footer-btn-wrap" >
@@ -232,7 +233,7 @@
     </ion-footer-bar>
 
     <!-- 发语音 -->
-    <ion-footer-bar ng-if="input.audio" class="bar-stable item-input-inset message-footer " style="background-color:#fff;">
+    <ion-footer-bar ng-if="input.audioPanel" class="bar-stable item-input-inset message-footer " style="background-color:#fff">
       <div class="footer-btn-wrap">
         <button class="button button-icon ion-grid footer-btn" ng-click="toggleInputStatus()" />
       </div>

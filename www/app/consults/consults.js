@@ -22,6 +22,18 @@ angular.module('ddysys.controllers')
 
 //--------- 咨询详情controller ---------//
 .controller('ConsultsDetailCtrl', function($scope, $localStorage, Consults, $stateParams) {
+
+  $scope.$on( "$ionicView.enter", function(){
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.disableScroll(true);
+    }
+  });
+
+  $scope.$on( "$ionicView.leave", function(){
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.disableScroll(false);
+    }
+  })
   
   $scope.consult={};
   $scope.reply = {};

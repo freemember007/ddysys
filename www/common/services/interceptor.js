@@ -72,6 +72,7 @@ angular.module('ddysys.services')
           console.log(data);
           if (angular.isObject(data) && data.code && !data.succ) {
             $system.alert(data.msg + '（错误代码：' + data.code +'）'); //处理接口错误
+            if(data.code === '00000010') $location.path('/login');
           } else { 
             return data; //处理接口正常返回
           }

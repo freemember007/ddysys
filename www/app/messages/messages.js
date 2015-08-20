@@ -4,14 +4,26 @@ angular.module('ddysys.controllers')
 //--------- 聊天controller ---------//
 .controller('MessagesCtrl', function($scope, $ionicScrollDelegate, Messages, $stateParams, $localStorage, _, PostData, $http, $ionicModal, $imageHelper, $fileHelper, $cordovaMedia, $timeout, $interval, $system) {
 
+  $scope.$on( "$ionicView.enter", function(){
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.disableScroll(true);
+    }
+  });
+
+  $scope.$on( "$ionicView.leave", function(){
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.disableScroll(false);
+    }
+  })
+
   $scope.user = $localStorage.getObject('user');
   $scope.toUser = _.findWhere($localStorage.getObject('patients'), {
     patId: Number($stateParams.patientId)
   });
   $scope.input = {};
   $scope.input.message = $stateParams.msg || '';
-  $scope.input.audio = false;
-  $scope.input.text = true;
+  $scope.input.audioPanel = false;
+  // $scope.input.textPanel = true;
   $scope.input.isRecording = false
   $scope.input.recordTime = "00:00";
   var page = 1;
@@ -86,9 +98,13 @@ angular.module('ddysys.controllers')
 
   //切换输入状态
   $scope.toggleInputStatus = function() {
-    $scope.input.audio = !$scope.input.audio;
-    $scope.input.text = !$scope.input.text;
+    $scope.input.audioPanel = !$scope.input.audioPanel;
+    // $scope.input.textPanel = !$scope.input.textPanel;
   }
+
+  // $window.addEventListener('native.keyboardshow', function(e){
+  //   $ionicScrollDelegate.scrollBy(0,-e.keyboardHeight)
+  // });
 
   // 发图片
   $scope.uploadImage = function() {

@@ -40,6 +40,7 @@ angular.module('ddysys.services')
           switch(notification.type){
             case 'B1':
               badge.plus('home');
+              $rootScope.initHome();
               break;
             case 'A1':
               badge.plus('patients');
