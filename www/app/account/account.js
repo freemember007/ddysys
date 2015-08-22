@@ -8,6 +8,7 @@ angular.module('ddysys.controllers')
     $scope.active('isTab4');
   })
   $scope.user = $localStorage.getObject('user');
+  $scope.doctor = $localStorage.getObject('doctor');
 
   $scope.doLogout = function() {
     var postData = new PostData('applogout');
@@ -25,7 +26,10 @@ angular.module('ddysys.controllers')
 
 
 //--------- 评价列表controller ---------//
-.controller('AccountRateCtrl', function($scope, $http, PostData) {
+.controller('AccountRateCtrl', function($scope, $http, PostData, $localStorage) {
+
+  $scope.summary = $localStorage.getObject('rate_summary') || {};
+  $scope.rates = $localStorage.getObject('rate_rates') || [];
 
   var postData = new PostData('appuserratelist');
   $http.post('api', postData).then(
@@ -33,6 +37,8 @@ angular.module('ddysys.controllers')
     if(data){
       $scope.summary = data.userRate;
       $scope.rates = data.list;
+      $localStorage.setObject('rate_summary',$scope.summary||{});
+      $localStorage.setObject('rate_rates',$scope.rates||[]);
     }
   });
 
@@ -99,6 +105,8 @@ angular.module('ddysys.controllers')
 .controller('AccountInfoCtrl', function($scope, $state, $http, PostData, $localStorage, $imageHelper, $fileHelper, $system) {
 
   $scope.user = $localStorage.getObject('user');
+
+  $scope.doctor = $localStorage.getObject('doctor');
 
   $scope.uploadAvatar = function() {
     $imageHelper.choose(function(status){

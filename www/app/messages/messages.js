@@ -57,7 +57,7 @@ angular.module('ddysys.controllers')
   }
 
   function scrollBottom() {
-    $ionicScrollDelegate.$getByHandle('main').scrollBottom();
+    $ionicScrollDelegate.$getByHandle('main').scrollBottom(true);
   }
 
   queryMsg(true);

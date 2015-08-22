@@ -2,7 +2,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 患者列表controller ---------//
-.controller('PatientsCtrl', function($scope, Patients, badge) {
+.controller('PatientsCtrl', function($scope, Patients, badge, $rootScope) {
 
   $scope.$on( "$ionicView.enter", function(){
     $scope.active('isTab2');
@@ -24,6 +24,8 @@ angular.module('ddysys.controllers')
 
   $scope.refresh();
 
+  $rootScope.refreshPatients = $scope.refresh; //此方法较丑陋，后续应改成服务。
+
   function sortList(list){
     list = _.where(list, {status: "1"});
     console.log(list)
@@ -44,7 +46,7 @@ angular.module('ddysys.controllers')
 
 
 //--------- 患者详情controller ---------//
-.controller('PatientsDetailCtrl', function($scope, Patients, $stateParams, $system) {
+.controller('PatientsDetailCtrl', function($scope, Patients, $stateParams, $system, $rootScope) {
 
   Patients.getById($stateParams.patientId).then(function(data){
     if(!data) return;
@@ -56,6 +58,7 @@ angular.module('ddysys.controllers')
     Patients.star(patientId, stared).then(function(data){
       if(!data) return;
       $system.toast(stared === true ? '收藏成功！' : '取消收藏成功！');
+      $rootScope.refreshPatients();
     })
   }
 
@@ -73,7 +76,7 @@ angular.module('ddysys.controllers')
 })
 
 //--------- 患者请求详情controller ---------//
-.controller('PatientsRequestsDetailCtrl', function($scope, Patients, $stateParams, $system, $ionicHistory, badge) {
+.controller('PatientsRequestsDetailCtrl', function($scope, Patients, $stateParams, $system, $ionicHistory, $rootScope, badge) {
 
   Patients.getById($stateParams.patientId).then(function(data){
     if(!data) return;
@@ -86,6 +89,7 @@ angular.module('ddysys.controllers')
       badge.minus('patients');
       $system.toast(status === 1 ? '您接受了该患者。' : '您拒绝了该患者。');
       $ionicHistory.goBack();
+      $rootScope.refreshPatients();
     })
   }
 

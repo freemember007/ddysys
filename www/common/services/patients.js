@@ -27,13 +27,13 @@ angular.module('ddysys.services')
       return $http.post('api', postData);
     },
     getLocal: function(){
-      return $localStorage.getObject('patients') || {};
+      return $localStorage.getObject('patients') || [];
     },
     setLocal: function(obj){
-      $localStorage.setObject('patients', obj);
+      $localStorage.setObject('patients', obj||[]);
     },
     removeLocal: function(){
-      $localStorage.setObject('patients', {});
+      $localStorage.remove('patients');
     }
   };
 })

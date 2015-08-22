@@ -2,26 +2,34 @@ angular.module('ddysys.controllers')
 
 
 //--------- 咨询列表controller ---------//
-.controller('ConsultsCtrl', function($scope, Consults) {
+.controller('ConsultsCtrl', function($scope, $rootScope, Consults, $localStorage) {
 
   $scope.$on( "$ionicView.enter", function(){
     $scope.active('isTab3');
   })
+
+  $scope.consults = $localStorage.getObject('consults') || [];
+
   $scope.setType = function(type) {
     $scope.type = type;
+    $rootScope.consultType = $scope.type;
     Consults.all(type).then(function(data){
       if(!data) return;
       $scope.consults = data.list;
+      if(type === 'DS') $localStorage.setObject('consults',$scope.consults||[]);
+      $scope.$broadcast('scroll.refreshComplete');
     })
   }
 
   $scope.setType('DS');
 
+  $rootScope.setConsultType = $scope.setType;
+
 })
 
 
 //--------- 咨询详情controller ---------//
-.controller('ConsultsDetailCtrl', function($scope, $localStorage, Consults, $stateParams) {
+.controller('ConsultsDetailCtrl', function($scope, $rootScope, $localStorage, Consults, $stateParams) {
 
   $scope.$on( "$ionicView.enter", function(){
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -54,7 +62,8 @@ angular.module('ddysys.controllers')
       if(!data) return;
       // $scope.consult = data.userConsultForm; //接口没有传加userConsultForm对象
       init();
-      $scope.reply.content = ''
+      $scope.reply.content = '';
+      $rootScope.setConsultType($rootScope.consultType);
       // $scope.replies.unshift({
       //   replyContent: $scope.reply.content,
       //   replyName: $scope.user.dName,

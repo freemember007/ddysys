@@ -1,12 +1,12 @@
 angular.module('ddysys.controllers')
 
 //--------- 验证手机controller ---------//
-.controller('RegisterVerifyCtrl', function($scope, $state, PostData, $http, $localStorage, $system) {
+.controller('RegisterVerifyCtrl', function($scope, $state, PostData, $http, $localStorage, $system, _) {
 
   $scope.user = {
     agree: true,
   }; 
-
+    
   $scope.getCaptcha = function(){
     var postData = new PostData('appcaptcha');
     postData.type = '1';
@@ -14,18 +14,17 @@ angular.module('ddysys.controllers')
     postData.mobileno = $scope.user.mobileno;
     $http.post('api', postData).then(function(data){
       if(data){
-        $scope.user.captcha = data.captcha
+        $scope.user.captcha = data.captcha;
+        $system.toast('验证码已下发至手机' + $scope.user.mobileno + '，请查看短信后填写。');
+        $scope.getCaptcha = _.debounce($scope.getCaptcha, 30000, true);
       }
     })
-  }
+  };
 
   $scope.goRegister = function() {
-    if (!$scope.form.mobileno.$valid) {
-      $system.alert('请正确填写手机号！')
-    } else if (!$scope.form.captcha.$valid){
-      $system.alert('请获取6位数验证码！')
-    } else if (!$scope.user.agree) {
-      $system.alert('请同意使用协议！')
+    console.log($scope.user.captcha);
+    if ($scope.user.inputCaptcha !== $scope.user.captcha) {
+      $system.alert('验证码不正确！请查看短信后重新填写。若需再次获取验证码，请等待30秒')
     } else {
       $localStorage.setObject('user', $scope.user);
       $state.go('register');

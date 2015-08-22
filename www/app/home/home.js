@@ -28,7 +28,8 @@ angular.module('ddysys.controllers')
 
   $scope.$on( "$ionicView.enter", function(){
     $scope.active('isTab1');
-    $scope.user = $localStorage.getObject('user'); //实时从本地取
+    $scope.user = $localStorage.getObject('user'); 
+    $scope.doctor = $localStorage.getObject('doctor');//实时从本地取
   })
 
   // 注册推送
@@ -39,13 +40,16 @@ angular.module('ddysys.controllers')
   
 
   $scope.init = function(){
+    $scope.docSchedules = $localStorage.getObject('docSchedules') || [];
+    $scope.userMessages = $localStorage.getObject('userMessages') || [];
     var postData = new PostData('appindex');
     $http.post('api', postData).then(function(data) {
       $scope.$broadcast('scroll.refreshComplete');
       if (!data) return;
       $scope.docSchedules = data.dsList.slice(0, 2);
-      $scope.userMessages = data.umList;
-      _.map($scope.userMessages, function(item){
+      
+      
+      _.map(data.umList, function(item){
         if(item.msgType === 'P'){
           item.msgContent = '[图片]';
         }else if(item.msgType === 'A'){
@@ -53,10 +57,11 @@ angular.module('ddysys.controllers')
         }
         // console.log(item.msgContent)
       })
-      // var allUnreadCount = 0;
-      // _.each(data.umList, function(element){
-      //   allUnreadCount += element.unreadCount;
-      // });
+      $scope.userMessages = data.umList;
+      $localStorage.setObject('docSchedules',$scope.docSchedules||[]);
+      $localStorage.setObject('userMessages',$scope.userMessages||[]);
+
+
       badge.set('home', data.yyys.messageCount);
       badge.set('patients', data.yyys.applyCount);
     })
@@ -64,7 +69,7 @@ angular.module('ddysys.controllers')
   
   $rootScope.initHome = $scope.init;
 
-  $scope.init();
+  // $scope.init();
   
   $scope.changeBadge = function(index, num){
     $scope.userMessages[index].unreadCount = 0;

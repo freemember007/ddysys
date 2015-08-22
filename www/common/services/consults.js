@@ -5,13 +5,14 @@ angular.module('ddysys.services')
   return {
     all: function(type) {
       var postData = new PostData('appconsultlist');
-      PostData.limit = 100; //后续可能要加分页
+      postData.limit = 30; //后续可能要加分页
       postData.type = type;
       return $http.post('api', postData);
     },
     get: function(id) {
       var postData = new PostData('appconsultinfo');
       postData.consultId = id;
+      postData.limit = 30;
       return $http.post('api', postData);
     },
     reply: function(id, content){

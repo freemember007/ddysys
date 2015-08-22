@@ -72,13 +72,19 @@
             <span class="assertive">{{summary.rateCost}}</span><span>&nbsp;分</span>
           </div>
           <div class="col rate-summary-total">
-            <span>总评价</span>
+            <span>评价数</span>
             <br>
             <span>{{summary.rateCount}}</span>
           </div>
         </div>
       </div>
       
+    </div>
+
+    <div class="card" ng-if="!rates[0]">
+      <div class="item item-text-wrap">
+        暂无患者对您评价。
+      </div>
     </div>
     
     <!-- list -->

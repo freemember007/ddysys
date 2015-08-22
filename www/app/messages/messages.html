@@ -170,7 +170,7 @@
       <div ng-if="message.msgSource === 'U'">
         <img ui-sref="patients_detail({patientId:message.patId})" class="profile-pic left" ng-src="{{toUser.faceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)" />
         <div class="chat-bubble left ">
-          <div class="message " ng-click="message.msgType==='A' && play(message.audioUrl) || message.msgType==='P' && zoomImage(message.imageUrl) " ng-bind-html="message.msgContent ">
+          <div class="message " ng-click="message.msgType==='A' && play(message.audioUrl) || message.msgType==='P' && showZoomView(message.imageUrl) " ng-bind-html="message.msgContent ">
           </div>
           <div class="message-detail ">
             <span ng-click="viewProfile(message) " class="bold ">{{toUser.hzxm}}</span>,

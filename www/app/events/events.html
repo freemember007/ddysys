@@ -7,6 +7,13 @@
   </ion-nav-buttons>
 
   <ion-content>
+
+    <div class="card" ng-if="!eventsGroup[0]">
+      <div class="item item-text-wrap">
+        暂无随访日程。
+      </div>
+    </div>
+
     <ion-list >
 
       <ion-item ng-repeat-start="events in eventsGroup" class="item-divider" style="padding-left:10px">

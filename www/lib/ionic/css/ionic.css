@@ -5318,7 +5318,7 @@ a.item-content {
  * --------------------------------------------------
  * A card and list-inset are close to the same thing, except a card as a box shadow.
  */
-.card, .list-inset {
+.list-inset {
   overflow: hidden;
   margin: 20px 10px;
   border-radius: 2px;
@@ -5330,7 +5330,9 @@ a.item-content {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
   .card .item {
     border-left: 0;
-    border-right: 0; }
+    border-right: 0; 
+    color: #999;
+  }
   .card .item:first-child {
     border-top: 0; }
   .card .item:last-child {
@@ -6983,10 +6985,12 @@ a.button {
   .button-bar > .button:before, .button-bar > .button .icon:before {
     line-height: 44px; }
   .button-bar > .button:first-child {
-    border-radius: 2px 0px 0px 2px; }
+    /*border-radius: 2px 0px 0px 2px; */
+  }
   .button-bar > .button:last-child {
     border-right-width: 1px;
-    border-radius: 0px 2px 2px 0px; }
+    /*border-radius: 0px 2px 2px 0px; */
+  }
 
 .button-bar > .button-small:before, .button-bar > .button-small .icon:before {
   line-height: 28px; }

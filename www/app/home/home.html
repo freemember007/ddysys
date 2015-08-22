@@ -1,4 +1,4 @@
-<ion-view view-title="首页" hide-back-button="true">
+<ion-view view-title="首页" hide-back-button="true" ng-init="init()">
 
   <!-- <ion-nav-buttons side="left">
     <button class="button button-clear">
@@ -26,11 +26,11 @@
       <div class="row tc" style="height:100px; background:#918DB0 url('img/homebg.png'); padding:15px ">
         <div class="col col-10"></div>
         <div class="col col-33 tr">
-          <img ng-src="{{user.dFaceUrl}}" style="height:60px; width:60px; border-radius:35px; border:2px solid #fff"> 
+          <img ng-src="{{doctor.dFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)" style="height:60px; width:60px; border-radius:35px; border:2px solid #fff"> 
         </div>
         <div class="col tl" style="padding-left:12px; color: #fff">
-          <p><span style="font-size:16px">{{user.dName}}</span></p>
-          <p>{{user.dTitle}}</p>
+          <p><span style="font-size:16px">{{doctor.dName}}</span></p>
+          <p>{{doctor.yszc}}</p>
         </div>
         
       </div>
@@ -59,7 +59,12 @@
 
     <!-- 即将随访 -->
     <div style="padding:10px 16px; background:#fff; font-size:16px; border-bottom:1px solid #ddd">即将随访</div>
-    <div class="row tc" style="height:100px" ng-cloak>
+    <div class="card" ng-if="!docSchedules[0]">
+      <div class="item item-text-wrap">
+        暂无随访日程。
+      </div>
+    </div>
+    <div class="row tc" style="height:100px" ng-if="docSchedules[0]">
       <div class="col-30" ng-repeat-start="docSchedule in docSchedules" ui-sref="events_detail({eventId:docSchedule.scheduleId, event:docSchedule})" >
         <p style="margin-bottom:5px">{{docSchedule.scheduleTime | date: "MM-dd"}}</p>
         <p style="color: #999; margin-bottom:5px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">&nbsp;{{docSchedule.schContent}}</p>
@@ -75,6 +80,11 @@
 
     <!-- 患者沟通 -->
     <div style="padding:10px 16px; font-size:16px">患者沟通</div>
+    <div class="card" ng-if="!userMessages[0]">
+      <div class="item item-text-wrap">
+        暂无患者沟通。
+      </div>
+    </div>
     <div class="list">
       <a class="item item-avatar has-badge" ng-repeat="userMessage in userMessages" ui-sref="messages({patientId: userMessage.patId, patient:userMessage})" ng-click="changeBadge($index, userMessage.unreadCount)">
         <img ng-src="{{userMessage.patFaceUrl}}">

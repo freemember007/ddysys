@@ -1,10 +1,10 @@
-<ion-view view-title="我" hide-back-button="true" cache-view="false">
+<ion-view view-title="我" hide-back-button="true" cache-view="false" >
   <ion-content style="background-color:#eee; bottom:48px">
 
     <div class="tc" style="height:200px; padding:30px; background-image:url('img/my_bg.png');">
-      <img style="border-radius:40px" width="80" height="80" ng-src="{{user.dFaceUrl}}">
-      <h4>{{user.dName}}</h4>
-      <p>{{user.dHos + "&nbsp;" + user.dTitle}}</p>
+      <img style="border-radius:40px" width="80" height="80" ng-src="{{doctor.dFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)">
+      <h4>{{doctor.dName}}</h4>
+      <p>{{doctor.hosName + "&nbsp;" + doctor.yszc}}</p>
     </div>
 
     <div class="row tc" style="height:80px; background-color:#fff">

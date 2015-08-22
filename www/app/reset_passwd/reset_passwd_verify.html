@@ -11,7 +11,7 @@
 
         <div class="item item-input item-button-right">
           <span class="input-label">验证码</span>
-          <input type="text" name="captcha" required ng-pattern="/^\d{6}$/" ng-model="user.captcha">
+          <input type="text" name="captcha" required ng-pattern="/^\d{6}$/" ng-model="user.inputCaptcha">
           <div style="margin-right:100px">
             <button class="button button-small button-balanced" ng-disabled="!form.mobileno.$valid" ng-click="getCaptcha()">
               获取验证码

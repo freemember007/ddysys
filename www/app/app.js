@@ -53,7 +53,11 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
   // $provide.constant('apiUrl', 'http://192.168.1.12:8004/app');
   // $provide.constant('apiUrl', 'http://192.168.0.140:8080/gh_ws_webfep/app');
   // $provide.constant('apiUrl', 'http://teyangnet.eicp.net:8004/app');
-  $provide.constant('apiUrl', 'http://183.129.141.106:8004/app');
+  // $provide.constant('apiUrl', 'http://183.129.141.106:8004/app');
+  $provide.constant('apiUrl', 'http://ws.diandianys.com/app');
+
+  // 不允许swipe返回
+  $ionicConfigProvider.views.swipeBackEnabled(false);
 
   // 允许CORS请求
   $httpProvider.defaults.useXDomain = true;

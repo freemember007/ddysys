@@ -1,21 +1,37 @@
 <ion-view view-title="咨询" hide-back-button="true">
 
-  <ion-content style="bottom:48px">
-    <style>
-      .button-bar .button {
-        font-size:14px;
-        line-height: 36px;
-        min-height: 36px;
-      }
-      .button-bar .active{
-        color:#444;
-      }
-    </style>
-    <div class="button-bar" style="font-size:14px">
-      <a class="button {{(type == 'DS')?'active':''}}" ng-click="setType('DS')">我的</a>
-      <a class="button {{(type == 'DU')?'active':''}}" ng-click="setType('DU')">待回复</a>
-      <a class="button {{(type == 'DR')?'active':''}}" ng-click="setType('DR')">已回复</a>
-      <a class="button {{(type == 'DD')&&'active'||''}}" ng-click="setType('DD')">科室</a>
+  <style>
+    .button-bar {
+      height: 44px;
+    }
+    .button-bar .button {
+      font-size:14px;
+      line-height: 44px;
+    }
+    .button-bar .active{
+      color:#444;
+    }
+  </style>
+
+  <ion-header-bar class="bar-subheader" style="padding:0px; border-bottom:0px">
+  <div class="button-bar" style="font-size:14px; line-height:44px;">
+    <a class="button {{(type == 'DS')?'active':''}}" style="line-height:44px;" ng-click="setType('DS')">我的</a>
+    <a class="button {{(type == 'DU')?'active':''}}" style="line-height:44px;" ng-click="setType('DU')">待回复</a>
+    <a class="button {{(type == 'DR')?'active':''}}" style="line-height:44px;" ng-click="setType('DR')">已回复</a>
+    <a class="button {{(type == 'DD')?'active':''}}" style="line-height:44px;" ng-click="setType('DD')">科室</a>
+  </div>
+  </ion-header-bar>
+
+  <ion-content class="has-subheader" style="bottom:48px">
+
+    <ion-refresher pulling-text="下拉刷新..." on-refresh="setType(type)">
+    </ion-refresher>
+
+
+    <div class="card" ng-if="!consults[0]">
+      <div class="item item-text-wrap">
+        暂无患者向您咨询。
+      </div>
     </div>
     
     <ion-list>

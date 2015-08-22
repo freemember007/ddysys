@@ -1,6 +1,6 @@
 angular.module('ddysys.controllers')
 
-.controller('ResetPasswdVerifyCtrl', function($scope, PostData, $http, $state, $localStorage) {
+.controller('ResetPasswdVerifyCtrl', function($scope, PostData, $http, $state, $system, $localStorage, _) {
 
   $scope.user = {};
 
@@ -13,12 +13,18 @@ angular.module('ddysys.controllers')
       if(data){
         $scope.user.captcha = data.captcha;
         $localStorage.setObject('resetPwdInfo',$scope.user);
+        $system.toast('验证码已下发至手机' + $scope.user.mobileno + '，请查看短信后填写。');
+        $scope.getCaptcha = _.debounce($scope.getCaptcha, 30000, true);
       }
     })
   }
 
   $scope.goResetPasswd = function() {
-    $state.go("reset_passwd")
+    if($scope.user.inputCaptcha !== $scope.user.captcha){
+      $system.alert('验证码不正确！请查看短信后重新填写。若需再次获取验证码，请等待30秒');
+    }else{
+      $state.go("reset_passwd")
+    }
   }
 
 })

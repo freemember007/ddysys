@@ -1,5 +1,5 @@
 <ion-view view-title="验证手机号">
-  <ion-content ng-controller="RegisterVerifyCtrl">
+  <ion-content>
     <form name="form" role="form" novalidate>
 
       <div class="list list-inset">
@@ -11,7 +11,7 @@
 
         <div class="item item-input item-button-right">
           <span class="input-label">验证码</span>
-          <input type="text" name="captcha" required ng-pattern="/^\d{6}$/" ng-model="user.captcha">
+          <input type="text" name="captcha" required ng-pattern="/^\d{6}$/" ng-model="user.inputCaptcha">
           <div style="margin-right:100px">
             <button class="button button-small button-balanced" ng-disabled="!form.mobileno.$valid" ng-click="getCaptcha()">
               获取验证码
@@ -23,7 +23,7 @@
 
       <div class="item item-text-wrap item-checkbox" style="border-width:0;">
         <label class="checkbox" style="width:50px; display:inline">
-          <input type="checkbox" name="agree" ng-model="user.agree">
+          <input type="checkbox" name="agree" ng-model="user.agree" check-required>
         </label>
         同意 <a ui-sref="register_agreement">《点点医生服务协议》</a>
       </div>
