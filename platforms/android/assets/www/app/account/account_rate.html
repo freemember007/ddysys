@@ -1,0 +1,108 @@
+<ion-view view-title="患者评价">
+  <style>
+      .rate-summary {
+        background-color: #fff;
+        color: #666;
+        text-align: center;
+        border-bottom: 1px #ddd solid;
+        padding: 0px;
+      }
+      .rate-summary i {
+        font-size: 16px
+      }
+      .rate-summary-star {
+        text-align: left;
+      }
+      .rate-summary-point {
+        line-height: 36px;
+        vertical-align: middle;
+        border-right: 1px #ddd solid;
+      }
+      .rate-summary-point .assertive {
+        font-size: 20px;
+      }
+      .rate-list {
+        color: #666;
+        background-color: #fff;
+        margin-top: 20px;
+        border-top: 1px #ddd solid;
+        border-bottom: 1px #ddd solid;
+      }
+      .rate-item {
+        padding: 10px;
+        border-bottom: 1px #ddd solid;
+      }
+      .rate-item:last-child {
+        border-bottom: none;
+      }
+      .rate-item-summary {
+        height: 24px;
+      }
+      .rate-item-content {
+        color: #444;
+        margin-top: 10px;
+        line-height: 24px;
+        font-size: 16px;
+      }
+
+    </style>
+
+  <ion-content style="background-color: #eee">
+
+    <!-- summary -->
+    <div class="rate-summary row">
+
+      <!-- star -->
+      <div class="col col-55 rate-summary-star">
+        <div class="col">
+          <span>服务态度:</span>
+          <i class="ion-star" ng-repeat="value in point2Arr(summary.rateManner) track by $index" ng-class="{assertive: value}"></i>
+
+        </div>
+        <div class="col">
+          <span>治疗效果:</span>
+          <i class="ion-star" ng-repeat="value in point2Arr(summary.rateEffect) track by $index" ng-class="{assertive: value}"></i>
+        </div>
+      </div>
+
+      <!-- point & total -->
+      <div class="col  col-45">
+        <div class="row">
+          <div class="col rate-summary-point">
+            <span class="assertive">{{summary.rateCost}}</span><span>&nbsp;分</span>
+          </div>
+          <div class="col rate-summary-total">
+            <span>评价数</span>
+            <br>
+            <span>{{summary.rateCount}}</span>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="card" ng-if="!rates[0]">
+      <div class="item item-text-wrap">
+        暂无患者对您评价。
+      </div>
+    </div>
+    
+    <!-- list -->
+    <div class="rate-list">
+
+      <div class="rate-item" ng-repeat="rate in rates">
+        <div class="rate-item-summary">
+          <div class="tl fl">
+            <i class="ion-star" ng-repeat="value in point2Arr(rate.rateCost) track by $index" ng-class="{assertive: value}"></i>
+          </div>
+          <div class="tr fr">{{rate.ysxm}}&nbsp;{{rate.clinicTime|date:"yyyy-MM-dd hh:mm"}}</div>
+        </div>
+        <div class="rate-item-content">
+          {{rate.rateContent}}
+        </div>
+      </div>
+      
+    </div>
+
+  </ion-content>
+</ion-view>

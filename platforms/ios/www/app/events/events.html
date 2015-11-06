@@ -1,0 +1,33 @@
+<ion-view view-title="日程列表" cache-view="false">
+
+  <ion-nav-buttons side="right" >
+    <button class="button button-clear" ng-if="patientId" ui-sref="addEvent({patientId: patientId})">
+      + 日程
+    </button>
+  </ion-nav-buttons>
+
+  <ion-content>
+
+    <div class="card" ng-if="!eventsGroup[0]">
+      <div class="item item-text-wrap">
+        暂无随访日程。
+      </div>
+    </div>
+
+    <ion-list >
+
+      <ion-item ng-repeat-start="events in eventsGroup" class="item-divider" style="padding-left:10px">
+        {{events[0]}}
+      </ion-item>
+
+      <div ng-repeat-end ng-repeat="event in events[1]" class="item" style="padding:5px" ui-sref="events_detail({eventId:event.scheduleId, event:event})">
+          <div class="row" style="padding:0px; ">
+            <span class="col col-20" >{{event.patName}}</span>
+            <span class="col" style="overflow:hidden; text-overflow:ellipsis">{{event.schContent}}</span>
+            <span class="col col-20 tr" >{{event.scheduleTime|date:"hh:mm"}}</span>
+          </div>
+      </div>
+      
+    </ion-list>
+  </ion-content>
+</ion-view>

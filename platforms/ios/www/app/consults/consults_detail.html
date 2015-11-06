@@ -1,0 +1,67 @@
+<ion-view view-title="咨询详情">
+  <style>
+    .bar-footer {
+    overflow: visible !important;
+    background-color: #fff;
+  }
+  
+  .bar-footer textarea {
+    resize: none;
+    height: 25px;
+    background-color: #fff;
+  }
+  
+  .footer-btn-wrap {
+    position: relative;
+    height: 100%;
+    width: 50px;
+    top: 7px;
+    background-color: #fff;
+  }
+  
+  .footer-btn {
+    position: absolute !important;
+    bottom: 0;
+    background-color: #fff;
+  }
+    
+  </style>
+  
+  <ion-content>
+
+    <!-- 问题 -->
+    <ion-item class="item-avatar" type="item-text-wrap">
+      <img ng-src="{{consult.patFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)" ui-sref="patients_detail({patientId:consult.patId})">
+      <div class="row" style="padding:0px">
+        <div class="col" style="padding:0px"><span>{{consult.patName}}</span>&nbsp;&nbsp;<span class="gray-9 small">{{consult.consultTime | date: "MM-dd hh:mm"}}</span></div>
+        <div class="col tr" style="padding:0px"><span class="gray-9 small">{{consult.replyCount}}回复</span></div>
+      </div>
+      <p class="" style="padding-top:10px; white-space:normal">{{consult.consultContent}}</p>
+      <img ng-src="{{consult.consultImg}}" width="80%" zoom-view>
+    </ion-item>
+
+    <!-- 回复 -->
+    <ion-list >
+      <a class="item item-avatar" style="background-color:#f2f2f2; " ng-repeat="reply in replies">
+        <img ng-src="{{reply.replyFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)" ui-sref="patients_detail({patientId:reply.patId})"> 
+        <p style="white-space:normal">{{reply.replyName}}：{{reply.replyContent}}</p>
+        <p style="color:#999; ">{{consult.consultTime | date: "MM-dd hh:mm"}}</p>
+        
+      </a>
+    </ion-list>
+
+  </ion-content>
+
+  <form name="sendMessageForm" novalidate style="">
+    <ion-footer-bar class="bar-stable item-input-inset message-footer" style="background-color: #fff" keyboard-attach>
+      <label class="item-input-wrapper" style="background-color:transparent;">
+        <textarea ng-model="reply.content" value="" placeholder="回复这条咨询..." required minlength="1" maxlength="1500" style="border: solid 1px #ccc; width:100%;"></textarea>
+      </label>
+      <div class="footer-btn-wrap">
+        <button class="button button-icon icon ion-android-send footer-btn" ng-click="doReply()" ng-disabled="!reply.content || reply.content === ''" >
+        </button>
+      </div>
+    </ion-footer-bar>
+  </form>
+
+</ion-view>

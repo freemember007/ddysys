@@ -1,0 +1,25 @@
+<ion-view view-title="日程详情">
+  <ion-content style="background-color: #eee">
+
+    <a class="item item-avatar" ui-sref="patients_detail({patientId:event.patId})">
+      <img ng-src="{{event.patFaceUrl}}">
+      <h2>{{event.patName}}</h2>
+    </a>
+
+    <a class="item item-icon-right" style="margin-top:20px;padding-right:100px" href="#">
+      <i class="icon"></i> <span style="style="overflow:hidden;text-overflow:ellipsis"">{{event.schContent}}</span>
+      <span class="icon icon-accessory">{{event.scheduleTime|date:"yyyy-MM-dd hh:mm"}} &nbsp;</span>
+    </a>
+    <a class="item item-icon-right" href="#">
+      <i class="icon"></i> 提醒我和患者
+      <span class="icon icon-accessory">提前一小时 &nbsp;</span>
+    </a>
+
+    <div class="padding">
+      <button class="button button-block button-balanced" ng-click="sendEvent()">
+        发送患者
+      </button>
+    </div>
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,35 @@
+<style>
+.zoom-view .scroll {
+  height: 100%;
+}
+.transparent {
+  background: transparent !important;
+}
+.image-modal {
+  width: 100% !important;
+  height: 100%;
+  top: 0 !important;
+  left: 0 !important;
+}
+.fullscreen-image {
+  max-width: 100%;
+  max-height: 100%;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+</style>
+<ion-modal-view class="zoom-view">
+  <ion-header-bar>
+    <h1 class="title"></h1>
+    <button ng-click="closeZoomView()" class="button button-clear button-positive">Done</button>
+  </ion-header-bar>
+  <ion-pane>
+    <ion-scroll class="image-modal" zooming="true" direction="xy"> <img class="fullscreen-image" ng-click="closeZoomView()" ng-src="{{ngSrc}}" ></img>
+    </ion-scroll>
+  </ion-pane>
+</ion-modal-view>

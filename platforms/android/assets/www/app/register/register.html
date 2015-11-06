@@ -1,0 +1,67 @@
+<ion-view view-title="注册">
+  <ion-content ng-controller="RegisterCtrl">
+    <form name="form" role="form" novalidate>
+
+      <!-- 姓名、性别、密码 -->
+      <div class="list list-inset">
+        <label class="item item-input">
+          <span class="input-label">姓名</span>
+          <input type="text" name="name" required focus ng-minlength="2" ng-maxlength="10"  ng-model="user.dName">
+        </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+            性别
+          </div>
+          <select ng-model="user.dSex">
+            <option>男</option>
+            <option>女</option>
+          </select>
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">密码</span>
+          <input type="password" name="pwd" required ng-minlength="4" ng-maxlength="20" ng-model="user.dPassword">
+        </label>
+      </div>
+
+      <!-- 医院、科室、职称 -->
+      <div class="list list-inset">
+        <label class="item item-input">
+          <span class="input-label">医院</span>
+          <input type="text" name="hos" required ng-minlength="4" ng-maxlength="50"  ng-model="user.dHos">
+        </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">科室</div>
+          <select ng-model="user.dDept">
+            <option>外科</option>
+            <option>内科</option>
+            <option>五官科</option>
+            <option>中医科</option>
+            <option>精神科</option>
+          </select>
+        </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">职称</div>
+          <select ng-model="user.dTitle">
+            <option>主任医师</option>
+            <option>副主任医师</option>
+            <option>主治医师</option>
+            <option>医师</option>
+            <option>助理医师</option>
+          </select>
+        </label>
+
+      </div>
+
+      <!-- 提交 -->
+      <div class="padding">
+        <button class="button button-block button-balanced" ng-click="goRegisterUpload()">
+          确定
+        </button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

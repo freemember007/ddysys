@@ -1,0 +1,21 @@
+<ion-view view-title="加患者">
+<style>h3,h4 {color: #444;}</style>
+
+  <ion-content style="background-color:#ddd; padding:20px">
+
+    <div style="width:100%; padding:20px 10px; background-color:#fff; text-align:center; color:#999; border-radius:5px">
+      <h3>微信扫一扫添加我</h3>
+      <div style="width:100%; background-color:#ddd; height:1px"></div>
+      <h4>您全新的联系方式</h4>
+      <p>不会泄露您的微信或手机号</p>
+      <br>
+      <img ng-src="{{doctor.dQrcodeUrl}}" style="width:200px; height:200px">
+      <br>
+      <br>
+      <h4>{{doctor.dName}}</h4>
+      <p>{{doctor.hosName}} <br>
+      {{doctor.deptName}}|{{doctor.yszc}}</p>
+    </div>
+
+  </ion-content>
+</ion-view>

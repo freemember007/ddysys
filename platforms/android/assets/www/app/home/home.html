@@ -1,0 +1,97 @@
+<ion-view view-title="首页" hide-back-button="true" ng-init="init()">
+
+  <!-- <ion-nav-buttons side="left">
+    <button class="button button-clear">
+      <img src="img/avatar.jpg" style="height:24px; width:24px; border-radius:16px; border:2px solid #fff">
+    </button>
+  </ion-nav-buttons> -->
+  <style>
+    .right-line{
+      border-right: 1px solid #cccccc; 
+    }
+  </style>
+  
+  <ion-nav-buttons side="right">
+    <button class="button button-clear" ui-sref="account_barcode">
+      <img src="img/add_patient.png" style="height:24; width:24px">
+    </button>
+  </ion-nav-buttons>
+
+  <ion-content style="bottom:48px">
+    <ion-refresher pulling-text="下拉刷新..." on-refresh="init()">
+    </ion-refresher>
+    
+    <!-- // 顶部板块 -->
+    <div style="height:180px">
+      <div class="row tc" style="height:100px; background:#BC8A85 url('img/homebg.png') no-repeat; padding:15px ">
+        <div class="col col-10"></div>
+        <div class="col col-33 tr">
+          <img ng-src="{{doctor.dFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)" style="height:60px; width:60px; border-radius:35px; border:2px solid #fff"> 
+        </div>
+        <div class="col tl" style="padding-left:12px; color: #fff">
+          <p><span style="font-size:16px">{{doctor.dName}}</span></p>
+          <p>{{doctor.yszc}}</p>
+        </div>
+        
+      </div>
+      <div class="row tc" style="height:80px; padding-top:10px">
+        <div class="col tc" ui-sref="events">
+          <img src="img/icon1.png" style="height:36px; width:36px">
+          <p>日程提醒</p>
+        </div>
+        <div class="col tc" ui-sref="account_barcode">
+          <img src="img/icon2.png" style="height:36px; width:36px">
+          <p>二维码</p>
+        </div>
+        <div class="col tc" ui-sref="account_rate">
+          <img src="img/icon3.png" style="height:36px; width:36px">
+          <p>患者评价</p>
+        </div>
+        <div class="col tc" ui-sref="patients_requests">
+          <img src="img/icon4.png" style="height:36px; width:36px">
+          <p>患者请求</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 分割区 -->
+    <div style="height:10px; background:#eee; border-top:1px solid #ddd; border-bottom:1px solid #ddd"></div>
+
+    <!-- 即将随访 -->
+    <div style="padding:10px 16px; background:#fff; font-size:16px; border-bottom:1px solid #ddd">近期日程</div>
+    <div class="card" ng-if="!docSchedules[0]">
+      <div class="item item-text-wrap">
+        暂无随访日程。
+      </div>
+    </div>
+    <div class="row tc" style="height:100px" ng-if="docSchedules[0]">
+      <div class="col-30" ng-repeat-start="docSchedule in docSchedules" ui-sref="events_detail({eventId:docSchedule.scheduleId, event:docSchedule})" >
+        <p style="margin-bottom:5px">{{docSchedule.scheduleTime | date: "MM-dd"}}</p>
+        <p style="color: #999; margin-bottom:5px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden">&nbsp;{{docSchedule.schContent}}</p>
+        <p style="color: #387EF5; margin-bottom:5px">{{docSchedule.patName}}</p>
+      </div>
+      <div class="col-20" style="line-height:64px" ng-class="{'right-line': {{$index}} == 0}" ng-repeat-end ui-sref="events_detail({eventId:docSchedule.scheduleId, event:docSchedule})">
+        <img ng-src="{{docSchedule.patFaceUrl}}" style="height:40px; width:40px; border-radius:50%; vertical-align:middle" >
+      </div>
+    </div>
+
+    <!-- 分割区 -->
+    <div style="height:10px; background:#eee; border-top:1px solid #ddd; border-bottom:1px solid #ddd"></div>
+
+    <!-- 患者沟通 -->
+    <div style="padding:10px 16px; font-size:16px">患者沟通</div>
+    <div class="card" ng-if="!userMessages[0]">
+      <div class="item item-text-wrap">
+        暂无患者沟通。
+      </div>
+    </div>
+    <div class="list">
+      <a class="item item-avatar has-badge" ng-repeat="userMessage in userMessages" ui-sref="messages({patientId: userMessage.patId, patient:userMessage})" ng-click="changeBadge($index, userMessage.unreadCount)">
+        <img ng-src="{{userMessage.patFaceUrl}}">
+        <span class="badge badge-assertive" ng-if="userMessage.unreadCount">{{userMessage.unreadCount}}</span>
+        <h2>{{userMessage.patName}}</h2>
+        <p>{{userMessage.msgContent}}</p>
+      </a>
+    </div>
+  </ion-content>
+</ion-view>

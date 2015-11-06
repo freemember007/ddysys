@@ -1,0 +1,42 @@
+<ion-view view-title="个人资料">
+
+  <!-- <ion-nav-buttons side="left">
+    <button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-ios-arrow-back"></i>&nbsp;我</button>
+  </ion-nav-buttons> -->
+  <ion-content style="background-color: #eee">
+
+    <div class="list">
+
+      <a class="item item-icon-right" style="margin-top:20px;" ng-click="uploadAvatar()">
+        <i class="icon"></i> 头像
+        <span class="icon icon-accessory" >
+          <img ng-src="{{doctor.dFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)" width="40" height="40"> &nbsp;
+        </span>
+      </a>
+
+      <a class="item item-icon-right" style="margin-top:20px;" href="#">
+        <i class="icon"></i> 姓名
+        <span class="icon icon-accessory" >{{doctor.dName}} &nbsp;</span>
+      </a>
+      <a class="item item-icon-right" href="#">
+        <i class="icon"></i> 性别
+        <span class="icon icon-accessory" >{{user.dSex}} &nbsp;</span>
+      </a>
+
+      <a class="item item-icon-right" style="margin-top:20px;" href="#">
+        <i class="icon"></i> 职称
+        <span class="icon icon-accessory" >{{doctor.yszc}} &nbsp;</span>
+      </a>
+      <a class="item item-icon-right" href="#">
+        <i class="icon"></i> 科室
+        <span class="icon icon-accessory" >{{doctor.deptName}} &nbsp;</span>
+      </a>
+      <a class="item item-icon-right" href="#">
+        <i class="icon"></i> 医院
+        <span class="icon icon-accessory" >{{doctor.hosName}} &nbsp;</span>
+      </a>
+      
+    </div>
+
+  </ion-content>
+</ion-view>

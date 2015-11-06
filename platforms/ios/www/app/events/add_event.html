@@ -1,0 +1,53 @@
+<ion-view view-title="添加日程" >
+  <ion-content style="background-color: #eee">
+    <form name="form" role="form" novalidate>
+
+      <label class="item item-input" style="margin-top:20px">
+        <span class="input-label">标题</span>
+        <input type="text" name="title" placeholder="请填写标题" ng-model="event.schContent">
+      </label>
+
+      <label class="item item-input" style="margin-top:20px">
+        <span class="input-label">日期</span>
+        <input type="date" name="date" placeholder="请选择" required ng-model="event.date">
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">时间</span>
+        <input type="time" name="time" placeholder="请选择" required ng-model="event.time">
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">患者</span>
+        <input type="text" name="patient" ng-disabled="event.hzxm" ng-model="event.hzxm">
+      </label>
+
+      <div class="item item-toggle" style="margin-top:20px;">
+        提醒我
+        <label class="toggle toggle-positive">
+          <input type="checkbox" ng-model="event.mentionDoc">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </div>
+
+      <div class="item item-toggle">
+        提醒患者
+        <label class="toggle toggle-positive">
+          <input type="checkbox" ng-model="event.mentionPat">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </div>
+
+      <div class="padding">
+        <button class="button button-block button-balanced" ng-disabled="!form.$valid" ng-click="sendEvent()">
+          保存
+        </button>
+      </div>
+
+    </form>
+  </ion-content>
+</ion-view>

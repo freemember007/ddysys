@@ -1,0 +1,14 @@
+<ion-view view-title="我的工作台" hide-back-button="true">
+  <ion-content>
+    <div class="list" ng-repeat="doctor in doctors">
+      <a class="item item-thumbnail-left" ng-click="switchDoctor($index)">
+        <img src="{{doctor.dFaceUrl}}">
+        <h2>{{doctor.dName}}</h2>
+        <p>{{doctor.deptName}}&nbsp;{{doctor.yszc}}</p>
+      </a>
+    </div>
+    <button style="position:fixed; bottom:0px; z-index:1111" class="button button-block button-assertive" ng-click="doLogout()">
+      退出助理帐号
+    </button>
+  </ion-content>
+</ion-view>
