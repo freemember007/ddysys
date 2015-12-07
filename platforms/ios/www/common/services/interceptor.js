@@ -44,8 +44,6 @@ angular.module('ddysys.services')
 
 .factory('Interceptor', function($rootScope, $location, $system, apiUrl, $system) {
 
-    // var apiUrl = 'http://192.168.1.12:8004/app';
-
     return {
 
       'request': function(config) {
