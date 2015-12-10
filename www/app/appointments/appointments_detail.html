@@ -1,0 +1,30 @@
+<ion-view view-title="预约详情">
+  
+  <ion-content>
+
+    <ion-item class="item-avatar" type="item-text-wrap">
+      <img ng-src="{{appointment.patFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)" ui-sref="patients_detail({patientId:appointment.patId})">
+      <div class="row" style="padding:0px">
+        <div class="col" style="padding:0px"><span>{{appointment.patName}}</span></div>
+      </div>
+      <div class="col" style="padding:0px"><span class="small" ng-class="formatPStatus(appointment.pStatus).class" style="position:absolute; right:40px">{{formatPStatus(appointment.pStatus).text}}
+      </div>
+      <p class="" style="padding-top:10px; white-space:normal">{{appointment.patAge}}岁</p>
+    </ion-item>
+    <ion-item>
+      <div class="col" style="padding:0px">预约时间：{{formatDate(appointment.plusTime)}}</span></div>
+    </ion-item>
+    <ion-item>
+      <div class="col" style="padding:0px">预约内容：{{appointment.regReason}}</span></div>
+    </ion-item>
+
+    <div class="padding" ng-if="formatPStatus(appointment.pStatus).todo">
+      <button class="button button-block button-balanced" ng-click="handle(appointment.plusId, 'Y')">
+        同意该预约
+      </button>
+      <button class="button button-block button-assertive" ng-click="handle(appointment.plusId, 'N', '请更改其他时间')">
+        拒绝该预约
+      </button>
+    </div>
+
+</ion-view>

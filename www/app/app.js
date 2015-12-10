@@ -205,6 +205,19 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
     // }
   })
 
+  // 预约
+  .state('appointments', {
+    url: '/appointments',
+    templateUrl: 'app/appointments/appointments.html',
+    controller: 'AppointmentsCtrl',
+  })
+
+  .state('appointments_detail', {
+    url: '/appointments/:appointmentId',
+    templateUrl: 'app/appointments/appointments_detail.html',
+    controller: 'AppointmentsDetailCtrl',
+  })
+
 
   // 我
   .state('tab.account', {
