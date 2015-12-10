@@ -1,0 +1,14 @@
+<ion-view view-title="医生资讯">
+    <ion-content>
+        <ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()">
+        </ion-refresher>
+        <ion-list>
+            <ion-item ng-repeat="item in news" ui-sref="news_detail({newsId:item.objectId, title:item.title} )">
+                <h2>{{item.title}}</h2>
+                <p style="color:#999; margin-top:10px">{{item.source}}　{{item.createdAt|date:"yyyy/MM/dd hh:mm"}}</p>
+            </ion-item>
+        </ion-list>
+        <ion-infinite-scroll ng-if="moreDataCanBeLoaded()" on-infinite="loadMore()" distance="10%">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>

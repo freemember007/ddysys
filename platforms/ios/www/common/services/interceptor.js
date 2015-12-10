@@ -51,7 +51,7 @@ angular.module('ddysys.services')
           $rootScope.$broadcast('loading:show');
           // NProgress.start();
           config.url = apiUrl;
-          console.log(config.data);
+          // console.log(config.data);
         }
         return config;
       },
@@ -67,7 +67,7 @@ angular.module('ddysys.services')
         // NProgress.done();
         var data = res.data;
         if (res.config.url === apiUrl) {
-          console.log(data);
+          // console.log(data);
           if (angular.isObject(data) && data.code && !data.succ) {
             $system.alert(data.msg + '（错误代码：' + data.code +'）'); //处理接口错误
             if(data.code === '00000010') $location.path('/login');
@@ -85,7 +85,7 @@ angular.module('ddysys.services')
         // NProgress.done();
         var status = res.status;
         if (status === 0 ) {
-          $system.alert('网络异常、超时或不支持跨域请求！');
+          $system.alert('网络异常！请检查您的网络连接！');
         } else if (status === 404) {
           $system.alert('请求的资源不存在！');
           $location.path('/notFound')

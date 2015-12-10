@@ -1,0 +1,53 @@
+<ion-view view-title="预约管理">
+
+  <style>
+    .button-bar {
+      height: 44px;
+    }
+    .button-bar .button {
+      font-size:14px;
+      line-height: 44px;
+    }
+    .button-bar .active{
+      color:#444;
+    }
+  </style>
+
+  <ion-header-bar class="bar-subheader" style="padding:0px; border-bottom:0px">
+  <div class="button-bar" style="font-size:14px; line-height:44px;">
+    <a class="button {{(type == '')?'active':''}}" style="line-height:44px;" ng-click="setType('')">全部</a>
+    <a class="button {{(type == 'Y')?'active':''}}" style="line-height:44px;" ng-click="setType('Y')">已同意</a>
+    <a class="button {{(type == 'N')?'active':''}}" style="line-height:44px;" ng-click="setType('N')">已拒绝</a>
+    <a class="button {{(type == 'W')?'active':''}}" style="line-height:44px;" ng-click="setType('W')">待处理</a>
+  </div>
+  </ion-header-bar>
+
+  <ion-content class="has-subheader" style="bottom:48px">
+
+    <ion-refresher pulling-text="下拉刷新..." on-refresh="setType(type)">
+    </ion-refresher>
+
+
+    <div class="card" ng-if="!appointments[0]">
+      <div class="item item-text-wrap">
+        暂无相关预约数据。 
+      </div>
+    </div>
+    
+    <ion-list>
+
+      <ion-item class="item-avatar item-icon-right" ng-repeat="appointment in appointments" type="item-text-wrap" ui-sref="appointments_detail({appointmentId:appointment.plusId})" >
+        <img ng-src="{{appointment.patFaceUrl||'img/default_nomale_head_photo.png'}}" onerror="onProfilePicError(this)">
+        <div class="row" style="padding:0px">
+          <div class="col" style="padding:0px"><span>{{formatDate(appointment.plusTime)}} {{appointment.ampm === "1" ? "上午" : "下午"}}</span><span class="small" ng-class="formatPStatus(appointment.pStatus).class" style="position:absolute; right:40px">{{formatPStatus(appointment.pStatus).text}}
+          </div>
+        </div>
+        <p class="" style="padding-top:10px; white-space:normal">{{appointment.patName}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+      </ion-item>
+
+    </ion-list>
+
+  </ion-content>
+</ion-view>

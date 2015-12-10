@@ -218,6 +218,22 @@ angular.module('ddysys', ['ionic', 'ngCordova', 'ddysys.services', 'ddysys.contr
     controller: 'AppointmentsDetailCtrl',
   })
 
+  // 资讯
+  .state('news', {
+    url: '/news',
+    templateUrl: 'app/news/news.html',
+    controller: 'NewsCtrl',
+  })
+
+  .state('news_detail', {
+    url: '/news/:newsId',
+    templateUrl: 'app/news/news_detail.html',
+    controller: 'NewsDetailCtrl',
+    params: {
+      title: null
+    }
+  })
+
 
   // 我
   .state('tab.account', {
@@ -333,6 +349,7 @@ angular.module('underscore', [])
   });
 
 //--------- 全局函数 ---------//
+Bmob.initialize("53458196b17f709cb6ff67247378a905", "49e3180d2d344c35e4e8a54ec4e72ec6");
 // onerror
 function onProfilePicError(ele) {
   ele.src = 'img/default_nomale_head_photo.png'

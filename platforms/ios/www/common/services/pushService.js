@@ -37,7 +37,8 @@ angular.module('ddysys.services')
               $state.go('consults_detail', {consultId:notification.consultId});
               break;
             case 'A3'://加号
-              $state.go('tab.home');
+              $state.go('appointments');
+              $rootScope.setAppointmentType('W');
               break;
             default:
               $state.go('tab.home')
